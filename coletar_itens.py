@@ -95,6 +95,7 @@ def urls_imagens(nomes):
             if p.get('imageinfo'): res[p['title'].replace('_', ' ').lower()] = p['imageinfo'][0]['url']
     return res
 
+JUNK = re.compile(r'Products by|Weapons$|^(Armors|Boots|Helmets|Legs|Rings|Shields|Backpacks|Wands|Rods|Quivers|Spellbooks|Amulets and Necklaces)$')
 itens = {}
 for slot, nomes in CATS:
     achou = False
@@ -181,7 +182,7 @@ def baixar(n):
 
 with ThreadPoolExecutor(6) as ex:
     arqs = list(ex.map(baixar, nomes))
-cat = [{'n': n, 's': itens[n], 'f': f, 'l': st.get(n, (None, None))[0], 'a': st.get(n, (None, None))[1]} for n, f in zip(nomes, arqs)]
+cat = [{'n': n, 's': itens[n], 'f': f, 'l': st.get(n, (None, None))[0], 'a': st.get(n, (None, None))[1]} for n, f in zip(nomes, arqs) if f or not JUNK.search(n)]
 os.makedirs(os.path.join(AQUI, 'data'), exist_ok=True)
 open(os.path.join(AQUI, 'data', 'items.js'), 'w', encoding='utf-8').write('window.CATALOG=' + json.dumps(cat, ensure_ascii=False) + ';')
 sem = [c['n'] for c in cat if not c['f']]

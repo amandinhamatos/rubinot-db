@@ -75,9 +75,10 @@ compras:{t:'Metas e compras',d:'Tarefas e metas de evolução por personagem.',
 c:[['d','Feito','k'],['n','Tarefa / Meta','t'],['c','Personagem','c'],['pz','Prazo','t'],['o','Obs.','t']]}
 };
 const EMPTY={arsenal:[],hunts:[],bestiario:[],bosstiary:[],compras:[]};
+const JUNK=/Products by|Weapons$|^(Armors|Boots|Helmets|Legs|Rings|Shields|Backpacks|Wands|Rods|Quivers|Spellbooks|Amulets and Necklaces)$/;
 const SEED=[['Crown Helmet','Helmet'],['Falcon Circlet','Helmet'],['Gnome Helmet','Helmet'],['Dragon Scale Mail','Armor'],['Falcon Plate','Armor'],['Gnome Armor','Armor'],['Magic Plate Armor','Armor'],['Crown Legs','Legs'],['Falcon Greaves','Legs'],['Gnome Legs','Legs'],['Boots of Haste','Boots'],['Pair of Soft Boots','Boots'],['Prismatic Boots','Boots'],['Prismatic Necklace','Amulet'],['Amulet of Loss','Amulet'],['Stone Skin Amulet','Amulet'],['Prismatic Ring','Ring'],['Ring of Healing','Ring'],['Might Ring','Ring'],['Sword Ring','Ring'],['Falcon Longsword','Weapon'],['Falcon Battleaxe','Weapon'],['Falcon Bow','Weapon'],['Falcon Mace','Weapon'],['Mastermind Shield','Shield/Livro'],['Falcon Shield','Shield/Livro'],['Backpack of Holding','Backpack']].map(a=>({n:a[0],s:a[1],p:'',m:'Gold',img:''}));
 function fresh(){return{tab:'chars',chars:BASE.map((b,i)=>({n:b[0],v:b[1],l:b[2],w:b[3],a:ACC[i],meta:'',hunt:'',gear:{},wheel:'',prof:'',charms:'',notes:''})),lists:JSON.parse(JSON.stringify(EMPTY)),rc:{Lunarian:0,Elysian:0},hist:[]}}
-function mig(x){x.items=x.items||JSON.parse(JSON.stringify(SEED));if(window.CATALOG){const m=new Map(x.items.map(t=>[t.n.toLowerCase(),t]));CATALOG.forEach(c=>{const t=m.get(c.n.toLowerCase());if(t){t.f=t.f||c.f;t.lvl=c.l;t.arm=c.a}else x.items.push({n:c.n,s:c.s,p:'',m:'Gold',img:'',f:c.f,lvl:c.l,arm:c.a})})}x.sv=x.sv||{items:[{id:'lp',n:'Loot Pouch',rc:390}],own:{}};x.f=x.f||{w:'',c:''};x.chars.forEach(c=>{c.gear=c.gear||{};for(const s in c.eq||{})if(c.eq[s]&&!c.gear[s])c.gear[s]=[c.eq[s]]});return x}
+function mig(x){x.items=x.items||JSON.parse(JSON.stringify(SEED));x.items=x.items.filter(t=>t.f||t.img||t.p||!JUNK.test(t.n));if(window.CATALOG){const m=new Map(x.items.map(t=>[t.n.toLowerCase(),t]));CATALOG.forEach(c=>{if(JUNK.test(c.n)&&!c.f)return;const t=m.get(c.n.toLowerCase());if(t){t.f=t.f||c.f;t.lvl=c.l;t.arm=c.a}else x.items.push({n:c.n,s:c.s,p:'',m:'Gold',img:'',f:c.f,lvl:c.l,arm:c.a})})}x.sv=x.sv||{items:[{id:'lp',n:'Loot Pouch',rc:390}],own:{}};x.f=x.f||{w:'',c:''};x.chars.forEach(c=>{c.gear=c.gear||{};for(const s in c.eq||{})if(c.eq[s]&&!c.gear[s])c.gear[s]=[c.eq[s]]});return x}
 let S;try{S=JSON.parse(localStorage.getItem('rubin_db'))}catch(e){}
 S=mig(S&&S.chars?S:fresh());
 function save(){try{localStorage.setItem('rubin_db',JSON.stringify(S))}catch(e){}}
@@ -104,7 +105,7 @@ return`<h2>${L.t}</h2><p class="hint">${L.d} Arraste o ⠿ para reordenar. Use o
 ${fbar()}${k==='compras'?chips(k):''}
 <div class="bar"><button class="b" data-add="${k}">+ Adicionar linha</button>${k==='arsenal'?`<span class="sum" id="tot">${total()}</span>`:''}</div>
 <div class="wrap"><table><thead><tr><th></th>${L.c.map(c=>`<th>${c[1]}</th>`).join('')}<th></th></tr></thead><tbody>${h||`<tr><td colspan="${L.c.length+2}" class="hint">Nada aqui. Clique em “Adicionar linha” ou mude o filtro.</td></tr>`}</tbody></table></div>`}
-function slotBox(i,c,s){const g=c.gear[s]||[];return`<div class="slot"><label>${s}</label><div data-pick="${i}|${s}|0" style="cursor:pointer;min-height:50px">${g[0]?img(g[0])+`<div class="nm">${esc(g[0])}</div>`:'<div class="nm">+ escolher</div>'}</div><div class="ex">${g.slice(1).map((x,j)=>`<span data-pick="${i}|${s}|${j+1}" style="cursor:pointer">${img(x)}</span>`).join('')}<button class="b" style="padding:0 6px" data-pick="${i}|${s}|${Math.max(g.length,1)}" title="Adicionar item secundário">+</button></div></div>`}
+function slotBox(i,c,s){const g=G(c)[s]||[];return`<div class="slot"><label>${s}</label><div data-pick="${i}|${s}|0" style="cursor:pointer;min-height:50px">${g[0]?img(g[0])+`<div class="nm">${esc(g[0])}</div>`:'<div class="nm">+ escolher</div>'}</div><div class="ex">${g.slice(1).map((x,j)=>`<span data-pick="${i}|${s}|${j+1}" style="cursor:pointer">${img(x)}</span>`).join('')}<button class="b" style="padding:0 6px" data-pick="${i}|${s}|${Math.max(g.length,1)}" title="Adicionar item secundário">+</button></div></div>`}
 function charsView(){return`<h2>Personagens</h2><p class="hint">Clique num slot para escolher o item. O “+” embaixo de cada slot adiciona itens secundários (amuletos extras, trinkets). Arraste o título para reordenar.</p>
 <div class="cards">${S.chars.map((c,i)=>{const p=Math.min(100,c.meta>0?c.l/c.meta*100:0);const f=(x,l,t='text')=>`<div><label>${l}</label><input type="${t}" data-ch="${i}" data-f="${x}" value="${esc(c[x])}"></div>`;
 const ar=st=>S.lists.arsenal.filter(r=>r.c===c.n&&r.st===st&&r.n).map(r=>img(r.n)).join('')||'<span class="hint">vazio</span>';
@@ -113,7 +114,7 @@ return`<div class="card" data-k="chars" data-i="${i}"><h3 class="h" draggable="t
 <div class="g2">${f('n','Nome')}${f('v','Vocação')}${f('l','Level','number')}${f('meta','Level meta','number')}
 <div><label>Mundo</label><select data-ch="${i}" data-f="w">${['Lunarian','Elysian'].map(w=>`<option ${w===c.w?'selected':''}>${w}</option>`).join('')}</select></div>${f('a','Conta')}</div>
 <div class="prog"><i style="width:${p}%"></i></div>${f('hunt','Hunt atual')}
-<h4 style="margin:12px 0 6px;font-family:Verdana">Equipamento</h4>
+${setBar(i,c)}
 <div class="g3">${SL.map(s=>slotBox(i,c,s)).join('')}</div>
 <h4 style="margin:12px 0 2px;font-family:Verdana">Arsenal</h4><label>Tenho</label><div class="strip">${ar('Tenho')}</div><label>Falta comprar · ≈ ${fmt(pg)} gold</label><div class="strip">${ar('Comprar')}</div>
 ${[['wheel','Wheel of Destiny'],['prof','Proficiência das armas'],['charms','Charms'],['notes','Observações']].map(([x,l])=>`<label style="margin-top:8px">${l}</label><textarea data-ch="${i}" data-f="${x}">${esc(c[x])}</textarea>`).join('')}
@@ -139,6 +140,16 @@ function render(){document.getElementById('nav').innerHTML=TABS.map(([k,t])=>`<b
 document.getElementById('dl').innerHTML=S.items.map(t=>`<option value="${esc(t.n)}">`).join('');
 const T=S.tab;document.getElementById('m').innerHTML=T==='chars'?charsView():T==='coins'?coinsView():T==='itens'?itemsView():T==='servidor'?svView():listView(T);conv();save()}
 let P={};
+function G(c){if(!c.sets)c.sets=[0,1,2].map(i=>({n:`${i+1}ª opção`,gear:i?{}:(c.gear||{})}));return c.sets[c.si||0].gear}
+function missing(c,j){G(c);const own=new Set(S.lists.arsenal.filter(r=>r.c===c.n&&r.st==='Tenho').map(r=>String(r.n).toLowerCase()));return[...new Set(Object.values(c.sets[j].gear).flat().filter(Boolean))].filter(n=>!own.has(n.toLowerCase())).map(n=>S.items.find(x=>x.n.toLowerCase()===n.toLowerCase())||{n,s:'',p:'',m:'Gold'})}
+function cost(c,l){return l.reduce((a,t)=>a+(t.m==='RC'?(+t.p||0)*(+S.rc[c.w]||0):(+t.p||0)),0)}
+function buy(c){const have=new Set(S.lists.arsenal.filter(r=>r.c===c.n&&r.st==='Comprar').map(r=>String(r.n).toLowerCase()));let k=0;missing(c,c.si||0).forEach(t=>{if(have.has(t.n.toLowerCase()))return;S.lists.arsenal.push({n:t.n,s:t.s,c:c.n,st:'Comprar',m:t.m,p:t.p});k++});alert(k?`${k} itens adicionados ao Arsenal como “Comprar”.`:'Nada novo para adicionar.');render()}
+function setBar(i,c){G(c);const a=c.si||0;
+return`<h4 style="margin:12px 0 6px;font-family:Verdana">Sets de equipamento</h4>
+<div style="display:flex;gap:6px;flex-wrap:wrap">${c.sets.map((st,j)=>{const m=missing(c,j),has=Object.values(st.gear).flat().filter(Boolean).length;return`<div class="slot" data-set="${i}|${j}" style="cursor:pointer;flex:1;min-width:110px;${j===a?'border-color:var(--ac);':''}"><label>${esc(st.n)}${c.use===j?' · ✓ em uso':''}</label><div class="ex">${SL.map(s=>img((st.gear[s]||[])[0])).join('')}</div><div class="nm">${!has?'vazio':m.length?`faltam ${m.length} · ${fmt(cost(c,m))} gold`:'completo'}</div></div>`}).join('')}</div>
+<div class="g2" style="margin:8px 0"><input data-setn="${i}" value="${esc(c.sets[a].n)}" aria-label="Nome do set"><button class="b" data-use="${i}">✓ Marcar em uso</button></div>
+<div style="margin-bottom:8px"><button class="b" data-buy="${i}">Adicionar faltantes ao Arsenal</button></div>
+<label>Editando: ${esc(c.sets[a].n)} (clique num slot para escolher)</label>`}
 const closeP=()=>{document.getElementById('md').style.display='none'};
 function drawPick(q){const L=S.items.filter(t=>(P.all||t.s===P.s)&&t.n.toLowerCase().includes(q.toLowerCase())).slice(0,80);
 document.getElementById('md').style.display='flex';
@@ -149,6 +160,7 @@ document.addEventListener('input',e=>{const t=e.target,d=t.dataset;
 if(t.id==='pq'){drawPick(t.value);return}
 if(t.id==='iq'){S.iq=t.value;render();const q=document.getElementById('iq');q.focus();q.setSelectionRange(q.value.length,q.value.length);return}
 if(d.k&&d.f!==undefined){S.lists[d.k][d.i][d.f]=t.type==='checkbox'?t.checked:t.value;if(d.k==='arsenal')document.getElementById('tot').innerHTML=total()}
+else if(d.setn!==undefined){const c=S.chars[d.setn];G(c);c.sets[c.si||0].n=t.value}
 else if(d.ch!==undefined)S.chars[d.ch][d.f]=t.value;
 else if(d.rc){S.rc[d.rc]=t.value;conv()}
 else if(d.h!==undefined)S.hist[d.h][d.f]=t.value;
@@ -162,14 +174,18 @@ if(t.id==='is'){S.is=t.value;render();return}
 if(t.id==='pa'){P.all=t.checked;drawPick(document.getElementById('pq').value);return}
 if(d.up!==undefined){up(+d.up,t.files[0]);return}
 if(d.flt){S.f[d.flt]=t.value;if(d.flt==='w')S.f.c='';render();return}
-if(d.own||d.sv!==undefined||d.it!==undefined){render();return}
+if(d.setn!==undefined||d.own||d.sv!==undefined||d.it!==undefined){render();return}
 if(d.k==='arsenal'&&d.f==='n'){const r=S.lists.arsenal[d.i],it=S.items.find(x=>x.n.toLowerCase()===String(r.n).toLowerCase());if(it){r.n=it.n;r.s=it.s;if(!r.p)r.p=it.p;r.m=it.m}}
 if(d.ch!==undefined&&['w','n','l','meta'].includes(d.f)||d.k==='arsenal'||d.k==='compras')render()});
 document.addEventListener('click',e=>{const t=e.target,d=t.dataset,p=t.closest('[data-pick]'),pi=t.closest('[data-pi]');
 if(p){const[i,s,x]=p.dataset.pick.split('|');P={i:+i,s,x:+x,all:false};drawPick('');return}
-if(pi){const g=S.chars[P.i].gear;g[P.s]=g[P.s]||[];while(g[P.s].length<P.x)g[P.s].push('');g[P.s][P.x]=pi.dataset.pi;closeP();render();return}
+if(pi){const g=G(S.chars[P.i]);g[P.s]=g[P.s]||[];while(g[P.s].length<P.x)g[P.s].push('');g[P.s][P.x]=pi.dataset.pi;closeP();render();return}
 if(d.pc!==undefined||t.id==='md'){closeP();return}
-if(d.pr!==undefined){const g=S.chars[P.i].gear[P.s]||[];g.splice(P.x,1);closeP();render();return}
+if(d.pr!==undefined){const g=G(S.chars[P.i])[P.s]||[];g.splice(P.x,1);closeP();render();return}
+const ss=t.closest('[data-set]');
+if(ss){const[i,j]=ss.dataset.set.split('|');S.chars[i].si=+j;render();return}
+if(d.use!==undefined){const c=S.chars[d.use];c.use=c.si||0;render();return}
+if(d.buy!==undefined){buy(S.chars[d.buy]);return}
 if(d.tab){S.tab=d.tab;render()}
 else if(d.add){S.lists[d.add].push({c:S.f.c||''});render()}
 else if(d.del){const[k,i]=d.del.split(':');S.lists[k].splice(i,1);render()}
