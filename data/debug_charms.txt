@@ -1,0 +1,232 @@
+## Charms tabela 0 (14 linhas)
+Difficulty | Rarity | Required kills to unlock | Charm points | Number of creatures
+First detail stage | Second detail stage | Final detail stage
+Harmless(e.g. cat, dog) | Ordinary | 5 | 10 | 25 | 1 | 19
+Very Rare | 2 | 3 | 5 | 5 | 1
+Trivial(e.g. skunk, goblin) | Ordinary | 10 | 100 | 250 | 5 | 46
+Very Rare | 2 | 3 | 5 | 10 | 4
+Easy(e.g. crab, gozzler) | Ordinary | 25 | 250 | 500 | 15 | 165
+Very Rare | 2 | 3 | 5 | 30 | 8
+Medium(e.g. orc berserker, moohtant) | Ordinary | 50 | 500 | 1000 | 25 | 285
+Very Rare | 2 | 3 | 5 | 50 | 25
+Hard(e.g. elder wyrm, orewalker) | Ordinary | 100 | 1000 | 2500 | 50 | 213
+Very Rare | 2 | 3 | 5 | 100 | 0
+Challenging(e.g. Soul War, Primal Ordeal, Rotten Blood creat | Ordinary | 200 | 2000 | 5000 | 100 | 67
+Very Rare | 2 | 3 | 5 | 200 | 0
+## Charms tabela 1 (26 linhas)
+Name |  | Type | Effect | Charm Point Cost
+Adrenaline Burst |  | Minor | Bursts of adrenaline enhance your reflexes with a 6% / 9% /  | 100 / 150 / 225
+Bless |  | Minor | Blesses you and reduces skill and XP loss by 6% / 9% / 12% w | 100 / 150 / 225
+Carnage |  | Major | Killing a monster has 10% / 20% / 22% chance to deal Physica | 600 / 900 / 3000
+Cleanse |  | Minor | Cleanses you from within with a 6% / 9% / 12% chance after y | 100 / 150 / 225
+Cripple |  | Minor | Cripples the creature with a 6% / 9% / 12% chance and paraly | 100 / 150 / 225
+Curse (Charm) |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 360 / 540 / 1,800
+Divine Wrath |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 600 / 900 / 3000
+Dodge |  | Major | Dodges an attack with a 5% / 10% / 11% chance, taking no dam | 240 / 360 / 1200
+Enflame |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 400 / 600 / 2000
+Fatal Hold |  | Minor | Your attacks have a 30% / 45% / 60% chance to prevent creatu | 100 / 150 / 225
+Freeze |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 320 / 480 / 1600
+Gut |  | Minor | Gutting the creature yields 6% / 9% / 12% more creature prod | 100 / 150 / 225
+Low Blow |  | Major | Adds 4% / 8% / 9% critical hit chance to attacks with critic | 800, 1200, 4000
+Numb |  | Minor | Numbs the creature with a 6% / 9% / 12% chance after its att | 100 / 150 / 225
+Overflux |  | Major | Each attack has a 5% / 10% / 11% chance to deal Physical Dam | 600 / 900 / 3000
+Overpower |  | Major | Each attack has a 5% / 10% / 11% chance to deal Physical Dam | 600 / 900 / 3000
+Parry |  | Major | Any damage taken has a 5% / 10% / 11% chance to be reflected | 400 / 600 / 2000
+Poison |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 240 / 360 / 1200
+Savage Blow |  | Major | Adds 20% / 40% / 44% critical extra damage to attacks with C | 800 / 1200 / 4000
+Scavenge |  | Minor | Enhances your chances to successfully skin/dust a skinnable/ | 100 / 150 / 225
+Vampiric Embrace |  | Minor | Adds 1.6% / 2.4% / 3.2% Life Leech to attacks if wearing equ | 100 / 150 / 225
+Void Inversion |  | Minor | 20% / 30% /40% chance to gain mana instead of losing it when | 100 / 150 / 225
+Void's Call |  | Minor | Adds 0.8% / 1.2% / 1.6% Mana Leech to attacks if wearing equ | 100 / 150 / 225
+Wound |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 240 / 360 / 1200
+Zap |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 320 / 480 / 1600
+## Charms tabela 2 (5 linhas)
+Category | Required Kills to Unlock | Boss Points | Amount of Bosses | Total Points
+Prowess | Expertise | Mastery
+Bane(e.g. Kroazur, Black Knight) | 25 | 100 | 300 | 50 (5+15+30) | 83 | 4150
+Archfoe(e.g. Grand Master Oberon, Drume) | 5 | 20 | 60 | 100 (10+30+60) | 124 | 12400
+Nemesis(e.g. World Devourer, Ferumbras Mortal Shell) | 1 | 3 | 5 | 100 (10+30+60) | 109 | 10900
+## Charms tabela 3 (4 linhas)
+Points range | Bonus range | Level advancement
+0 - 250 | 25% - 50% | 1 level every 10 points
+250 - 1250 | 50% - 100% | 1 level every 20 points
+1250+ points | 100% - ? | 5 more points for each level (25, 30, 35, etc)
+## Charms tabela 4 (7 linhas)
+Change # | Cost
+1 | Free
+2 | 100,000
+3 | 400,000
+4 | 700,000
+5 | 1,000,000
+n | ( n − 2 ) × 300 , 000 + 100 , 000 {\displaystyle (n-2) \time
+## Charms tabela 5 (113 linhas)
+Name | Permanent? | In-Game Description | Notes | Implemented
+Adept Armorer | ✓ | Reached Mastery with a weapon at level 3 proficiency. | Reach Mastery with a weapon at level 3 proficiency. | Summer Update 2025
+Adept Enhancer | ✗ | All mods enhanced to Grade III. |  | Summer Update 2024
+Admirer of the Crown | ✓ | Adjust your crown and handle it. | Complete the Royal Costume Outfits. | Winter Update 2021
+Aeternal | ✓ | Awarded exclusively to stalwart heroes keeping the faith und | Unlocked by 10-year old characters. | Winter Update 2023
+Apex Predator | ✗ | Highest Level on character's world. |  | Summer Update 2019
+Armor Breaker | ✓ | Description missing. Achieved when defeating Maior Domus on  |  | Summer Update 2026
+Aspiring Huntsman / Huntswoman | ✓ | Invested 160.000 tasks points. |  | Summer Update 2020
+Beastly | ✓ | Reached 2000 charm points. Quite beastly! |  | Winter Update 2023
+Beaststrider (Grade 1) | ✓ | Unlocked 10 or more Mounts. |  | Summer Update 2019
+Beaststrider (Grade 2) | ✓ | Unlocked 20 or more Mounts. |  | Summer Update 2019
+Beaststrider (Grade 3) | ✓ | Unlocked 30 or more Mounts. |  | Summer Update 2019
+Beaststrider (Grade 4) | ✓ | Unlocked 40 or more Mounts. |  | Summer Update 2019
+Beaststrider (Grade 5) | ✓ | Unlocked 50 or more Mounts. |  | Summer Update 2019
+Big Boss | ✗ | Highest score of accumulated boss points on character's worl |  | Summer Update 2022
+Big Spender | ✓ | Unlocked the full Golden Outfit. |  | Summer Update 2019
+Bipedantic | ✗ | Unlocked All Humanoid Bestiary entries. |  | Summer Update 2019
+Blood Moon Hunter / Huntress | ✗ | Unlocked All Lycanthrope Bestiary entries. |  | Summer Update 2019
+Boss Annihilator | ✗ | Unlocked all Nemesis bosses. |  | Summer Update 2022
+Boss Destroyer | ✓ | Unlocked 10 or more Archfoe bosses. |  | Summer Update 2022
+Boss Devastator | ✓ | Unlocked 10 or more Nemesis bosses. |  | Summer Update 2022
+Boss Eraser | ✗ | Unlocked all Archfoe bosses. |  | Summer Update 2022
+Boss Executioner | ✗ | Unlocked all bosses. |  | Summer Update 2022
+Boss Hunter | ✓ | Unlocked 10 or more Bane bosses. |  | Summer Update 2022
+Boss Obliterator | ✓ | Unlocked 40 or more Nemesis bosses. |  | Summer Update 2022
+Boss Slayer | ✗ | Unlocked all Bane bosses. |  | Summer Update 2022
+Boss Smiter | ✓ | Unlocked 40 or more Archfoe bosses. |  | Summer Update 2022
+Boss Veteran | ✓ | Unlocked 40 or more Bane bosses. |  | Summer Update 2022
+Bringer of Rain | ✓ | Forging through battle after battle like a true gladiator. | Clear wave 100 in the Tibiadrome. | Winter Update 2023
+Challenger of the Iks | ✓ | Challenged Ahau, guardian of Iksupan, in traditional Iks war | Defeat Ahau while equipping a Broken Iks Headpiece, a Broken | Winter Update 2022
+Chompmeister | ✓ | Awarded only to true connoisseurs undertaking even the most  | Complete all Jean Pierre's dishes in Hot Cuisine Quest. | Winter Update 2023
+Cleansing Conqueror / Cleansing Conqueress | ✓ | You encountered the embodiment of blooded decay and prevaile | Complete Rotten Blood Quest. | Winter Update 2022
+Coldblooded | ✗ | Unlocked All Amphibic Bestiary entries. |  | Summer Update 2019
+Competent Beastslayer | ✓ | Invested 320.000 tasks points. |  | Summer Update 2020
+Creature of Habit (Grade 1) | ✓ | Reward Streak of at least 7 days of consecutive logins. |  | Summer Update 2019
+Creature of Habit (Grade 2) | ✓ | Reward Streak of at least 30 days of consecutive logins. |  | Summer Update 2019
+Creature of Habit (Grade 3) | ✓ | Reward Streak of at least 90 days of consecutive logins. |  | Summer Update 2019
+Creature of Habit (Grade 4) | ✓ | Reward Streak of at least 180 days of consecutive logins. |  | Summer Update 2019
+Creature of Habit (Grade 5) | ✓ | Reward Streak of at least 365 days of consecutive logins. |  | Summer Update 2019
+Crystal Hoarder | ✗ | Earned at least 100,000,000 gold. |  | Summer Update 2019
+## Charms tabela 6 (7 linhas)
+Client Features
+
+Client Sections | Action Bars Automap Combat Controls Console Game Window Rewa
+
+Windows | Bosstiary Compendium Cyclopedia Daily Reward General Control
+
+Widgets
+## Charms tabela 7 (5 linhas)
+Common | Battle Bestiary Tracker Imbuements Tracker Inventory Minimap
+
+Analytics | Analytics Selector Boss Cooldowns Boss Cooldowns Damage Inpu
+
+Miscellaneous | Framerate Hotkeys Random Hints Trade Yelling
+## Bestiary tabela 0 (14 linhas)
+Difficulty | Rarity | Required kills to unlock | Charm points | Number of creatures
+First detail stage | Second detail stage | Final detail stage
+Harmless(e.g. cat, dog) | Ordinary | 5 | 10 | 25 | 1 | 19
+Very Rare | 2 | 3 | 5 | 5 | 1
+Trivial(e.g. skunk, goblin) | Ordinary | 10 | 100 | 250 | 5 | 46
+Very Rare | 2 | 3 | 5 | 10 | 4
+Easy(e.g. crab, gozzler) | Ordinary | 25 | 250 | 500 | 15 | 165
+Very Rare | 2 | 3 | 5 | 30 | 8
+Medium(e.g. orc berserker, moohtant) | Ordinary | 50 | 500 | 1000 | 25 | 285
+Very Rare | 2 | 3 | 5 | 50 | 25
+Hard(e.g. elder wyrm, orewalker) | Ordinary | 100 | 1000 | 2500 | 50 | 213
+Very Rare | 2 | 3 | 5 | 100 | 0
+Challenging(e.g. Soul War, Primal Ordeal, Rotten Blood creat | Ordinary | 200 | 2000 | 5000 | 100 | 67
+Very Rare | 2 | 3 | 5 | 200 | 0
+## Bestiary tabela 1 (26 linhas)
+Name |  | Type | Effect | Charm Point Cost
+Adrenaline Burst |  | Minor | Bursts of adrenaline enhance your reflexes with a 6% / 9% /  | 100 / 150 / 225
+Bless |  | Minor | Blesses you and reduces skill and XP loss by 6% / 9% / 12% w | 100 / 150 / 225
+Carnage |  | Major | Killing a monster has 10% / 20% / 22% chance to deal Physica | 600 / 900 / 3000
+Cleanse |  | Minor | Cleanses you from within with a 6% / 9% / 12% chance after y | 100 / 150 / 225
+Cripple |  | Minor | Cripples the creature with a 6% / 9% / 12% chance and paraly | 100 / 150 / 225
+Curse (Charm) |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 360 / 540 / 1,800
+Divine Wrath |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 600 / 900 / 3000
+Dodge |  | Major | Dodges an attack with a 5% / 10% / 11% chance, taking no dam | 240 / 360 / 1200
+Enflame |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 400 / 600 / 2000
+Fatal Hold |  | Minor | Your attacks have a 30% / 45% / 60% chance to prevent creatu | 100 / 150 / 225
+Freeze |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 320 / 480 / 1600
+Gut |  | Minor | Gutting the creature yields 6% / 9% / 12% more creature prod | 100 / 150 / 225
+Low Blow |  | Major | Adds 4% / 8% / 9% critical hit chance to attacks with critic | 800, 1200, 4000
+Numb |  | Minor | Numbs the creature with a 6% / 9% / 12% chance after its att | 100 / 150 / 225
+Overflux |  | Major | Each attack has a 5% / 10% / 11% chance to deal Physical Dam | 600 / 900 / 3000
+Overpower |  | Major | Each attack has a 5% / 10% / 11% chance to deal Physical Dam | 600 / 900 / 3000
+Parry |  | Major | Any damage taken has a 5% / 10% / 11% chance to be reflected | 400 / 600 / 2000
+Poison |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 240 / 360 / 1200
+Savage Blow |  | Major | Adds 20% / 40% / 44% critical extra damage to attacks with C | 800 / 1200 / 4000
+Scavenge |  | Minor | Enhances your chances to successfully skin/dust a skinnable/ | 100 / 150 / 225
+Vampiric Embrace |  | Minor | Adds 1.6% / 2.4% / 3.2% Life Leech to attacks if wearing equ | 100 / 150 / 225
+Void Inversion |  | Minor | 20% / 30% /40% chance to gain mana instead of losing it when | 100 / 150 / 225
+Void's Call |  | Minor | Adds 0.8% / 1.2% / 1.6% Mana Leech to attacks if wearing equ | 100 / 150 / 225
+Wound |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 240 / 360 / 1200
+Zap |  | Major | Each attack on a creature has a 5% / 10% / 11% chance to tri | 320 / 480 / 1600
+## Bestiary tabela 2 (5 linhas)
+Category | Required Kills to Unlock | Boss Points | Amount of Bosses | Total Points
+Prowess | Expertise | Mastery
+Bane(e.g. Kroazur, Black Knight) | 25 | 100 | 300 | 50 (5+15+30) | 83 | 4150
+Archfoe(e.g. Grand Master Oberon, Drume) | 5 | 20 | 60 | 100 (10+30+60) | 124 | 12400
+Nemesis(e.g. World Devourer, Ferumbras Mortal Shell) | 1 | 3 | 5 | 100 (10+30+60) | 109 | 10900
+## Bestiary tabela 3 (4 linhas)
+Points range | Bonus range | Level advancement
+0 - 250 | 25% - 50% | 1 level every 10 points
+250 - 1250 | 50% - 100% | 1 level every 20 points
+1250+ points | 100% - ? | 5 more points for each level (25, 30, 35, etc)
+## Bestiary tabela 4 (7 linhas)
+Change # | Cost
+1 | Free
+2 | 100,000
+3 | 400,000
+4 | 700,000
+5 | 1,000,000
+n | ( n − 2 ) × 300 , 000 + 100 , 000 {\displaystyle (n-2) \time
+## Bestiary tabela 5 (113 linhas)
+Name | Permanent? | In-Game Description | Notes | Implemented
+Adept Armorer | ✓ | Reached Mastery with a weapon at level 3 proficiency. | Reach Mastery with a weapon at level 3 proficiency. | Summer Update 2025
+Adept Enhancer | ✗ | All mods enhanced to Grade III. |  | Summer Update 2024
+Admirer of the Crown | ✓ | Adjust your crown and handle it. | Complete the Royal Costume Outfits. | Winter Update 2021
+Aeternal | ✓ | Awarded exclusively to stalwart heroes keeping the faith und | Unlocked by 10-year old characters. | Winter Update 2023
+Apex Predator | ✗ | Highest Level on character's world. |  | Summer Update 2019
+Armor Breaker | ✓ | Description missing. Achieved when defeating Maior Domus on  |  | Summer Update 2026
+Aspiring Huntsman / Huntswoman | ✓ | Invested 160.000 tasks points. |  | Summer Update 2020
+Beastly | ✓ | Reached 2000 charm points. Quite beastly! |  | Winter Update 2023
+Beaststrider (Grade 1) | ✓ | Unlocked 10 or more Mounts. |  | Summer Update 2019
+Beaststrider (Grade 2) | ✓ | Unlocked 20 or more Mounts. |  | Summer Update 2019
+Beaststrider (Grade 3) | ✓ | Unlocked 30 or more Mounts. |  | Summer Update 2019
+Beaststrider (Grade 4) | ✓ | Unlocked 40 or more Mounts. |  | Summer Update 2019
+Beaststrider (Grade 5) | ✓ | Unlocked 50 or more Mounts. |  | Summer Update 2019
+Big Boss | ✗ | Highest score of accumulated boss points on character's worl |  | Summer Update 2022
+Big Spender | ✓ | Unlocked the full Golden Outfit. |  | Summer Update 2019
+Bipedantic | ✗ | Unlocked All Humanoid Bestiary entries. |  | Summer Update 2019
+Blood Moon Hunter / Huntress | ✗ | Unlocked All Lycanthrope Bestiary entries. |  | Summer Update 2019
+Boss Annihilator | ✗ | Unlocked all Nemesis bosses. |  | Summer Update 2022
+Boss Destroyer | ✓ | Unlocked 10 or more Archfoe bosses. |  | Summer Update 2022
+Boss Devastator | ✓ | Unlocked 10 or more Nemesis bosses. |  | Summer Update 2022
+Boss Eraser | ✗ | Unlocked all Archfoe bosses. |  | Summer Update 2022
+Boss Executioner | ✗ | Unlocked all bosses. |  | Summer Update 2022
+Boss Hunter | ✓ | Unlocked 10 or more Bane bosses. |  | Summer Update 2022
+Boss Obliterator | ✓ | Unlocked 40 or more Nemesis bosses. |  | Summer Update 2022
+Boss Slayer | ✗ | Unlocked all Bane bosses. |  | Summer Update 2022
+Boss Smiter | ✓ | Unlocked 40 or more Archfoe bosses. |  | Summer Update 2022
+Boss Veteran | ✓ | Unlocked 40 or more Bane bosses. |  | Summer Update 2022
+Bringer of Rain | ✓ | Forging through battle after battle like a true gladiator. | Clear wave 100 in the Tibiadrome. | Winter Update 2023
+Challenger of the Iks | ✓ | Challenged Ahau, guardian of Iksupan, in traditional Iks war | Defeat Ahau while equipping a Broken Iks Headpiece, a Broken | Winter Update 2022
+Chompmeister | ✓ | Awarded only to true connoisseurs undertaking even the most  | Complete all Jean Pierre's dishes in Hot Cuisine Quest. | Winter Update 2023
+Cleansing Conqueror / Cleansing Conqueress | ✓ | You encountered the embodiment of blooded decay and prevaile | Complete Rotten Blood Quest. | Winter Update 2022
+Coldblooded | ✗ | Unlocked All Amphibic Bestiary entries. |  | Summer Update 2019
+Competent Beastslayer | ✓ | Invested 320.000 tasks points. |  | Summer Update 2020
+Creature of Habit (Grade 1) | ✓ | Reward Streak of at least 7 days of consecutive logins. |  | Summer Update 2019
+Creature of Habit (Grade 2) | ✓ | Reward Streak of at least 30 days of consecutive logins. |  | Summer Update 2019
+Creature of Habit (Grade 3) | ✓ | Reward Streak of at least 90 days of consecutive logins. |  | Summer Update 2019
+Creature of Habit (Grade 4) | ✓ | Reward Streak of at least 180 days of consecutive logins. |  | Summer Update 2019
+Creature of Habit (Grade 5) | ✓ | Reward Streak of at least 365 days of consecutive logins. |  | Summer Update 2019
+Crystal Hoarder | ✗ | Earned at least 100,000,000 gold. |  | Summer Update 2019
+## Bestiary tabela 6 (7 linhas)
+Client Features
+
+Client Sections | Action Bars Automap Combat Controls Console Game Window Rewa
+
+Windows | Bosstiary Compendium Cyclopedia Daily Reward General Control
+
+Widgets
+## Bestiary tabela 7 (5 linhas)
+Common | Battle Bestiary Tracker Imbuements Tracker Inventory Minimap
+
+Analytics | Analytics Selector Boss Cooldowns Boss Cooldowns Damage Inpu
+
+Miscellaneous | Framerate Hotkeys Random Hints Trade Yelling

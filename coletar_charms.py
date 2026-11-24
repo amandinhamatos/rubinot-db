@@ -39,21 +39,49 @@ def linhas(pagina):
 def numeros(txt, minimo=0):
     return [int(n.replace(',', '')) for n, pct in re.findall(r'(\d[\d,]*)(\s*%)?', txt) if not pct and int(n.replace(',', '') or 0) >= minimo]
 
-# 1) Charms
+os.makedirs(os.path.join(AQUI, 'data'), exist_ok=True)
+def tabelas(pagina):
+    h = api(action='parse', page=pagina, prop='text', redirects=1).get('parse', {}).get('text', {}).get('*', '')
+    p = T(); p.feed(h)
+    return [[r for r in t if r] for t in p.t]
+def ach(row, nome, prefixo=True):
+    for i, c in enumerate(row):
+        x = c.strip().lower()
+        if x == nome.lower() or (prefixo and x.startswith(nome.lower() + ' ')): return i
+    return -1
+TC, TB = tabelas('Charms'), tabelas('Bestiary')
+print(f'Página Charms: {len(TC)} tabelas | página Bestiary: {len(TB)} tabelas')
+with open(os.path.join(AQUI, 'data', 'debug_charms.txt'), 'w', encoding='utf-8') as f:
+    for nome, TT in (('Charms', TC), ('Bestiary', TB)):
+        for k, t in enumerate(TT):
+            f.write(f'## {nome} tabela {k} ({len(t)} linhas)\n')
+            for r in t[:40]: f.write(' | '.join(x[:60] for x in r) + '\n')
+# 1) Charms (o nome pode estar em qualquer coluna; os custos podem estar nas linhas seguintes)
 charms = {}
-for r in linhas('Charms'):
-    for n in NOMES:
-        if r[0].lower().startswith(n.lower()) and n not in charms:
-            c = numeros(' '.join(r[1:]), 100)[:3]
-            if len(c) == 3: charms[n] = {'n': n, 'c': c, 't': ' '.join(r[1:])[:220]}
+for t in TC:
+    cur = None
+    for r in t:
+        hit = next(((n, ach(r, n)) for n in NOMES if ach(r, n) >= 0), None)
+        if hit:
+            cur = hit[0]
+            if cur not in charms: charms[cur] = {'n': cur, 'c': [], 't': ' '.join(r[hit[1] + 1:])[:220]}
+            nums = numeros(' '.join(r[hit[1] + 1:]), 100)
+        elif cur: nums = numeros(' '.join(r), 100)
+        else: continue
+        for v in nums:
+            if len(charms[cur]['c']) < 3 and v not in charms[cur]['c']: charms[cur]['c'].append(v)
+charms = {n: v for n, v in charms.items() if len(v['c']) == 3}
 print(f'Charms com custo lido: {len(charms)} de {len(NOMES)}')
 for n, v in charms.items(): print(f'  {n}: {v["c"]}')
-# 2) Dificuldades
+# 2) Dificuldades do bestiário
 diff = {}
-for r in linhas('Bestiary'):
-    if r[0] in DL and r[0] not in diff:
-        x = numeros(' '.join(r[1:]))
-        diff[r[0]] = {'k': x[:3], 'p': x[3] if len(x) > 3 else ''}
+for t in TB:
+    for r in t:
+        for d in DL:
+            i = ach(r, d, False)
+            if i >= 0 and d not in diff:
+                x = numeros(' '.join(r[i + 1:]))
+                if len(x) >= 3: diff[d] = {'k': x[:3], 'p': x[3] if len(x) > 3 else ''}
 print('Dificuldades lidas (kills estágio 1/2/3 e pontos):')
 for d, v in diff.items(): print(f'  {d}: {v}')
 # 3) Criaturas
