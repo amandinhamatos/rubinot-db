@@ -11,6 +11,7 @@ os.makedirs(IMG, exist_ok=True)
 Q = urllib.parse.quote
 # (slot do site, [nomes possíveis da categoria na wiki]). Usa o primeiro nome que tiver itens.
 CATS = [
+    ('Trinket', ['Light Sources', 'Light Source']), ('Utility', ['Tools']),
     ('Helmet', ['Helmets']), ('Armor', ['Armors']), ('Legs', ['Legs']), ('Boots', ['Boots']),
     ('Amulet', ['Amulets and Necklaces']), ('Ring', ['Rings']),
     ('Shield/Livro', ['Shields']), ('Shield/Livro', ['Spellbooks']), ('Shield/Livro', ['Quivers']),
@@ -110,6 +111,8 @@ for slot, nomes in CATS:
             break
     if not achou:
         print(f'{nomes[0]}: VAZIA (tentei {", ".join(nomes)})')
+for n in ['Sun Catcher', 'Lit Torch', 'Starlight Vial', 'Moon Mirror', 'Black Jade Cobra']: itens[n] = 'Trinket'
+for n in ['Squeezing Gear of Girlpower', 'Blessed Wooden Stake', 'Obsidian Knife']: itens[n] = 'Utility'
 nomes = sorted(itens)
 print('Lendo level e armor...')
 st = stats(nomes)

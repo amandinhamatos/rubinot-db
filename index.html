@@ -2,11 +2,13 @@
 <html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RubinOT · Meu Database</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b0b0d;--pn:#141418;--pn2:#1f1f26;--ln:#34343f;--tx:#e8e6df;--mu:#9aa0b2;--ac:#e0b64a;--ok:#6fcf97;--bad:#eb6b6b}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 Georgia,'Times New Roman',serif}
-h1,h2,h3,button,input,select,textarea,th{font-family:'Trebuchet MS',Verdana,sans-serif}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 'Barlow','Segoe UI',Arial,sans-serif}
+h1,h2,h3,h4{font-family:'Bebas Neue','Impact','Arial Narrow',sans-serif;font-weight:400;letter-spacing:.6px}button,input,select,textarea,th{font-family:'Barlow','Segoe UI',Arial,sans-serif}h2{font-size:32px;margin:.4em 0}h4{font-size:20px}header h1{font-size:32px}
 header{padding:18px 20px 0;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
 h1{margin:0;font-size:22px;color:var(--ac);letter-spacing:.5px}
 nav{display:flex;flex-wrap:wrap;gap:4px;padding:12px 20px;border-bottom:1px solid var(--ln)}
@@ -53,14 +55,29 @@ tr.stn td{background:#6fcf9710}tr.stn td:first-child{box-shadow:inset 4px 0 0 va
 .bc{background:var(--bad);color:#fff;border-radius:9px;padding:0 6px;font-size:11px;margin-left:4px}
 .bt{background:var(--ok);color:#06210f;border-radius:9px;padding:0 6px;font-size:11px;margin-left:2px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
-.doll{display:grid;grid-template-columns:repeat(3,96px);gap:6px;justify-content:center;margin:8px 0}
+.doll{display:grid;grid-template-columns:repeat(3,112px);gap:6px;justify-content:center;margin:8px 0}
 .doll .slot{padding:4px;min-height:86px}.doll .th{width:40px;height:40px}.doll .ex .th{width:22px;height:22px}
 tr.maj td:first-child{box-shadow:inset 4px 0 0 #d9534f}tr.min td:first-child{box-shadow:inset 4px 0 0 #8e6fd8}
 .tp{border-radius:9px;padding:1px 8px;font-size:11px;font-weight:bold;color:#fff}.tj{background:#d9534f}.tm{background:#8e6fd8}
+.voc-k{--vc:#d9534f}.voc-p{--vc:#d4a017}.voc-s{--vc:#a569d6}.voc-d{--vc:#2ecc71}.voc-m{--vc:#1abc9c}
+.card{border-top:4px solid var(--vc,var(--ln));background:linear-gradient(165deg,color-mix(in srgb,var(--vc,#444) 22%,var(--pn)),var(--pn) 50%)}
+.card h3.chh{display:flex;align-items:center;gap:10px;white-space:nowrap;margin:0 0 10px;font-size:30px;color:var(--vc,var(--ac))}
+.chh small{font-family:'Barlow',sans-serif;font-size:13px;color:var(--mu);letter-spacing:0;overflow:hidden;text-overflow:ellipsis}
+.vb{margin-left:auto;background:var(--vc,var(--ln));color:#fff;border-radius:6px;padding:0 10px;font-size:18px;letter-spacing:1px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1.3fr 1.1fr;gap:8px;margin-top:8px}
+.slot label{font-size:10px;letter-spacing:.6px;text-transform:uppercase}
+.inm{font-weight:700;color:var(--ac);font-size:13px;line-height:1.15;margin-top:3px}
+.tray{margin:8px 0}.tchip{display:inline-flex;gap:6px;align-items:center;background:var(--bg);border:1px solid var(--ln);border-radius:8px;padding:3px 9px 3px 4px;cursor:pointer}.tchip b{color:var(--ac);font-size:13px}
+
+.cname{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:-4px 0 10px}
+.tg{background:var(--pn2);border:1px solid var(--ln);border-radius:6px;padding:0 8px;font-size:12px;color:var(--tx);white-space:nowrap}
+.tg.vb{background:var(--vc,var(--ln));color:#fff;border-color:transparent;font-family:'Bebas Neue','Impact',sans-serif;font-size:15px;letter-spacing:1px;margin-left:0;padding:0 10px}
+.w-Lunarian{border-color:#5b8def;color:#9db9f7}.w-Elysian{border-color:#c77dd6;color:#e0a8ea}
 </style></head><body>
 <header><h1>RubinOT · Meu Database</h1>
 <div class="bar" style="margin:0">
-<button class="b" id="ex">Exportar backup</button>
+<span id="bk" class="nm"></span><button class="b" id="ex">Exportar backup</button>
 <button class="b" id="im">Importar backup</button>
 <button class="b x" id="rs">Resetar tudo</button>
 <input type="file" id="fi" accept=".json" hidden></div></header>
@@ -92,7 +109,7 @@ const SEEDCH=['Wound','Enflame','Poison','Freeze','Zap','Curse','Cripple','Parry
 const JUNK=/Products by|Weapons$|^(Armors|Boots|Helmets|Legs|Rings|Shields|Backpacks|Wands|Rods|Quivers|Spellbooks|Amulets and Necklaces)$/;
 const SEED=[['Crown Helmet','Helmet'],['Falcon Circlet','Helmet'],['Gnome Helmet','Helmet'],['Dragon Scale Mail','Armor'],['Falcon Plate','Armor'],['Gnome Armor','Armor'],['Magic Plate Armor','Armor'],['Crown Legs','Legs'],['Falcon Greaves','Legs'],['Gnome Legs','Legs'],['Boots of Haste','Boots'],['Pair of Soft Boots','Boots'],['Prismatic Boots','Boots'],['Prismatic Necklace','Amulet'],['Amulet of Loss','Amulet'],['Stone Skin Amulet','Amulet'],['Prismatic Ring','Ring'],['Ring of Healing','Ring'],['Might Ring','Ring'],['Sword Ring','Ring'],['Falcon Longsword','Weapon'],['Falcon Battleaxe','Weapon'],['Falcon Bow','Weapon'],['Falcon Mace','Weapon'],['Mastermind Shield','Shield/Livro'],['Falcon Shield','Shield/Livro'],['Backpack of Holding','Backpack']].map(a=>({n:a[0],s:a[1],p:'',m:'Gold',img:''}));
 function fresh(){return{tab:'chars',chars:BASE.map((b,i)=>({n:b[0],v:b[1],l:b[2],w:b[3],a:ACC[i],meta:'',hunt:'',gear:{},wheel:'',prof:'',charms:'',notes:''})),lists:JSON.parse(JSON.stringify(EMPTY)),rc:{Lunarian:0,Elysian:0},hist:[]}}
-function mig(x){x.items=x.items||JSON.parse(JSON.stringify(SEED));x.items=x.items.filter(t=>t.f||t.img||t.p||!JUNK.test(t.n));if(window.CATALOG){const m=new Map(x.items.map(t=>[t.n.toLowerCase(),t]));CATALOG.forEach(c=>{if(JUNK.test(c.n)&&!c.f)return;const t=m.get(c.n.toLowerCase());if(t){t.f=t.f||c.f;t.lvl=c.l;t.arm=c.a;t.ak=c.ak;t.df=c.df;t.im=c.im;t.at=c.at;t.rs=c.rs;t.vo=c.vo}else x.items.push({n:c.n,s:c.s,p:'',m:'Gold',img:'',f:c.f,lvl:c.l,arm:c.a,ak:c.ak,df:c.df,im:c.im,at:c.at,rs:c.rs,vo:c.vo})})}x.sv=x.sv||{items:[{id:'lp',n:'Loot Pouch',rc:390}],own:{}};x.f=x.f||{w:'',c:''};
+function mig(x){x.items=x.items||JSON.parse(JSON.stringify(SEED));x.items=x.items.filter(t=>t.f||t.img||t.p||!JUNK.test(t.n));[['Sun Catcher','Trinket'],['Lit Torch','Trinket'],['Starlight Vial','Trinket'],['Moon Mirror','Trinket'],['Black Jade Cobra','Trinket'],['Squeezing Gear of Girlpower','Utility'],['Blessed Wooden Stake','Utility'],['Obsidian Knife','Utility']].forEach(([n,sl])=>{const t=x.items.find(t=>t.n.toLowerCase()===n.toLowerCase());if(t){if(!t.f)t.s=sl}else x.items.push({n,s:sl,p:'',m:'Gold',img:''})});if(window.CATALOG){const m=new Map(x.items.map(t=>[t.n.toLowerCase(),t]));CATALOG.forEach(c=>{if(JUNK.test(c.n)&&!c.f)return;const t=m.get(c.n.toLowerCase());if(t){if(c.s==='Trinket'||c.s==='Utility')t.s=c.s;t.f=t.f||c.f;t.lvl=c.l;t.arm=c.a;t.ak=c.ak;t.df=c.df;t.im=c.im;t.at=c.at;t.rs=c.rs;t.vo=c.vo}else x.items.push({n:c.n,s:c.s,p:'',m:'Gold',img:'',f:c.f,lvl:c.l,arm:c.a,ak:c.ak,df:c.df,im:c.im,at:c.at,rs:c.rs,vo:c.vo})})}x.sv=x.sv||{items:[{id:'lp',n:'Loot Pouch',rc:390}],own:{}};x.f=x.f||{w:'',c:''};
 x.cdef=x.cdef||SEEDCH.map(n=>({n,c:['','',''],t:''}));
 if(window.CHARMS)CHARMS.forEach(m=>{let h=x.cdef.find(q=>q.n.toLowerCase()===m.n.toLowerCase());if(!h){h={n:m.n,c:['','',''],t:''};x.cdef.push(h)}if(!h.t)h.t=m.t||'';h.f=m.f||h.f;m.c.forEach((v,i)=>{if(h.c[i]===''||h.c[i]==null)h.c[i]=v})});
 x.diff=x.diff||{};DL.forEach(d=>{x.diff[d]=x.diff[d]||{k:['','',''],p:''};const b=window.BEST&&BEST.diff&&BEST.diff[d];if(b){(b.k||[]).forEach((v,i)=>{if(x.diff[d].k[i]==='')x.diff[d].k[i]=v});if(x.diff[d].p==='')x.diff[d].p=b.p}});
@@ -125,18 +142,17 @@ return`<h2>${L.t}</h2><p class="hint">${L.d} Arraste o ⠿ para reordenar. Use o
 ${fbar()}${k==='compras'?chips(k):''}
 <div class="bar"><button class="b" data-add="${k}">+ Adicionar linha</button>${k==='arsenal'?`<span class="sum" id="tot">${total()}</span>`:''}</div>
 <div class="wrap"><table><thead><tr><th></th>${L.c.map(c=>`<th>${c[1]}</th>`).join('')}<th></th></tr></thead><tbody>${h||`<tr><td colspan="${L.c.length+2}" class="hint">Nada aqui. Clique em “Adicionar linha” ou mude o filtro.</td></tr>`}</tbody></table></div>`}
-function slotBox(i,c,s){const g=G(c)[s]||[];return`<div class="slot"><label>${s}</label><div data-pick="${i}|${s}|0" style="cursor:pointer;min-height:50px">${g[0]?img(g[0])+`<div class="nm">${esc(g[0])}</div>`:'<div class="nm">+ escolher</div>'}</div><div class="ex">${g.slice(1).map((x,j)=>`<span data-pick="${i}|${s}|${j+1}" style="cursor:pointer">${img(x)}</span>`).join('')}<button class="b" style="padding:0 6px" data-pick="${i}|${s}|${Math.max(g.length,1)}" title="Adicionar item secundário">+</button></div></div>`}
+function slotBox(i,c,s){const g=G(c)[s]||[];return`<div class="slot"><label>${s}</label><div data-pick="${i}|${s}|0" style="cursor:pointer;min-height:50px">${g[0]?img(g[0])+`<div class="inm">${esc(g[0])}</div>`:'<div class="nm">+ escolher</div>'}</div><div class="ex">${g.slice(1).map((x,j)=>`<span data-pick="${i}|${s}|${j+1}" style="cursor:pointer">${img(x)}</span>`).join('')}<button class="b" style="padding:0 6px" data-pick="${i}|${s}|${Math.max(g.length,1)}" title="Adicionar item secundário">+</button></div></div>`}
 function charsView(){return`<h2>Personagens</h2><p class="hint">Clique num slot para escolher o item. O “+” embaixo de cada slot adiciona itens secundários (amuletos extras, trinkets). Arraste o título para reordenar.</p>
 <div class="cards">${S.chars.map((c,i)=>{const p=Math.min(100,c.meta>0?c.l/c.meta*100:0);const f=(x,l,t='text')=>`<div><label>${l}</label><input type="${t}" data-ch="${i}" data-f="${x}" value="${esc(c[x])}"></div>`;
 const ar=st=>S.lists.arsenal.filter(r=>r.c===c.n&&r.st===st&&r.n).map(r=>img(r.n)).join('')||'<span class="hint">vazio</span>';
 const pg=S.lists.arsenal.filter(r=>r.c===c.n&&r.st==='Comprar').reduce((a,r)=>a+(r.m==='RC'?(+r.p||0)*(+S.rc[c.w]||0):(+r.p||0)),0);
-return`<div class="card" data-k="chars" data-i="${i}"><h3 class="h" draggable="true" style="cursor:grab">⠿ ${esc(c.n)} <small style="color:var(--mu);font-weight:normal">${esc(c.a)} · ${c.w}</small></h3>
-<div class="g2">${f('n','Nome')}${f('v','Vocação')}${f('l','Level','number')}${f('meta','Level meta','number')}
-<div><label>Mundo</label><select data-ch="${i}" data-f="w">${['Lunarian','Elysian'].map(w=>`<option ${w===c.w?'selected':''}>${w}</option>`).join('')}</select></div>${f('a','Conta')}</div>
+return`<div class="card voc-${vk(c.v)}" data-k="chars" data-i="${i}"><h3 class="chh"><span class="h" draggable="true" title="Arrastar">⠿</span><span class="cname" title="${esc(c.n)}">${esc(c.n)}</span></h3><div class="tags"><span class="tg">${esc(c.a||'Sem conta')}</span><span class="tg w-${esc(c.w)}">${esc(c.w)}</span><span class="tg vb">${vi(c.v)} ${esc(c.v)}</span></div>
+<div class="g2">${f('n','Nome')}${f('v','Vocação')}</div><div class="g4">${f('l','Level','number')}${f('meta','Meta','number')}<div><label>Mundo</label><select data-ch="${i}" data-f="w">${['Lunarian','Elysian'].map(w=>`<option ${w===c.w?'selected':''}>${w}</option>`).join('')}</select></div>${f('a','Conta')}</div>
 <div class="prog"><i style="width:${p}%"></i></div>${f('hunt','Hunt atual')}
 ${setBar(i,c)}
-<div class="doll">${DOLL.map(s=>s?slotBox(i,c,s):'<div></div>').join('')}</div>
-${skillBox(i,c)}<h4 style="margin:12px 0 2px;font-family:Verdana">Arsenal</h4><label>Tenho</label><div class="strip">${ar('Tenho')}</div><label>Falta comprar · ≈ ${fmt(pg)} gold</label><div class="strip">${ar('Comprar')}</div>
+<div class="doll">${DOLL.map(s=>s?slotBox(i,c,s):'<div></div>').join('')}</div>${tray(i,c,'Trinket')}${tray(i,c,'Utility')}
+${skillBox(i,c)}<h4 style="margin:12px 0 2px">Arsenal</h4><label>Tenho</label><div class="strip">${ar('Tenho')}</div><label>Falta comprar · ≈ ${fmt(pg)} gold</label><div class="strip">${ar('Comprar')}</div>
 ${[['wheel','Wheel of Destiny'],['prof','Proficiência das armas'],['charms','Charms'],['notes','Observações']].map(([x,l])=>`<label style="margin-top:8px">${l}</label><textarea data-ch="${i}" data-f="${x}">${esc(c[x])}</textarea>`).join('')}
 <div style="margin-top:8px"><button class="b x" data-delch="${i}">Remover personagem</button></div></div>`}).join('')}</div>
 <p><button class="b" id="addch">+ Novo personagem</button></p>`}
@@ -158,16 +174,21 @@ const TABS=[['chars','Personagens'],['arsenal','Arsenal'],['itens','Itens'],['se
 function conv(){const v=+document.getElementById('cr')?.value||0;const a=document.getElementById('o1');if(a){a.value=fmt(v*S.rc.Lunarian);document.getElementById('o2').value=fmt(v*S.rc.Elysian)}}
 function render(){document.getElementById('nav').innerHTML=TABS.map(([k,t])=>`<button class="${S.tab===k?'on':''}" data-tab="${k}">${t}</button>`).join('');
 document.getElementById('dl').innerHTML=S.items.map(t=>`<option value="${esc(t.n)}">`).join('');
+{const d=S.lb?Math.floor((Date.now()-S.lb)/864e5):null;document.getElementById('bk').innerHTML=d===null?'<span style="color:var(--bad)">⚠ nenhum backup feito</span>':d>=7?`<span style="color:var(--bad)">⚠ último backup há ${d} dias</span>`:`<span style="color:var(--ok)">✅ backup há ${d} dia(s)</span>`}
 const T=S.tab;document.getElementById('m').innerHTML=T==='chars'?charsView():T==='coins'?coinsView():T==='itens'?itemsView():T==='arsenal'?arsenalView():T==='servidor'?svView():T==='charms'?charmsView():T==='best'?bestView():listView(T);conv();save()}
 let P={};
-const DOLL=['Amulet','Helmet','Backpack','Weapon','Armor','Shield/Livro','Ring','Legs','Trinket','','Boots','Utility'];
+function exportar(){S.lb=Date.now();save();const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:'application/json'}));a.download='rubinot-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();render()}
+const vk=v=>/Knight/i.test(v)?'k':/Paladin/i.test(v)?'p':/Sorcerer/i.test(v)?'s':/Druid/i.test(v)?'d':/Monk/i.test(v)?'m':'';
+const vi=v=>({k:'⚔️',p:'🏹',s:'🔥',d:'🌿',m:'👊'}[vk(v)]||'');
+function tray(i,c,s){const g=G(c)[s]||[];return`<div class="tray"><label>${s}s · todos que você usa</label><div class="strip">${g.map((n,j)=>n?`<span class="tchip" data-pick="${i}|${s}|${j}">${img(n)}<b>${esc(n)}</b></span>`:'').join('')}<button class="b" data-pick="${i}|${s}|${g.length}">+ ${s}</button></div></div>`}
+const DOLL=['Amulet','Helmet','Backpack','Weapon','Armor','Shield/Livro','Ring','Legs','','','Boots',''];
 const SKN={ML:'Magic Level',Sword:'Sword Fighting',Axe:'Axe Fighting',Club:'Club Fighting',Distance:'Distance Fighting',Fist:'Fist Fighting',Shielding:'Shielding'};
 const SKR={ML:/magic level\s*([+-]?\d+)/i,Sword:/sword fighting\s*([+-]?\d+)/i,Axe:/axe fighting\s*([+-]?\d+)/i,Club:/club fighting\s*([+-]?\d+)/i,Distance:/distance fighting\s*([+-]?\d+)/i,Fist:/fist fighting\s*([+-]?\d+)/i,Shielding:/shielding\s*([+-]?\d+)/i};
 const SKV=v=>/Knight/i.test(v)?['Sword','Axe','Club','Shielding','ML']:/Paladin/i.test(v)?['Distance','Shielding','ML']:/Monk/i.test(v)?['Fist','Shielding','ML']:['ML'];
-function skillBox(i,c){G(c);const j=c.use!=null?c.use:(c.si||0),g=c.sets[j].gear,eq=SL.map(s=>(g[s]||[])[0]).filter(Boolean);
+function skillBox(i,c){G(c);const j=c.use!=null?c.use:(c.si||0),g=c.sets[j].gear,eq=SL.flatMap(s=>s==='Trinket'||s==='Utility'?(g[s]||[]):[(g[s]||[])[0]]).filter(Boolean);
 const rows=SKV(c.v).map(k=>{let b=0;const from=[];eq.forEach(n=>{const t=S.items.find(x=>x.n.toLowerCase()===n.toLowerCase()),m=t&&t.at&&String(t.at).match(SKR[k]);if(m){b+=+m[1];from.push(n+' '+(+m[1]>0?'+':'')+(+m[1]))}});
 const p=+c['sk_'+k]||0;return`<tr><td>${SKN[k]}</td><td><input type="number" style="width:70px" data-ch="${i}" data-f="sk_${k}" value="${esc(c['sk_'+k])}"></td><td title="${esc(from.join(', '))}">${b>0?'+':''}${b}</td><td><b>${p+b}</b></td></tr>`}).join('');
-return`<h4 style="margin:12px 0 2px;font-family:Verdana">Skills</h4><p class="nm" style="margin:0 0 4px">Bônus calculados com o set “${esc(c.sets[j].n)}”${c.use!=null?' (em uso)':''}. Passe o mouse no bônus para ver de quais itens vem.</p><table style="min-width:0"><thead><tr><th>Skill</th><th>Pura</th><th>Equip.</th><th>Total</th></tr></thead><tbody>${rows}</tbody></table>`}
+return`<h4 style="margin:12px 0 2px">Skills</h4><p class="nm" style="margin:0 0 4px">Bônus calculados com o set “${esc(c.sets[j].n)}”${c.use!=null?' (em uso)':''}. Passe o mouse no bônus para ver de quais itens vem.</p><table style="min-width:0"><thead><tr><th>Skill</th><th>Pura</th><th>Equip.</th><th>Total</th></tr></thead><tbody>${rows}</tbody></table>`}
 const IC={Helmet:'🪖',Armor:'🥋',Legs:'👖',Boots:'🥾',Amulet:'📿',Ring:'💍',Weapon:'⚔️','Shield/Livro':'🛡️',Backpack:'🎒',Utility:'🧰',Trinket:'🔮'};
 const STL={Comprar:'🔴 Comprar',Tenho:'✅ Tenho',Vendido:'⚪ Vendido'};
 const kk=n=>{n=+n||0;return n>=1e6?(n/1e6).toLocaleString('pt-BR',{maximumFractionDigits:2})+'kk':n>=1e3?(n/1e3).toLocaleString('pt-BR',{maximumFractionDigits:1})+'k':String(n)};
@@ -229,7 +250,7 @@ function missing(c,j){G(c);const own=new Set(S.lists.arsenal.filter(r=>r.c===c.n
 function cost(c,l){return l.reduce((a,t)=>a+(t.m==='RC'?(+t.p||0)*(+S.rc[c.w]||0):(+t.p||0)),0)}
 function buy(c){const have=new Set(S.lists.arsenal.filter(r=>r.c===c.n&&r.st==='Comprar').map(r=>String(r.n).toLowerCase()));let k=0;missing(c,c.si||0).forEach(t=>{if(have.has(t.n.toLowerCase()))return;S.lists.arsenal.push({n:t.n,s:t.s,c:c.n,st:'Comprar',m:t.m,p:t.p});k++});alert(k?`${k} itens adicionados ao Arsenal como “Comprar”.`:'Nada novo para adicionar.');render()}
 function setBar(i,c){G(c);const a=c.si||0;
-return`<h4 style="margin:12px 0 6px;font-family:Verdana">Sets de equipamento</h4>
+return`<h4 style="margin:12px 0 6px">Sets de equipamento</h4>
 <div style="display:flex;gap:6px;flex-wrap:wrap">${c.sets.map((st,j)=>{const m=missing(c,j),has=Object.values(st.gear).flat().filter(Boolean).length;return`<div class="slot" data-set="${i}|${j}" style="cursor:pointer;flex:1;min-width:110px;${j===a?'border-color:var(--ac);':''}"><label>${esc(st.n)}${c.use===j?' · ✓ em uso':''}</label><div class="ex">${SL.map(s=>img((st.gear[s]||[])[0])).join('')}</div><div class="nm">${!has?'vazio':m.length?`faltam ${m.length} · ${fmt(cost(c,m))} gold`:'completo'}</div></div>`}).join('')}</div>
 <div class="g2" style="margin:8px 0"><input data-setn="${i}" value="${esc(c.sets[a].n)}" aria-label="Nome do set"><button class="b" data-use="${i}">✓ Marcar em uso</button></div>
 <div style="margin-bottom:8px"><button class="b" data-buy="${i}">Adicionar faltantes ao Arsenal</button></div>
@@ -293,9 +314,9 @@ else if(d.addsv!==undefined){S.sv.items.push({id:'i'+Date.now(),n:'Novo item',rc
 else if(d.delsv!==undefined){S.sv.items.splice(d.delsv,1);render()}
 else if(t.id==='addh'){S.hist.unshift({d:new Date().toISOString().slice(0,10),w:'Lunarian',p:''});render()}
 else if(d.delh!==undefined){S.hist.splice(d.delh,1);render()}
-else if(t.id==='ex'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:'application/json'}));a.download='rubinot-backup.json';a.click()}
+else if(t.id==='ex')exportar();
 else if(t.id==='im')document.getElementById('fi').click();
-else if(t.id==='rs'){if(confirm('Apagar todos os dados e voltar ao início?')){S=mig(fresh());render()}}});
+else if(t.id==='rs'){if(confirm('Vou baixar um backup automático antes de apagar tudo. Continuar?')){exportar();S=mig(fresh());render()}}});
 document.getElementById('fi').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(x=>{try{const j=JSON.parse(x);if(!j.chars)throw 0;S=mig(j);render()}catch(_){alert('Arquivo de backup inválido.')}})};
 let dr=null;const arr=k=>k==='chars'?S.chars:k==='items'?S.items:k==='cprio'?S.chars[S.cc||0].cp:S.lists[k];
 document.addEventListener('dragstart',e=>{const r=e.target.closest('[data-k][data-i]');if(r&&e.target.classList.contains('h'))dr=[r.dataset.k,+r.dataset.i]});
