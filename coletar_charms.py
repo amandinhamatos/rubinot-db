@@ -7,8 +7,8 @@ BROWSER = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 IMG = os.path.join(AQUI, 'img', 'creatures'); os.makedirs(IMG, exist_ok=True)
 Q = urllib.parse.quote
-NOMES = ['Wound','Enflame','Poison','Freeze','Zap','Curse','Cripple','Parry','Dodge','Adrenaline Burst','Numb','Cleanse','Bless','Scavenge','Gut','Low Blow','Divine Wrath','Vampiric Embrace',"Void's Call",'Savage Blow','Fatal Hold','Overpower','Overflux']
-DL = ['Harmless','Trivial','Easy','Medium','Hard']
+NOMES = ['Wound','Enflame','Poison','Freeze','Zap','Curse','Cripple','Parry','Dodge','Adrenaline Burst','Numb','Cleanse','Bless','Scavenge','Gut','Low Blow','Divine Wrath','Vampiric Embrace',"Void's Call",'Savage Blow','Fatal Hold','Overpower','Overflux','Carnage','Void Inversion']
+DL = ['Harmless','Trivial','Easy','Medium','Hard','Challenging']
 
 def api(**p):
     url = API + '?' + urllib.parse.urlencode(p) + '&format=json'
@@ -25,6 +25,9 @@ class T(html.parser.HTMLParser):
         if tag == 'table': s.t.append([])
         elif tag == 'tr' and s.t: s.r = []; s.t[-1].append(s.r)
         elif tag in ('td', 'th') and s.r is not None: s.c = []
+        elif tag == 'img' and s.c is not None:
+            d = dict(a); u = d.get('data-src') or d.get('src') or ''
+            if u.startswith('http'): s.c.append('\x01' + u + '\x01')
     def handle_endtag(s, tag):
         if tag in ('td', 'th') and s.c is not None and s.r is not None:
             s.r.append(' '.join(''.join(s.c).split())); s.c = None
@@ -40,10 +43,15 @@ def numeros(txt, minimo=0):
     return [int(n.replace(',', '')) for n, pct in re.findall(r'(\d[\d,]*)(\s*%)?', txt) if not pct and int(n.replace(',', '') or 0) >= minimo]
 
 os.makedirs(os.path.join(AQUI, 'data'), exist_ok=True)
+class R(list): pass
+def limpa(row):
+    r = R(' '.join(re.sub(r'\x01[^\x01]*\x01', '', c).split()) for c in row)
+    r.imgs = [u for c in row for u in re.findall(r'\x01([^\x01]+)\x01', c)]
+    return r
 def tabelas(pagina):
     h = api(action='parse', page=pagina, prop='text', redirects=1).get('parse', {}).get('text', {}).get('*', '')
     p = T(); p.feed(h)
-    return [[r for r in t if r] for t in p.t]
+    return [[limpa(r) for r in t if r] for t in p.t]
 def ach(row, nome, prefixo=True):
     for i, c in enumerate(row):
         x = c.strip().lower()
@@ -64,26 +72,31 @@ for t in TC:
         hit = next(((n, ach(r, n)) for n in NOMES if ach(r, n) >= 0), None)
         if hit:
             cur = hit[0]
-            if cur not in charms: charms[cur] = {'n': cur, 'c': [], 't': ' '.join(r[hit[1] + 1:])[:220]}
+            if cur not in charms: charms[cur] = {'n': cur, 'c': [], 't': ' '.join(r[hit[1] + 1:])[:220], 'img': ''}
             nums = numeros(' '.join(r[hit[1] + 1:]), 100)
         elif cur: nums = numeros(' '.join(r), 100)
         else: continue
+        if r.imgs and not charms[cur]['img']: charms[cur]['img'] = r.imgs[0]
         for v in nums:
             if len(charms[cur]['c']) < 3 and v not in charms[cur]['c']: charms[cur]['c'].append(v)
 charms = {n: v for n, v in charms.items() if len(v['c']) == 3}
 print(f'Charms com custo lido: {len(charms)} de {len(NOMES)}')
 for n, v in charms.items(): print(f'  {n}: {v["c"]}')
 # 2) Dificuldades do bestiário
-diff = {}
+diff, diffv = {}, {}
 for t in TB:
+    cur = None
     for r in t:
-        for d in DL:
-            i = ach(r, d, False)
-            if i >= 0 and d not in diff:
-                x = numeros(' '.join(r[i + 1:]))
-                if len(x) >= 3: diff[d] = {'k': x[:3], 'p': x[3] if len(x) > 3 else ''}
-print('Dificuldades lidas (kills estágio 1/2/3 e pontos):')
-for d, v in diff.items(): print(f'  {d}: {v}')
+        a = r[0].lower() if r else ''
+        d = next((x for x in DL if a.startswith(x.lower())), None)
+        if d and d not in diff:
+            cur = d; x = numeros(' '.join(r[2:]))
+            if len(x) >= 4: diff[d] = {'k': x[:3], 'p': x[3]}
+        elif a.startswith('very rare') and cur and cur not in diffv:
+            x = numeros(' '.join(r[1:]))
+            if len(x) >= 4: diffv[cur] = {'k': x[:3], 'p': x[3]}
+print('Dificuldades lidas (kills 1/2/3 e pontos), comuns e Very Rare:')
+for d in DL: print(f'  {d}: {diff.get(d)} | Very Rare: {diffv.get(d)}')
 # 3) Criaturas
 nomes = []
 for cat in ('Creatures', 'Monsters'):
@@ -103,7 +116,7 @@ for i in range(0, len(nomes), 40):
         d = re.search(r'\|\s*bestiarylevel\s*=\s*([A-Za-z]+)', t, re.I)
         c = re.search(r'\|\s*bestiaryclass\s*=\s*([^\n|]+)', t, re.I)
         if d and d.group(1).capitalize() in DL:
-            cri.append({'n': p['title'], 'cl': c.group(1).strip() if c else '', 'd': d.group(1).capitalize(), 'f': ''})
+            cri.append({'n': p['title'], 'cl': c.group(1).strip() if c else '', 'd': d.group(1).capitalize(), 'o': (re.search(r'\|\s*occurrence\s*=\s*([^\n|]+)', t, re.I) or [0, ''])[1].strip().title(), 'f': ''})
 cri.sort(key=lambda x: x['n'])
 print(f'Criaturas no bestiário: {len(cri)}')
 # 4) Imagens (via curl, que já funcionou)
@@ -132,5 +145,15 @@ def baixar(c):
 print(f'Baixando imagens de {len(cri)} criaturas...')
 with ThreadPoolExecutor(6) as ex: list(ex.map(baixar, cri))
 os.makedirs(os.path.join(AQUI, 'data'), exist_ok=True)
-open(os.path.join(AQUI, 'data', 'charms.js'), 'w', encoding='utf-8').write('window.CHARMS=' + json.dumps(list(charms.values()), ensure_ascii=False) + ';window.BEST=' + json.dumps({'diff': diff, 'creatures': cri}, ensure_ascii=False) + ';')
+IMGC = os.path.join(AQUI, 'img', 'charms'); os.makedirs(IMGC, exist_ok=True)
+for v in charms.values():
+    u = v.pop('img', '')
+    if not u: continue
+    try: d = subprocess.run(['curl.exe', '-sL', '-A', BROWSER, '-e', 'https://tibia.fandom.com/', '--max-time', '30', u], capture_output=True, timeout=40).stdout
+    except Exception: d = b''
+    if tipo(d):
+        f = re.sub(r'[^A-Za-z0-9]+', '_', v['n']).lower() + '.' + tipo(d)
+        open(os.path.join(IMGC, f), 'wb').write(d); v['f'] = f
+print(f'Imagens de charms salvas: {sum(1 for v in charms.values() if v.get("f"))} de {len(charms)}')
+open(os.path.join(AQUI, 'data', 'charms.js'), 'w', encoding='utf-8').write('window.CHARMS=' + json.dumps(list(charms.values()), ensure_ascii=False) + ';window.BEST=' + json.dumps({'diff': diff, 'diffv': diffv, 'creatures': cri}, ensure_ascii=False) + ';')
 print(f'Pronto: {len(charms)} charms, {len(cri)} criaturas, {sum(1 for c in cri if c["f"])} com imagem.')
