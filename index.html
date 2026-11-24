@@ -13,7 +13,7 @@ nav{display:flex;flex-wrap:wrap;gap:4px;padding:12px 20px;border-bottom:1px soli
 nav button{background:none;border:1px solid transparent;color:var(--mu);padding:7px 13px;border-radius:6px;cursor:pointer;font-size:14px}
 nav button.on{background:var(--ac);color:#1a1405;border-color:var(--ac);font-weight:bold}
 main{padding:18px 20px 60px;max-width:1300px;margin:0 auto}
-button.b{background:var(--pn2);color:var(--tx);border:1px solid var(--ln);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px}
+button.b{background:linear-gradient(#3b3321,#221d11);color:#f0d98a;border:1px solid #7a6428;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:bold;box-shadow:inset 0 1px 0 #ffffff22,0 2px 0 #000a}button.b:active{transform:translateY(1px)}
 button.b:hover{border-color:var(--ac)}button.x{color:var(--bad)}
 input,select,textarea{background:var(--bg);color:var(--tx);border:1px solid var(--ln);border-radius:5px;padding:5px 7px;font-size:13px;width:100%}
 input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
@@ -46,6 +46,13 @@ label{font-size:12px;color:var(--mu);display:block}
 #md{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:9}
 #md .bx{background:var(--pn);border:1px solid var(--ln);border-radius:10px;width:min(560px,94vw);max-height:80vh;overflow:auto;padding:14px}
 .it{display:flex;gap:8px;align-items:center;padding:4px;border-radius:6px;cursor:pointer}.it:hover{background:var(--pn2)}
+
+tr.sc td{background:#eb6b6b14}tr.sc td:first-child{box-shadow:inset 4px 0 0 var(--bad)}
+tr.stn td{background:#6fcf9710}tr.stn td:first-child{box-shadow:inset 4px 0 0 var(--ok)}
+.b.on{background:var(--ac);color:#1a1405;border-color:var(--ac)}
+.bc{background:var(--bad);color:#fff;border-radius:9px;padding:0 6px;font-size:11px;margin-left:4px}
+.bt{background:var(--ok);color:#06210f;border-radius:9px;padding:0 6px;font-size:11px;margin-left:2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
 </style></head><body>
 <header><h1>RubinOT · Meu Database</h1>
 <div class="bar" style="margin:0">
@@ -56,6 +63,7 @@ label{font-size:12px;color:var(--mu);display:block}
 <nav id="nav"></nav><main id="m"></main>
 <div id="md"><div class="bx" id="mb"></div></div><datalist id="dl"></datalist>
 <script src="data/items.js"></script>
+<script src="data/charms.js"></script>
 <script>
 const SL=['Helmet','Armor','Legs','Boots','Amulet','Ring','Weapon','Shield/Livro','Backpack','Utility','Trinket'];
 const ST=['Tenho','Comprar','Vendido'];
@@ -75,10 +83,17 @@ compras:{t:'Metas e compras',d:'Tarefas e metas de evolução por personagem.',
 c:[['d','Feito','k'],['n','Tarefa / Meta','t'],['c','Personagem','c'],['pz','Prazo','t'],['o','Obs.','t']]}
 };
 const EMPTY={arsenal:[],hunts:[],bestiario:[],bosstiary:[],compras:[]};
+const DL=['Harmless','Trivial','Easy','Medium','Hard'];
+const SEEDCH=['Wound','Enflame','Poison','Freeze','Zap','Curse','Cripple','Parry','Dodge','Adrenaline Burst','Numb','Cleanse','Bless','Scavenge','Gut','Low Blow','Divine Wrath','Vampiric Embrace',"Void's Call",'Savage Blow','Fatal Hold','Overpower','Overflux'];
 const JUNK=/Products by|Weapons$|^(Armors|Boots|Helmets|Legs|Rings|Shields|Backpacks|Wands|Rods|Quivers|Spellbooks|Amulets and Necklaces)$/;
 const SEED=[['Crown Helmet','Helmet'],['Falcon Circlet','Helmet'],['Gnome Helmet','Helmet'],['Dragon Scale Mail','Armor'],['Falcon Plate','Armor'],['Gnome Armor','Armor'],['Magic Plate Armor','Armor'],['Crown Legs','Legs'],['Falcon Greaves','Legs'],['Gnome Legs','Legs'],['Boots of Haste','Boots'],['Pair of Soft Boots','Boots'],['Prismatic Boots','Boots'],['Prismatic Necklace','Amulet'],['Amulet of Loss','Amulet'],['Stone Skin Amulet','Amulet'],['Prismatic Ring','Ring'],['Ring of Healing','Ring'],['Might Ring','Ring'],['Sword Ring','Ring'],['Falcon Longsword','Weapon'],['Falcon Battleaxe','Weapon'],['Falcon Bow','Weapon'],['Falcon Mace','Weapon'],['Mastermind Shield','Shield/Livro'],['Falcon Shield','Shield/Livro'],['Backpack of Holding','Backpack']].map(a=>({n:a[0],s:a[1],p:'',m:'Gold',img:''}));
 function fresh(){return{tab:'chars',chars:BASE.map((b,i)=>({n:b[0],v:b[1],l:b[2],w:b[3],a:ACC[i],meta:'',hunt:'',gear:{},wheel:'',prof:'',charms:'',notes:''})),lists:JSON.parse(JSON.stringify(EMPTY)),rc:{Lunarian:0,Elysian:0},hist:[]}}
-function mig(x){x.items=x.items||JSON.parse(JSON.stringify(SEED));x.items=x.items.filter(t=>t.f||t.img||t.p||!JUNK.test(t.n));if(window.CATALOG){const m=new Map(x.items.map(t=>[t.n.toLowerCase(),t]));CATALOG.forEach(c=>{if(JUNK.test(c.n)&&!c.f)return;const t=m.get(c.n.toLowerCase());if(t){t.f=t.f||c.f;t.lvl=c.l;t.arm=c.a}else x.items.push({n:c.n,s:c.s,p:'',m:'Gold',img:'',f:c.f,lvl:c.l,arm:c.a})})}x.sv=x.sv||{items:[{id:'lp',n:'Loot Pouch',rc:390}],own:{}};x.f=x.f||{w:'',c:''};x.chars.forEach(c=>{c.gear=c.gear||{};for(const s in c.eq||{})if(c.eq[s]&&!c.gear[s])c.gear[s]=[c.eq[s]]});return x}
+function mig(x){x.items=x.items||JSON.parse(JSON.stringify(SEED));x.items=x.items.filter(t=>t.f||t.img||t.p||!JUNK.test(t.n));if(window.CATALOG){const m=new Map(x.items.map(t=>[t.n.toLowerCase(),t]));CATALOG.forEach(c=>{if(JUNK.test(c.n)&&!c.f)return;const t=m.get(c.n.toLowerCase());if(t){t.f=t.f||c.f;t.lvl=c.l;t.arm=c.a;t.ak=c.ak;t.df=c.df;t.im=c.im;t.at=c.at;t.rs=c.rs;t.vo=c.vo}else x.items.push({n:c.n,s:c.s,p:'',m:'Gold',img:'',f:c.f,lvl:c.l,arm:c.a,ak:c.ak,df:c.df,im:c.im,at:c.at,rs:c.rs,vo:c.vo})})}x.sv=x.sv||{items:[{id:'lp',n:'Loot Pouch',rc:390}],own:{}};x.f=x.f||{w:'',c:''};
+x.cdef=x.cdef||SEEDCH.map(n=>({n,c:['','',''],t:''}));
+if(window.CHARMS)CHARMS.forEach(m=>{let h=x.cdef.find(q=>q.n.toLowerCase()===m.n.toLowerCase());if(!h){h={n:m.n,c:['','',''],t:''};x.cdef.push(h)}if(!h.t)h.t=m.t||'';m.c.forEach((v,i)=>{if(h.c[i]===''||h.c[i]==null)h.c[i]=v})});
+x.diff=x.diff||{};DL.forEach(d=>{x.diff[d]=x.diff[d]||{k:['','',''],p:''};const b=window.BEST&&BEST.diff&&BEST.diff[d];if(b){(b.k||[]).forEach((v,i)=>{if(x.diff[d].k[i]==='')x.diff[d].k[i]=v});if(x.diff[d].p==='')x.diff[d].p=b.p}});
+x.cc=x.cc||0;
+(x.lists.arsenal||[]).forEach(r=>{if(r.sell===undefined){const g=k=>{const m=String(r.o||'').match(new RegExp(k+' offer:\\s*([\\d.,]+\\s*(?:kk|k)?)','i'));return m?pnum(m[1]):''};r.buy=g('buy');r.sell=g('sell');r.p=r.p===''||r.p==null?'':pnum(r.p)}});x.chars.forEach(c=>{c.gear=c.gear||{};for(const s in c.eq||{})if(c.eq[s]&&!c.gear[s])c.gear[s]=[c.eq[s]]});return x}
 let S;try{S=JSON.parse(localStorage.getItem('rubin_db'))}catch(e){}
 S=mig(S&&S.chars?S:fresh());
 function save(){try{localStorage.setItem('rubin_db',JSON.stringify(S))}catch(e){}}
@@ -134,12 +149,57 @@ const pend=S.chars.map(c=>{const rc=sv.items.filter(t=>!sv.own[t.id+'|'+c.n]).re
 return`<h2>Itens do servidor</h2><p class="hint">Itens comprados com Rubini Coins, por personagem (ex.: Loot Pouch). Marque o que cada personagem já tem. O restante é convertido em gold pelo preço da RC do mundo dele.</p><div class="bar"><button class="b" data-addsv>+ Item</button></div>
 <div class="wrap"><table><thead><tr><th>Item</th><th>RC</th><th>Gold Lunarian</th><th>Gold Elysian</th>${S.chars.map(c=>`<th>${esc(c.n)}<br>${c.w}</th>`).join('')}<th></th></tr></thead><tbody>${sv.items.map((t,i)=>`<tr><td><input data-sv="${i}" data-f="n" value="${esc(t.n)}"></td><td><input type="number" data-sv="${i}" data-f="rc" value="${t.rc}"></td><td>${g(t.rc,'Lunarian')}</td><td>${g(t.rc,'Elysian')}</td>${S.chars.map(c=>`<td style="text-align:center"><input type="checkbox" data-own="${t.id}|${esc(c.n)}" ${sv.own[t.id+'|'+c.n]?'checked':''}></td>`).join('')}<td><button class="b x" data-delsv="${i}">✕</button></td></tr>`).join('')}</tbody></table></div>
 <h3>Custo pendente</h3><div class="strip" style="flex-direction:column;align-items:flex-start">${pend}</div>`}
-const TABS=[['chars','Personagens'],['arsenal','Arsenal'],['itens','Itens'],['servidor','Itens do servidor'],['hunts','Hunts'],['bestiario','Bestiário'],['bosstiary','Bosstiary'],['compras','Metas'],['coins','Rubini Coins']];
+const TABS=[['chars','Personagens'],['arsenal','Arsenal'],['itens','Itens'],['servidor','Itens do servidor'],['hunts','Hunts'],['charms','Charms'],['best','Bestiário'],['bosstiary','Bosstiary'],['compras','Metas'],['coins','Rubini Coins']];
 function conv(){const v=+document.getElementById('cr')?.value||0;const a=document.getElementById('o1');if(a){a.value=fmt(v*S.rc.Lunarian);document.getElementById('o2').value=fmt(v*S.rc.Elysian)}}
 function render(){document.getElementById('nav').innerHTML=TABS.map(([k,t])=>`<button class="${S.tab===k?'on':''}" data-tab="${k}">${t}</button>`).join('');
 document.getElementById('dl').innerHTML=S.items.map(t=>`<option value="${esc(t.n)}">`).join('');
-const T=S.tab;document.getElementById('m').innerHTML=T==='chars'?charsView():T==='coins'?coinsView():T==='itens'?itemsView():T==='servidor'?svView():listView(T);conv();save()}
+const T=S.tab;document.getElementById('m').innerHTML=T==='chars'?charsView():T==='coins'?coinsView():T==='itens'?itemsView():T==='arsenal'?arsenalView():T==='servidor'?svView():T==='charms'?charmsView():T==='best'?bestView():listView(T);conv();save()}
 let P={};
+const IC={Helmet:'🪖',Armor:'🥋',Legs:'👖',Boots:'🥾',Amulet:'📿',Ring:'💍',Weapon:'⚔️','Shield/Livro':'🛡️',Backpack:'🎒',Utility:'🧰',Trinket:'🔮'};
+const STL={Comprar:'🔴 Comprar',Tenho:'✅ Tenho',Vendido:'⚪ Vendido'};
+const kk=n=>{n=+n||0;return n>=1e6?(n/1e6).toLocaleString('pt-BR',{maximumFractionDigits:2})+'kk':n>=1e3?(n/1e3).toLocaleString('pt-BR',{maximumFractionDigits:1})+'k':String(n)};
+function pnum(v){v=String(v==null?'':v).trim().toLowerCase();if(!v)return'';const m=v.match(/^([\d.,]+)\s*(kk|k)?$/);if(!m)return'';const n=m[2]?parseFloat(m[1].replace(',','.'))*(m[2]==='kk'?1e6:1e3):parseInt(m[1].replace(/[.,]/g,''),10);return Math.round(n)||''}
+function ainfo(n){const t=S.items.find(x=>x.n.toLowerCase()===String(n||'').toLowerCase());if(!t)return['',''];const a=[t.lvl?`Lv ${t.lvl}`:'',t.arm?`Arm ${t.arm}`:'',t.ak?`Atk ${t.ak}`:'',t.df?`Def ${t.df}`:'',t.im?`${t.im} imb`:'',t.at||'',t.rs||''].filter(Boolean);return[a.join(' · '),[t.n,t.vo?`Vocação: ${t.vo}`:'',...a].filter(Boolean).join('\n')]}
+function arBase(){return S.lists.arsenal.map((r,i)=>[r,i]).filter(([r])=>S.ac==='__none'?!S.chars.some(c=>c.n===r.c):r.c===S.ac)}
+function arSum(){const b=arBase(),cp=b.filter(([r])=>r.st==='Comprar'),w=(S.chars.find(c=>c.n===S.ac)||{}).w||'Lunarian',g=cp.reduce((a,[r])=>a+(r.m==='RC'?(+r.p||0)*(+S.rc[w]||0):(+r.p||0)),0);
+return`<span class="sum" style="border-left-color:var(--bad)">🔴 <b>${cp.length}</b> para comprar · <b>${kk(g)}</b> gold${+S.rc[w]?` · ≈ ${fmt(g/S.rc[w])} RC`:''}</span><span class="sum" style="border-left-color:var(--ok)">✅ <b>${b.filter(([r])=>r.st==='Tenho').length}</b> já tenho</span>`}
+function arsenalView(){const ws=['Lunarian','Elysian'];S.aw=S.aw||'Lunarian';const cs=S.chars.filter(c=>c.w===S.aw);
+const none=S.lists.arsenal.filter(r=>!S.chars.some(c=>c.n===r.c)).length;
+if(S.ac!=='__none'&&!cs.some(c=>c.n===S.ac))S.ac=(cs[0]||{}).n||'';
+const base=arBase(),cnt=s=>{const x=base.filter(([r])=>r.s===s);return[x.filter(([r])=>r.st==='Comprar').length,x.filter(([r])=>r.st==='Tenho').length]};
+const wc=w=>S.lists.arsenal.filter(r=>r.st==='Comprar'&&(S.chars.find(c=>c.n===r.c)||{}).w===w).length;
+const ord={Comprar:0,Tenho:1,Vendido:2},pr=r=>+r.p||0;
+const rows=base.filter(([r])=>!S.ak||r.s===S.ak);
+rows.sort((a,b)=>(ord[a[0].st]??1)-(ord[b[0].st]??1)||(S.as==='asc'?pr(a[0])-pr(b[0]):S.as==='desc'?pr(b[0])-pr(a[0]):S.as==='nome'?String(a[0].n).localeCompare(String(b[0].n)):0));
+const bd=(c,t)=>(c?`<span class="bc">${c}</span>`:'')+(t?`<span class="bt">${t}</span>`:'');
+const pc=(r,i,f)=>`<input data-pf="${i}|${f}" value="${r[f]===''||r[f]==null?'':fmt(+r[f])}" placeholder="ex.: 4,4kk"><div class="nm">${r[f]&&(f!=='p'||r.m!=='RC')?kk(r[f]):''}</div>`;
+return`<h2>Arsenal</h2><p class="hint">Escolha o servidor e o personagem. Itens para <b>comprar</b> ficam sempre no topo (vermelho) e os que você <b>já tem</b> em verde. Passe o mouse num item para ver os atributos. Nos preços você pode digitar 4,4kk, 4400000 ou 4.400.000.</p>
+<div class="chips">${ws.map(w=>`<button class="b ${w===S.aw?'on':''}" data-aw="${w}">${w}${wc(w)?`<span class="bc">${wc(w)}</span>`:''}</button>`).join('')}</div>
+<div class="chips">${cs.map(c=>`<button class="b ${c.n===S.ac?'on':''}" data-ac="${esc(c.n)}">${esc(c.n)} <small>${esc(c.v)} · ${c.l}</small></button>`).join('')}${none?`<button class="b ${S.ac==='__none'?'on':''}" data-ac="__none">⚠ Sem personagem <span class="bc">${none}</span></button>`:''}</div>
+<div class="chips"><button class="b ${!S.ak?'on':''}" data-ak="">Todos</button>${SL.map(s=>{const[c,t]=cnt(s);return`<button class="b ${S.ak===s?'on':''}" data-ak="${s}">${IC[s]||''} ${s} ${bd(c,t)}</button>`}).join('')}</div>
+<div class="bar"><button class="b" data-addar>+ Adicionar item</button><select data-as style="max-width:210px"><option value="">Ordem: manual</option><option value="asc" ${S.as==='asc'?'selected':''}>Preço: menor → maior</option><option value="desc" ${S.as==='desc'?'selected':''}>Preço: maior → menor</option><option value="nome" ${S.as==='nome'?'selected':''}>Nome A–Z</option></select><div id="tot" class="bar" style="margin:0">${arSum()}</div></div>
+<div class="wrap"><table style="min-width:1050px"><thead><tr><th></th><th>Item</th><th>Slot</th><th>Status</th><th>Moeda</th><th>Preço</th><th>Sell Offer</th><th>Buy Offer</th><th>Obs.</th><th></th></tr></thead><tbody>${rows.map(([r,i])=>{const[inf,tip]=ainfo(r.n),a=`data-k="arsenal" data-i="${i}"`;
+return`<tr class="${r.st==='Comprar'?'sc':r.st==='Tenho'?'stn':''}" data-k="arsenal" data-i="${i}" title="${esc(tip)}"><td class="h" draggable="true">⠿</td><td><div style="display:flex;gap:6px;align-items:center">${img(r.n)}<div style="flex:1"><input ${a} data-f="n" list="dl" value="${esc(r.n)}"><div class="nm">${esc(inf)}</div></div></div></td><td><div style="display:flex;gap:4px;align-items:center"><span>${IC[r.s]||''}</span><select ${a} data-f="s"><option value=""></option>${SL.map(x=>`<option ${x===r.s?'selected':''}>${x}</option>`).join('')}</select></div></td><td><select ${a} data-f="st">${ST.map(x=>`<option value="${x}" ${x===r.st?'selected':''}>${STL[x]}</option>`).join('')}</select></td><td><select ${a} data-f="m">${['Gold','RC'].map(x=>`<option ${x===r.m?'selected':''}>${x}</option>`).join('')}</select></td><td>${pc(r,i,'p')}</td><td>${pc(r,i,'sell')}</td><td>${pc(r,i,'buy')}</td><td><input ${a} data-f="o" value="${esc(r.o)}"></td><td><button class="b x" data-delar="${i}" aria-label="Remover">✕</button></td></tr>`}).join('')||`<tr><td colspan="10" class="hint">Nenhum item aqui. Clique em “+ Adicionar item”.</td></tr>`}</tbody></table></div>`}
+function stage(k,d){const D=S.diff[d];return D?D.k.filter(x=>+x&&k>=+x).length:0}
+function pts(c){let e=0;(window.BEST?BEST.creatures:[]).forEach(b=>{const D=S.diff[b.d];if(D&&+D.k[2]&&(+(c.bk||{})[b.n]||0)>=+D.k[2])e+=+D.p||0});let sp=0,nd=0;S.cdef.forEach(h=>{const l=+(c.cl||{})[h.n]||0,g=Math.max(l,+(c.cg||{})[h.n]||0);h.c.forEach((v,i)=>{if(i<l)sp+=+v||0;else if(i<g)nd+=+v||0})});return{e,sp,nd,av:e+(+c.cx||0)-sp}}
+function setcf(t){const[k,key,sub]=t.dataset.cf.split('|'),c=S.chars[S.cc||0],v=t.value;
+if(k==='cl'){c.cl=c.cl||{};c.cl[key]=+v}else if(k==='cg'){c.cg=c.cg||{};c.cg[key]=+v}
+else if(k==='cost')S.cdef.find(h=>h.n===key).c[+sub]=v;
+else if(k==='bk'){c.bk=c.bk||{};c.bk[key]=v}else if(k==='cx')c.cx=v;
+else if(k==='dk')S.diff[key].k[+sub]=v;else if(k==='dp')S.diff[key].p=v}
+function chSel(){return`<div class="bar"><div><label>Personagem</label><select data-cc>${S.chars.map((c,i)=>`<option value="${i}" ${i==(S.cc||0)?'selected':''}>${esc(c.n)} · ${c.w}</option>`).join('')}</select></div></div>`}
+function sumBar(c){const p=pts(c);return`<div class="bar"><span class="sum">Ganhos (bestiário): <b>${fmt(p.e)}</b></span><span class="sum">Ajuste manual: <input type="number" data-cf="cx||" value="${esc(c.cx||'')}" style="width:90px"></span><span class="sum">Gastos: <b>${fmt(p.sp)}</b></span><span class="sum">Disponíveis: <b>${fmt(p.av)}</b></span><span class="sum">Faltam p/ as metas: <b>${fmt(Math.max(0,p.nd-p.av))}</b></span></div>`}
+function charmsView(){const c=S.chars[S.cc||0];if(!c)return'';c.cl=c.cl||{};c.cg=c.cg||{};
+const lv=(k,n,v)=>`<select data-cf="${k}|${esc(n)}|">${[0,1,2,3].map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('')}</select>`;
+return`<h2>Charms</h2><p class="hint">Defina o nível atual e a meta de cada charm. Os pontos ganhos vêm das criaturas completas no Bestiário (use o ajuste manual para corrigir). Os custos são editáveis e valem para todos os personagens.</p>${chSel()}${sumBar(c)}
+<div class="wrap"><table style="min-width:900px"><thead><tr><th>Charm</th><th>Efeito</th><th>Nível</th><th>Meta</th><th>Custo N1</th><th>N2</th><th>N3</th><th>Falta</th></tr></thead><tbody>${S.cdef.map(h=>{const l=+c.cl[h.n]||0,g=Math.max(l,+c.cg[h.n]||0),need=h.c.reduce((a,v,i)=>a+(i>=l&&i<g?+v||0:0),0);return`<tr><td><b>${esc(h.n)}</b></td><td class="nm" style="max-width:260px">${esc(h.t)}</td><td>${lv('cl',h.n,l)}</td><td>${lv('cg',h.n,g)}</td>${h.c.map((v,i)=>`<td><input type="number" style="width:84px" data-cf="cost|${esc(h.n)}|${i}" value="${esc(v)}"></td>`).join('')}<td>${need?fmt(need):'—'}</td></tr>`}).join('')}</tbody></table></div>`}
+function bestView(){const c=S.chars[S.cc||0],B=window.BEST;if(!c)return'';c.bk=c.bk||{};
+if(!B)return`<h2>Bestiário</h2><p class="hint">As criaturas ainda não foram carregadas. Rode o coletar_charms.py (veja as instruções) e atualize a página.</p>`;
+const q=(S.bq||'').toLowerCase(),rows=B.creatures.filter(b=>(!q||b.n.toLowerCase().includes(q))&&(!S.bd||b.d===S.bd)&&(!S.bo||stage(+c.bk[b.n]||0,b.d)<3));
+return`<h2>Bestiário</h2><p class="hint">Digite as kills de cada criatura. Ao completar, os charm points entram nos ganhos da aba Charms. Confira a tabela de dificuldades abaixo (editável).</p>${chSel()}${sumBar(c)}
+<div class="wrap"><table style="min-width:520px"><thead><tr><th>Dificuldade</th><th>Kills est. 1</th><th>Est. 2</th><th>Completo</th><th>Pontos</th></tr></thead><tbody>${DL.map(d=>`<tr><td>${d}</td>${S.diff[d].k.map((v,i)=>`<td><input type="number" style="width:90px" data-cf="dk|${d}|${i}" value="${esc(v)}"></td>`).join('')}<td><input type="number" style="width:90px" data-cf="dp|${d}|" value="${esc(S.diff[d].p)}"></td></tr>`).join('')}</tbody></table></div>
+<div class="bar" style="margin-top:12px"><input id="bq" placeholder="Buscar criatura…" value="${esc(S.bq||'')}" style="max-width:220px"><select id="bd" style="max-width:200px"><option value="">Todas as dificuldades</option>${DL.map(d=>`<option ${S.bd===d?'selected':''}>${d}</option>`).join('')}</select><label style="display:flex;gap:4px;align-items:center"><input type="checkbox" id="bo" ${S.bo?'checked':''}> só incompletas</label><span class="hint" style="margin:0">${rows.length} criaturas (mostrando até 120)</span></div>
+<div class="wrap"><table><thead><tr><th></th><th>Criatura</th><th>Classe</th><th>Dific.</th><th>Kills</th><th>Estágio</th></tr></thead><tbody>${rows.slice(0,120).map(b=>`<tr><td>${b.f?`<img class="th" loading="lazy" src="img/creatures/${esc(b.f)}" alt="">`:''}</td><td>${esc(b.n)}</td><td>${esc(b.cl)}</td><td>${b.d}</td><td><input type="number" style="width:90px" data-cf="bk|${esc(b.n)}|" value="${esc(c.bk[b.n])}"></td><td>${stage(+c.bk[b.n]||0,b.d)}/3</td></tr>`).join('')}</tbody></table></div>`}
 function G(c){if(!c.sets)c.sets=[0,1,2].map(i=>({n:`${i+1}ª opção`,gear:i?{}:(c.gear||{})}));return c.sets[c.si||0].gear}
 function missing(c,j){G(c);const own=new Set(S.lists.arsenal.filter(r=>r.c===c.n&&r.st==='Tenho').map(r=>String(r.n).toLowerCase()));return[...new Set(Object.values(c.sets[j].gear).flat().filter(Boolean))].filter(n=>!own.has(n.toLowerCase())).map(n=>S.items.find(x=>x.n.toLowerCase()===n.toLowerCase())||{n,s:'',p:'',m:'Gold'})}
 function cost(c,l){return l.reduce((a,t)=>a+(t.m==='RC'?(+t.p||0)*(+S.rc[c.w]||0):(+t.p||0)),0)}
@@ -158,8 +218,9 @@ const e=document.getElementById('pq');e.focus();e.setSelectionRange(q.length,q.l
 function up(i,f){if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=64;c.getContext('2d').drawImage(im,0,0,64,64);S.items[i].img=c.toDataURL('image/png');render()};im.src=r.result};r.readAsDataURL(f)}
 document.addEventListener('input',e=>{const t=e.target,d=t.dataset;
 if(t.id==='pq'){drawPick(t.value);return}
+if(t.id==='bq'){S.bq=t.value;render();const q=document.getElementById('bq');q.focus();q.setSelectionRange(q.value.length,q.value.length);return}
 if(t.id==='iq'){S.iq=t.value;render();const q=document.getElementById('iq');q.focus();q.setSelectionRange(q.value.length,q.value.length);return}
-if(d.k&&d.f!==undefined){S.lists[d.k][d.i][d.f]=t.type==='checkbox'?t.checked:t.value;if(d.k==='arsenal')document.getElementById('tot').innerHTML=total()}
+if(d.k&&d.f!==undefined){S.lists[d.k][d.i][d.f]=t.type==='checkbox'?t.checked:t.value;if(d.k==='arsenal'&&document.getElementById('tot'))document.getElementById('tot').innerHTML=arSum()}
 else if(d.setn!==undefined){const c=S.chars[d.setn];G(c);c.sets[c.si||0].n=t.value}
 else if(d.ch!==undefined)S.chars[d.ch][d.f]=t.value;
 else if(d.rc){S.rc[d.rc]=t.value;conv()}
@@ -171,6 +232,12 @@ else if(t.id==='cr')conv();
 save()});
 document.addEventListener('change',e=>{const t=e.target,d=t.dataset;
 if(t.id==='is'){S.is=t.value;render();return}
+if(t.id==='bd'){S.bd=t.value;render();return}
+if(d.as!==undefined){S.as=t.value;render();return}
+if(d.pf){const[i,f]=d.pf.split('|');S.lists.arsenal[i][f]=pnum(t.value);render();return}
+if(t.id==='bo'){S.bo=t.checked;render();return}
+if(d.cc!==undefined){S.cc=+t.value;render();return}
+if(d.cf){setcf(t);render();return}
 if(t.id==='pa'){P.all=t.checked;drawPick(document.getElementById('pq').value);return}
 if(d.up!==undefined){up(+d.up,t.files[0]);return}
 if(d.flt){S.f[d.flt]=t.value;if(d.flt==='w')S.f.c='';render();return}
@@ -182,6 +249,8 @@ if(p){const[i,s,x]=p.dataset.pick.split('|');P={i:+i,s,x:+x,all:false};drawPick(
 if(pi){const g=G(S.chars[P.i]);g[P.s]=g[P.s]||[];while(g[P.s].length<P.x)g[P.s].push('');g[P.s][P.x]=pi.dataset.pi;closeP();render();return}
 if(d.pc!==undefined||t.id==='md'){closeP();return}
 if(d.pr!==undefined){const g=G(S.chars[P.i])[P.s]||[];g.splice(P.x,1);closeP();render();return}
+const bb=t.closest('[data-aw],[data-ac],[data-ak],[data-addar],[data-delar]');
+if(bb){const x=bb.dataset;if(x.aw){S.aw=x.aw;S.ac=''}else if(x.ac!==undefined)S.ac=x.ac;else if(x.ak!==undefined)S.ak=x.ak;else if(x.addar!==undefined)S.lists.arsenal.unshift({n:'',s:S.ak||'',c:S.ac==='__none'?'':S.ac,st:'Comprar',m:'Gold',p:'',sell:'',buy:'',o:''});else if(x.delar!==undefined)S.lists.arsenal.splice(+x.delar,1);render();return}
 const ss=t.closest('[data-set]');
 if(ss){const[i,j]=ss.dataset.set.split('|');S.chars[i].si=+j;render();return}
 if(d.use!==undefined){const c=S.chars[d.use];c.use=c.si||0;render();return}

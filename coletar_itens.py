@@ -82,7 +82,8 @@ def stats(titulos):
             t = p.get('revisions', [{}])[0].get('slots', {}).get('main', {}).get('*', '')
             lv = re.search(r'\|\s*levelrequired\s*=\s*(\d+)', t, re.I)
             ar = re.search(r'\|\s*arm\s*=\s*(\d+)', t, re.I)
-            res[p['title']] = (int(lv.group(1)) if lv else None, int(ar.group(1)) if ar else None)
+            g = lambda k: re.sub(r'\[\[|\]\]|<[^>]*>', '', (re.search(r'\|\s*' + k + r'\s*=\s*([^\n|]*)', t, re.I) or [0, ''])[1]).strip()
+            res[p['title']] = {'l': int(lv.group(1)) if lv else None, 'a': int(ar.group(1)) if ar else None, 'ak': g('attack'), 'df': g('defense'), 'im': g('imbueslots'), 'at': g('attrib'), 'rs': g('resist'), 'vo': g('vocrequired')}
     return res
 
 def urls_imagens(nomes):
@@ -182,7 +183,11 @@ def baixar(n):
 
 with ThreadPoolExecutor(6) as ex:
     arqs = list(ex.map(baixar, nomes))
-cat = [{'n': n, 's': itens[n], 'f': f, 'l': st.get(n, (None, None))[0], 'a': st.get(n, (None, None))[1]} for n, f in zip(nomes, arqs) if f or not JUNK.search(n)]
+cat = []
+for n, f in zip(nomes, arqs):
+    if not f and JUNK.search(n): continue
+    x = st.get(n, {})
+    cat.append({'n': n, 's': itens[n], 'f': f, 'l': x.get('l'), 'a': x.get('a'), 'ak': x.get('ak', ''), 'df': x.get('df', ''), 'im': x.get('im', ''), 'at': x.get('at', ''), 'rs': x.get('rs', ''), 'vo': x.get('vo', '')})
 os.makedirs(os.path.join(AQUI, 'data'), exist_ok=True)
 open(os.path.join(AQUI, 'data', 'items.js'), 'w', encoding='utf-8').write('window.CATALOG=' + json.dumps(cat, ensure_ascii=False) + ';')
 sem = [c['n'] for c in cat if not c['f']]
