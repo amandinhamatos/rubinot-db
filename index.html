@@ -74,6 +74,18 @@ tr.maj td:first-child{box-shadow:inset 4px 0 0 #d9534f}tr.min td:first-child{box
 .tg{background:var(--pn2);border:1px solid var(--ln);border-radius:6px;padding:0 8px;font-size:12px;color:var(--tx);white-space:nowrap}
 .tg.vb{background:var(--vc,var(--ln));color:#fff;border-color:transparent;font-family:'Bebas Neue','Impact',sans-serif;font-size:15px;letter-spacing:1px;margin-left:0;padding:0 10px}
 .w-Lunarian{border-color:#5b8def;color:#9db9f7}.w-Elysian{border-color:#c77dd6;color:#e0a8ea}
+.trk{background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:10px;margin:0 0 12px}
+.flow{display:flex;align-items:stretch;gap:8px;overflow-x:auto;padding:6px 2px}
+.stg{display:flex;flex-direction:column;gap:4px;border:1px dashed var(--ln);border-radius:10px;padding:6px}.stg.dn{border-color:var(--ok)}
+.alts{display:flex;align-items:center;gap:4px}
+.pit{width:124px;background:var(--bg);border:1px solid var(--ln);border-radius:8px;padding:6px;text-align:center}
+.pit.own{border-color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok);background:#6fcf9714}
+.pit.off{opacity:.35;filter:grayscale(1)}.pit.nx{border-color:var(--bad);box-shadow:0 0 10px #eb6b6b66}
+.pit input{width:100%;font-size:12px;text-align:center}.pb{display:flex;gap:4px;justify-content:center;margin-top:4px}.pb .b{padding:0 8px}
+.ar,.sl{align-self:center;color:var(--ac);font-weight:bold;font-size:20px}
+.smv{display:flex;gap:4px;justify-content:center}.smv .b{padding:0 6px;font-size:11px}
+.tg.tl{font-family:'Bebas Neue','Impact',sans-serif;font-size:19px;letter-spacing:1px;background:var(--ac);color:#1a1405;border-color:var(--ac);padding:0 12px}
+.card h3.chh input{flex:1;min-width:0;font-size:20px;font-weight:bold}
 </style></head><body>
 <header><h1>RubinOT · Meu Database</h1>
 <div class="bar" style="margin:0">
@@ -82,7 +94,7 @@ tr.maj td:first-child{box-shadow:inset 4px 0 0 #d9534f}tr.min td:first-child{box
 <button class="b x" id="rs">Resetar tudo</button>
 <input type="file" id="fi" accept=".json" hidden></div></header>
 <nav id="nav"></nav><main id="m"></main>
-<div id="md"><div class="bx" id="mb"></div></div><datalist id="dl"></datalist>
+<div id="md"><div class="bx" id="mb"></div></div><datalist id="dl"></datalist><datalist id="dc"></datalist>
 <script src="data/items.js"></script>
 <script src="data/charms.js"></script>
 <script>
@@ -114,8 +126,9 @@ x.cdef=x.cdef||SEEDCH.map(n=>({n,c:['','',''],t:''}));
 if(window.CHARMS)CHARMS.forEach(m=>{let h=x.cdef.find(q=>q.n.toLowerCase()===m.n.toLowerCase());if(!h){h={n:m.n,c:['','',''],t:''};x.cdef.push(h)}if(!h.t)h.t=m.t||'';h.f=m.f||h.f;m.c.forEach((v,i)=>{if(h.c[i]===''||h.c[i]==null)h.c[i]=v})});
 x.diff=x.diff||{};DL.forEach(d=>{x.diff[d]=x.diff[d]||{k:['','',''],p:''};const b=window.BEST&&BEST.diff&&BEST.diff[d];if(b){(b.k||[]).forEach((v,i)=>{if(x.diff[d].k[i]==='')x.diff[d].k[i]=v});if(x.diff[d].p==='')x.diff[d].p=b.p}});
 x.cc=x.cc||0;
+x.hunts=x.hunts||(x.lists.hunts||[]).map(r=>({n:r.n||'',v:'Todas',l1:r.l||'',l2:'',g:'Solo ou Grupo',f:'Ambos',el:[],ru:r.r||'',cr:[],gear:{},o:[r.e,r.ch,r.o].filter(Boolean).join(' · ')}));
 x.diffv=x.diffv||{};DL.forEach(d=>{x.diffv[d]=x.diffv[d]||{k:['','',''],p:''};const b=window.BEST&&BEST.diffv&&BEST.diffv[d];if(b){(b.k||[]).forEach((v,i)=>{if(x.diffv[d].k[i]==='')x.diffv[d].k[i]=v});if(x.diffv[d].p==='')x.diffv[d].p=b.p}});
-(x.lists.arsenal||[]).forEach(r=>{r.st=r.st||'Tenho';r.m=r.m||'Gold';if(r.sell===undefined){const g=k=>{const m=String(r.o||'').match(new RegExp(k+' offer:\\s*([\\d.,]+\\s*(?:kk|k)?)','i'));return m?pnum(m[1]):''};r.buy=g('buy');r.sell=g('sell');r.p=r.p===''||r.p==null?'':pnum(r.p)}});x.chars.forEach(c=>{c.gear=c.gear||{};for(const s in c.eq||{})if(c.eq[s]&&!c.gear[s])c.gear[s]=[c.eq[s]]});return x}
+(x.lists.arsenal||[]).forEach(r=>{r.st=r.st||'Tenho';r.m=r.m||'Gold';if(r.sell===undefined){const g=k=>{const m=String(r.o||'').match(new RegExp(k+' offer:\\s*([\\d.,]+\\s*(?:kk|k)?)','i'));return m?pnum(m[1]):''};r.buy=g('buy');r.sell=g('sell');r.p=r.p===''||r.p==null?'':pnum(r.p)}});x.chars.forEach(c=>{c.prog=c.prog||[];c.gear=c.gear||{};for(const s in c.eq||{})if(c.eq[s]&&!c.gear[s])c.gear[s]=[c.eq[s]]});return x}
 let S;try{S=JSON.parse(localStorage.getItem('rubin_db'))}catch(e){}
 S=mig(S&&S.chars?S:fresh());
 function save(){try{localStorage.setItem('rubin_db',JSON.stringify(S))}catch(e){}}
@@ -170,13 +183,57 @@ const pend=S.chars.map(c=>{const rc=sv.items.filter(t=>!sv.own[t.id+'|'+c.n]).re
 return`<h2>Itens do servidor</h2><p class="hint">Itens comprados com Rubini Coins, por personagem (ex.: Loot Pouch). Marque o que cada personagem já tem. O restante é convertido em gold pelo preço da RC do mundo dele.</p><div class="bar"><button class="b" data-addsv>+ Item</button></div>
 <div class="wrap"><table><thead><tr><th>Item</th><th>RC</th><th>Gold Lunarian</th><th>Gold Elysian</th>${S.chars.map(c=>`<th>${esc(c.n)}<br>${c.w}</th>`).join('')}<th></th></tr></thead><tbody>${sv.items.map((t,i)=>`<tr><td><input data-sv="${i}" data-f="n" value="${esc(t.n)}"></td><td><input type="number" data-sv="${i}" data-f="rc" value="${t.rc}"></td><td>${g(t.rc,'Lunarian')}</td><td>${g(t.rc,'Elysian')}</td>${S.chars.map(c=>`<td style="text-align:center"><input type="checkbox" data-own="${t.id}|${esc(c.n)}" ${sv.own[t.id+'|'+c.n]?'checked':''}></td>`).join('')}<td><button class="b x" data-delsv="${i}">✕</button></td></tr>`).join('')}</tbody></table></div>
 <h3>Custo pendente</h3><div class="strip" style="flex-direction:column;align-items:flex-start">${pend}</div>`}
-const TABS=[['chars','Personagens'],['arsenal','Arsenal'],['itens','Itens'],['servidor','Itens do servidor'],['hunts','Hunts'],['charms','Charms'],['best','Bestiário'],['bosstiary','Bosstiary'],['compras','Metas'],['coins','Rubini Coins']];
+const TABS=[['chars','Personagens'],['arsenal','Arsenal'],['prog','Progressão'],['itens','Itens'],['servidor','Itens do servidor'],['hunts','Hunts'],['charms','Charms'],['best','Bestiário'],['bosstiary','Bosstiary'],['compras','Metas'],['coins','Rubini Coins']];
 function conv(){const v=+document.getElementById('cr')?.value||0;const a=document.getElementById('o1');if(a){a.value=fmt(v*S.rc.Lunarian);document.getElementById('o2').value=fmt(v*S.rc.Elysian)}}
 function render(){document.getElementById('nav').innerHTML=TABS.map(([k,t])=>`<button class="${S.tab===k?'on':''}" data-tab="${k}">${t}</button>`).join('');
-document.getElementById('dl').innerHTML=S.items.map(t=>`<option value="${esc(t.n)}">`).join('');
+document.getElementById('dc').innerHTML=(window.BEST?BEST.creatures:[]).map(b=>`<option value="${esc(b.n)}">`).join('');document.getElementById('dl').innerHTML=S.items.map(t=>`<option value="${esc(t.n)}">`).join('');
 {const d=S.lb?Math.floor((Date.now()-S.lb)/864e5):null;document.getElementById('bk').innerHTML=d===null?'<span style="color:var(--bad)">⚠ nenhum backup feito</span>':d>=7?`<span style="color:var(--bad)">⚠ último backup há ${d} dias</span>`:`<span style="color:var(--ok)">✅ backup há ${d} dia(s)</span>`}
-const T=S.tab;document.getElementById('m').innerHTML=T==='chars'?charsView():T==='coins'?coinsView():T==='itens'?itemsView():T==='arsenal'?arsenalView():T==='servidor'?svView():T==='charms'?charmsView():T==='best'?bestView():listView(T);conv();save()}
+const T=S.tab;document.getElementById('m').innerHTML=T==='chars'?charsView():T==='coins'?coinsView():T==='itens'?itemsView():T==='arsenal'?arsenalView():T==='prog'?progView():T==='hunts'?huntsView():T==='servidor'?svView():T==='charms'?charmsView():T==='best'?bestView():listView(T);conv();save()}
 let P={};
+const curChar=()=>S.chars.find(c=>c.n===S.ac)||{prog:[]};
+const PLS={Helmet:'Helmet',Armor:'Armor',Legs:'Legs',Boots:'Boots',Amulet:'Amulet',Ring:'Ring','Shield/Livro':'Shield/Livro',Backpack:'Backpack',Sword:'Weapon',Axe:'Weapon',Club:'Weapon',Distance:'Weapon',Wand:'Weapon',Rod:'Weapon',Fist:'Weapon',Trinket:'Trinket',Utility:'Utility'};
+const SEEDP=v=>{const b=['Helmet','Armor','Legs','Boots','Amulet','Ring'],e=['Shield/Livro','Backpack'];return[...b,.../Knight/i.test(v)?['Sword','Axe','Club']:/Paladin/i.test(v)?['Distance']:/Monk/i.test(v)?['Fist']:/Druid/i.test(v)?['Rod']:['Wand'],...e]};
+const HV=['Todas','Knight','Paladin','Sorcerer','Druid','Monk'],EL=[['Fogo','🔥'],['Gelo','❄️'],['Terra','🌍'],['Morte','💀'],['Energia','⚡'],['Sagrado','✨']];
+function pprice(x,c){if(x.p!==''&&x.p!=null)return+x.p||0;const t=S.items.find(i=>i.n.toLowerCase()===String(x.n).toLowerCase());if(!t)return 0;const p=+t.p||0;return t.m==='RC'?p*(+S.rc[c.w]||0):p}
+function selWC(){S.aw=S.aw||'Lunarian';const cs=S.chars.filter(c=>c.w===S.aw);if(!cs.some(c=>c.n===S.ac))S.ac=(cs[0]||{}).n||'';return`<div class="chips">${['Lunarian','Elysian'].map(w=>`<button class="b ${w===S.aw?'on':''}" data-aw="${w}">${w}</button>`).join('')}</div><div class="chips">${cs.map(c=>`<button class="b ${c.n===S.ac?'on':''}" data-ac="${esc(c.n)}">${esc(c.n)} <small>${esc(c.v)} · ${c.l}</small></button>`).join('')}</div>`}
+function pit(it,ti,gi,ai,c,nx){const p=pprice(it,c),a=`${ti}|${gi}|${ai}`;
+return`<div class="pit ${it.own?'own':''} ${it.off?'off':''} ${nx&&!it.off&&!it.own?'nx':''}"><div data-pg="pick|${a}" style="cursor:pointer" title="Trocar item">${img(it.n)}<div class="inm">${esc(it.n)}</div></div><input data-pp="${a}" value="${it.p!==''&&it.p!=null?fmt(+it.p):''}" placeholder="${p?fmt(p):'preço'}"><div class="nm">${p?kk(p):'&nbsp;'}</div><div class="pb"><button class="b" data-pg="own|${a}" title="Tenho (✓)">✓</button><button class="b" data-pg="off|${a}" title="Pular este item (apagar)">⦸</button><button class="b x" data-pg="del|${a}" title="Remover">✕</button></div></div>`}
+function trkHtml(tr,ti,c,n){return`<div class="trk" data-k="ptrack" data-i="${ti}"><div class="bar" style="margin:0 0 6px"><span class="h" draggable="true" title="Arrastar trilha">⠿</span><span class="tg tl">${IC[PLS[tr.l]]||''} ${esc(tr.l)}</span><button class="b x" data-pg="trk-|${ti}" aria-label="Remover trilha">✕</button></div><div class="flow">${tr.st.map((st,gi)=>`${gi?'<span class="ar">➜</span>':''}<div class="stg ${st.some(x=>x.own)?'dn':''}"><div class="alts">${st.map((it,ai)=>`${ai?'<span class="sl">/</span>':''}${pit(it,ti,gi,ai,c,gi===n)}`).join('')}</div><div class="smv"><button class="b" data-pg="mv|${ti}|${gi}|-1" title="Mover para trás">◀</button><button class="b" data-pg="alt|${ti}|${gi}" title="Adicionar alternativa do mesmo nível">+ /</button><button class="b" data-pg="mv|${ti}|${gi}|1" title="Mover para frente">▶</button></div></div>`).join('')}<button class="b" data-pg="add|${ti}" style="align-self:center">+ etapa</button></div></div>`}
+function progView(){const bar=selWC(),c=curChar();if(!c.n)return`<h2>Progressão de equipamentos</h2>${bar}<p class="hint">Sem personagens neste servidor.</p>`;
+let rest=0,dn=0,tot=0;c.prog.forEach(tr=>tr.st.forEach(st=>{tot++;if(st.some(x=>x.own))dn++;else if(!st.every(x=>x.off))rest+=Math.min(...st.filter(x=>!x.off).map(x=>pprice(x,c)))}));
+const nx=tr=>tr.st.findIndex(st=>!st.some(x=>x.own)&&!st.every(x=>x.off));
+return`<h2>Progressão de equipamentos</h2><p class="hint">Cada linha é uma trilha de um slot, da primeira à última opção. <b>✓</b> marca o que você tem (verde), <b>⦸</b> pula um item (apagado, não conta no custo) e o contorno vermelho é a próxima etapa a comprar. Itens do mesmo nível ficam separados por <b>/</b> (use “+ /”). Clique no nome do item para trocá-lo. O preço é editável (em branco usa o da aba Itens).</p>${bar}
+<div class="bar"><span class="sum">Etapas concluídas: <b>${dn}/${tot}</b></span><span class="sum" style="border-left-color:var(--bad)">Falta (opção mais barata de cada etapa): <b>${kk(rest)}</b> gold</span><button class="b" data-pg="send">📥 Enviar próximas compras ao Arsenal</button>${c.prog.length?'':'<button class="b" data-pg="seed">✨ Criar trilhas padrão</button>'}</div>
+${c.prog.map((tr,ti)=>trkHtml(tr,ti,c,nx(tr))).join('')}
+<div class="bar"><select id="nt" style="max-width:180px">${Object.keys(PLS).map(x=>`<option>${x}</option>`).join('')}</select><button class="b" data-pg="trk+">+ Adicionar trilha</button></div>`}
+function progAct(s){const[a,t,g,x]=s.split('|'),c=curChar();if(!c.n)return;const tr=c.prog[+t];
+if(a==='own'){const i=tr.st[+g][+x];i.own=!i.own;if(i.own)i.off=false}
+else if(a==='off'){const i=tr.st[+g][+x];i.off=!i.off;if(i.off)i.own=false}
+else if(a==='del'){tr.st[+g].splice(+x,1);if(!tr.st[+g].length)tr.st.splice(+g,1)}
+else if(a==='mv'){const j=+g+ +x;if(j>=0&&j<tr.st.length)[tr.st[+g],tr.st[j]]=[tr.st[j],tr.st[+g]]}
+else if(a==='trk-'){if(!confirm('Remover esta trilha?'))return;c.prog.splice(+t,1)}
+else if(a==='trk+')c.prog.push({l:document.getElementById('nt').value,st:[]});
+else if(a==='seed')SEEDP(c.v).forEach(l=>c.prog.push({l,st:[]}));
+else if(a==='send'){let k=0;c.prog.forEach(r=>{const i=r.st.findIndex(st=>!st.some(y=>y.own)&&!st.every(y=>y.off));if(i<0)return;r.st[i].filter(y=>!y.off).forEach(y=>{if(S.lists.arsenal.some(q=>q.c===c.n&&q.st==='Comprar'&&String(q.n).toLowerCase()===y.n.toLowerCase()))return;const d=S.items.find(q=>q.n.toLowerCase()===y.n.toLowerCase());S.lists.arsenal.unshift({n:y.n,s:d?d.s:'',c:c.n,st:'Comprar',m:'Gold',p:pprice(y,c)||'',sell:'',buy:'',o:'Progressão'});k++})});alert(k?`${k} itens enviados ao Arsenal como “Comprar”.`:'Nada novo para enviar.')}
+else{P={prog:1,i:S.chars.indexOf(c),t:+t,g:a==='add'?-1:+g,a:a==='alt'?-1:(a==='pick'?+x:0),s:PLS[tr.l]||'',all:false};drawPick('');return}
+render()}
+function progSet(n){const tr=S.chars[P.i].prog[P.t],it={n,own:false,off:false,p:''};if(P.g===-1)tr.st.push([it]);else if(P.a===-1)tr.st[P.g].push(it);else tr.st[P.g][P.a].n=n}
+function progDel(){const tr=S.chars[P.i].prog[P.t];if(P.g>=0&&P.a>=0){const st=tr.st[P.g];st.splice(P.a,1);if(!st.length)tr.st.splice(P.g,1)}}
+function cimg(n){const b=window.BEST&&BEST.creatures.find(x=>x.n.toLowerCase()===String(n||'').toLowerCase());return b&&b.f?`<img class="th" src="img/creatures/${esc(b.f)}" alt="">`:''}
+function hslot(i,h,s){const g=h.gear[s]||[];return`<div class="slot"><label>${s}</label><div data-hpick="${i}|${s}|0" style="cursor:pointer;min-height:50px">${g[0]?img(g[0])+`<div class="inm">${esc(g[0])}</div>`:'<div class="nm">+ escolher</div>'}</div><div class="ex">${g.slice(1).map((x,j)=>`<span data-hpick="${i}|${s}|${j+1}" style="cursor:pointer">${img(x)}</span>`).join('')}<button class="b" style="padding:0 6px" data-hpick="${i}|${s}|${Math.max(g.length,1)}">+</button></div></div>`}
+function htray(i,h,s){const g=h.gear[s]||[];return`<div class="tray"><label>${s}s</label><div class="strip">${g.map((n,j)=>n?`<span class="tchip" data-hpick="${i}|${s}|${j}">${img(n)}<b>${esc(n)}</b></span>`:'').join('')}<button class="b" data-hpick="${i}|${s}|${g.length}">+ ${s}</button></div></div>`}
+function hcard(h,i){const sel=(f,o)=>`<select data-hf="${i}|${f}">${o.map(x=>`<option ${x===h[f]?'selected':''}>${x}</option>`).join('')}</select>`,inp=(f,l,t='text')=>`<div><label>${l}</label><input type="${t}" data-hf="${i}|${f}" value="${esc(h[f])}"></div>`;
+return`<div class="card voc-${vk(h.v)}"><h3 class="chh"><input data-hf="${i}|n" value="${esc(h.n)}" placeholder="Lugar da hunt"><button class="b x" data-hdel="${i}" aria-label="Remover hunt">✕</button></h3>
+<div class="g4"><div><label>Vocação</label>${sel('v',HV)}</div>${inp('l1','Level mín.','number')}${inp('l2','Level máx.','number')}<div><label>Modo</label>${sel('g',['Solo','Grupo','Solo ou Grupo'])}</div></div>
+<div class="g2" style="margin-top:8px"><div><label>Foco</label>${sel('f',['Experiência','Loot','Ambos'])}</div>${inp('ru','Runas / munição')}</div>
+<label style="margin-top:8px">Melhores elementos contra os monstros</label><div class="strip">${EL.map(([e,ic])=>`<button class="b ${h.el.includes(e)?'on':''}" data-hel="${i}|${e}">${ic} ${e}</button>`).join('')}</div>
+<label>Criaturas da hunt e charm recomendado</label>${h.cr.map((x,j)=>`<div style="display:grid;grid-template-columns:2fr 1.4fr auto;gap:6px;margin:3px 0;align-items:center"><div style="display:flex;gap:6px;align-items:center">${cimg(x.n)}<input list="dc" data-hc="${i}|${j}|n" value="${esc(x.n)}" placeholder="Criatura"></div><select data-hc="${i}|${j}|ch"><option value="">— charm —</option>${S.cdef.map(c=>`<option ${c.n===x.ch?'selected':''}>${esc(c.n)}</option>`).join('')}</select><button class="b x" data-hcdel="${i}|${j}">✕</button></div>`).join('')}<button class="b" data-hcadd="${i}">+ Criatura</button>
+<h4 style="margin:12px 0 2px">Equipamento da hunt</h4><div class="doll">${DOLL.map(s=>s?hslot(i,h,s):'<div></div>').join('')}</div>${htray(i,h,'Trinket')}${htray(i,h,'Utility')}
+<label>Observações</label><textarea data-hf="${i}|o">${esc(h.o)}</textarea></div>`}
+function huntsView(){const q=(S.hq||'').toLowerCase(),L=S.hunts.map((h,i)=>[h,i]).filter(([h])=>(!S.hv||h.v===S.hv||h.v==='Todas')&&(!q||(h.n+' '+h.ru+' '+h.cr.map(x=>x.n).join(' ')).toLowerCase().includes(q)));
+return`<h2>Hunts</h2><p class="hint">Crie um card por hunt: vocação, faixa de level, lugar, runas, elementos, criaturas com o charm de cada uma e o equipamento recomendado (clique num slot para escolher).</p>
+<div class="bar"><button class="b" data-hadd>+ Nova hunt</button><select id="hv" style="max-width:200px"><option value="">Todas as vocações</option>${HV.slice(1).map(v=>`<option ${S.hv===v?'selected':''}>${v}</option>`).join('')}</select><input id="hq" placeholder="Buscar hunt ou criatura…" value="${esc(S.hq||'')}" style="max-width:240px"></div>
+<div class="cards">${L.map(([h,i])=>hcard(h,i)).join('')||'<p class="hint">Nenhuma hunt ainda. Clique em “+ Nova hunt”.</p>'}</div>`}
 function exportar(){S.lb=Date.now();save();const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:'application/json'}));a.download='rubinot-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();render()}
 const vk=v=>/Knight/i.test(v)?'k':/Paladin/i.test(v)?'p':/Sorcerer/i.test(v)?'s':/Druid/i.test(v)?'d':/Monk/i.test(v)?'m':'';
 const vi=v=>({k:'⚔️',p:'🏹',s:'🔥',d:'🌿',m:'👊'}[vk(v)]||'');
@@ -263,6 +320,7 @@ const e=document.getElementById('pq');e.focus();e.setSelectionRange(q.length,q.l
 function up(i,f){if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=64;c.getContext('2d').drawImage(im,0,0,64,64);S.items[i].img=c.toDataURL('image/png');render()};im.src=r.result};r.readAsDataURL(f)}
 document.addEventListener('input',e=>{const t=e.target,d=t.dataset;
 if(t.id==='pq'){drawPick(t.value);return}
+if(t.id==='hq'){S.hq=t.value;render();const q=document.getElementById('hq');q.focus();q.setSelectionRange(q.value.length,q.value.length);return}
 if(t.id==='bq'){S.bq=t.value;render();const q=document.getElementById('bq');q.focus();q.setSelectionRange(q.value.length,q.value.length);return}
 if(t.id==='iq'){S.iq=t.value;render();const q=document.getElementById('iq');q.focus();q.setSelectionRange(q.value.length,q.value.length);return}
 if(d.k&&d.f!==undefined){S.lists[d.k][d.i][d.f]=t.type==='checkbox'?t.checked:t.value;if(d.k==='arsenal'&&document.getElementById('tot'))document.getElementById('tot').innerHTML=arSum()}
@@ -273,11 +331,16 @@ else if(d.h!==undefined)S.hist[d.h][d.f]=t.value;
 else if(d.it!==undefined)S.items[d.it][d.f]=t.value;
 else if(d.sv!==undefined)S.sv.items[d.sv][d.f]=d.f==='rc'?+t.value:t.value;
 else if(d.own)S.sv.own[d.own]=t.checked;
+else if(d.hf){const[i,f]=d.hf.split('|');S.hunts[i][f]=t.value}
+else if(d.hc){const[i,j,f]=d.hc.split('|');S.hunts[i].cr[j][f]=t.value}
 else if(t.id==='cr')conv();
 save()});
 document.addEventListener('change',e=>{const t=e.target,d=t.dataset;
 if(t.id==='is'){S.is=t.value;render();return}
 if(t.id==='bd'){S.bd=t.value;render();return}
+if(t.id==='hv'){S.hv=t.value;render();return}
+if((d.hf&&String(d.hf).endsWith('|v'))||d.hc){render();return}
+if(d.pp){const[ti,gi,ai]=d.pp.split('|');curChar().prog[ti].st[gi][ai].p=pnum(t.value);render();return}
 if(d.as!==undefined){S.as=t.value;render();return}
 if(d.pf){const[i,f]=d.pf.split('|');S.lists.arsenal[i][f]=pnum(t.value);render();return}
 if(t.id==='bo'){S.bo=t.checked;render();return}
@@ -291,9 +354,15 @@ if(d.k==='arsenal'&&d.f==='n'){const r=S.lists.arsenal[d.i],it=S.items.find(x=>x
 if(d.ch!==undefined&&(['w','n','l','meta'].includes(d.f)||String(d.f).startsWith('sk_'))||d.k==='arsenal'||d.k==='compras')render()});
 document.addEventListener('click',e=>{const t=e.target,d=t.dataset,p=t.closest('[data-pick]'),pi=t.closest('[data-pi]');
 if(p){const[i,s,x]=p.dataset.pick.split('|');P={i:+i,s,x:+x,all:false};drawPick('');return}
+if(pi&&P.prog){progSet(pi.dataset.pi);closeP();render();return}
+if(pi&&P.hunt!==undefined){const g=S.hunts[P.hunt].gear;g[P.s]=g[P.s]||[];while(g[P.s].length<P.x)g[P.s].push('');g[P.s][P.x]=pi.dataset.pi;closeP();render();return}
 if(pi){const g=G(S.chars[P.i]);g[P.s]=g[P.s]||[];while(g[P.s].length<P.x)g[P.s].push('');g[P.s][P.x]=pi.dataset.pi;closeP();render();return}
 if(d.pc!==undefined||t.id==='md'){closeP();return}
-if(d.pr!==undefined){const g=G(S.chars[P.i])[P.s]||[];g.splice(P.x,1);closeP();render();return}
+if(d.pr!==undefined){if(P.prog)progDel();else if(P.hunt!==undefined)(S.hunts[P.hunt].gear[P.s]||[]).splice(P.x,1);else(G(S.chars[P.i])[P.s]||[]).splice(P.x,1);closeP();render();return}
+const pg=t.closest('[data-pg]');if(pg){progAct(pg.dataset.pg);return}
+const hp=t.closest('[data-hpick]');if(hp){const[i,sl,x]=hp.dataset.hpick.split('|');P={hunt:+i,s:sl,x:+x,all:false};drawPick('');return}
+const hb=t.closest('[data-hadd],[data-hdel],[data-hel],[data-hcadd],[data-hcdel]');
+if(hb){const x=hb.dataset;if(x.hadd!==undefined)S.hunts.unshift({n:'',v:'Todas',l1:'',l2:'',g:'Solo ou Grupo',f:'Ambos',el:[],ru:'',cr:[],gear:{},o:''});else if(x.hdel!==undefined){if(!confirm('Remover esta hunt?'))return;S.hunts.splice(+x.hdel,1)}else if(x.hel){const[i,e]=x.hel.split('|'),a=S.hunts[i].el,k=a.indexOf(e);if(k<0)a.push(e);else a.splice(k,1)}else if(x.hcadd!==undefined)S.hunts[x.hcadd].cr.push({n:'',ch:''});else if(x.hcdel){const[i,j]=x.hcdel.split('|');S.hunts[i].cr.splice(+j,1)}render();return}
 const bb=t.closest('[data-aw],[data-ac],[data-ak],[data-addar],[data-delar]');
 if(bb){const x=bb.dataset;if(x.aw){S.aw=x.aw;S.ac=''}else if(x.ac!==undefined)S.ac=x.ac;else if(x.ak!==undefined)S.ak=x.ak;else if(x.addar!==undefined)S.lists.arsenal.unshift({n:'',s:S.ak||'',c:S.ac==='__none'?'':S.ac,st:'Comprar',m:'Gold',p:'',sell:'',buy:'',o:''});else if(x.delar!==undefined)S.lists.arsenal.splice(+x.delar,1);render();return}
 const cfl=t.closest('[data-cfl]');
@@ -318,7 +387,7 @@ else if(t.id==='ex')exportar();
 else if(t.id==='im')document.getElementById('fi').click();
 else if(t.id==='rs'){if(confirm('Vou baixar um backup automático antes de apagar tudo. Continuar?')){exportar();S=mig(fresh());render()}}});
 document.getElementById('fi').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(x=>{try{const j=JSON.parse(x);if(!j.chars)throw 0;S=mig(j);render()}catch(_){alert('Arquivo de backup inválido.')}})};
-let dr=null;const arr=k=>k==='chars'?S.chars:k==='items'?S.items:k==='cprio'?S.chars[S.cc||0].cp:S.lists[k];
+let dr=null;const arr=k=>k==='chars'?S.chars:k==='items'?S.items:k==='cprio'?S.chars[S.cc||0].cp:k==='ptrack'?curChar().prog:S.lists[k];
 document.addEventListener('dragstart',e=>{const r=e.target.closest('[data-k][data-i]');if(r&&e.target.classList.contains('h'))dr=[r.dataset.k,+r.dataset.i]});
 document.addEventListener('dragover',e=>{if(!dr)return;const r=e.target.closest('[data-k][data-i]');if(r&&r.dataset.k===dr[0]){e.preventDefault();document.querySelectorAll('.ov').forEach(x=>x.classList.remove('ov'));r.classList.add('ov')}});
 document.addEventListener('drop',e=>{if(!dr)return;const r=e.target.closest('[data-k][data-i]');if(r&&r.dataset.k===dr[0]){e.preventDefault();const a=arr(dr[0]);a.splice(+r.dataset.i,0,a.splice(dr[1],1)[0])}dr=null;render()});
