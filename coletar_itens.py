@@ -113,6 +113,8 @@ for slot, nomes in CATS:
         print(f'{nomes[0]}: VAZIA (tentei {", ".join(nomes)})')
 for n in ['Sun Catcher', 'Lit Torch', 'Starlight Vial', 'Moon Mirror', 'Black Jade Cobra']: itens[n] = 'Trinket'
 for n in ['Squeezing Gear of Girlpower', 'Blessed Wooden Stake', 'Obsidian Knife']: itens[n] = 'Utility'
+itens['Bounty Talisman'] = 'Utility'
+for n in ['Great Fireball Rune','Avalanche Rune','Stone Shower Rune','Thunderstorm Rune','Sudden Death Rune','Energy Wall Rune','Fire Wall Rune','Energy Bomb Rune','Fire Bomb Rune','Poison Wall Rune','Poison Bomb Rune']: itens[n] = 'Rune'
 nomes = sorted(itens)
 print('Lendo level e armor...')
 st = stats(nomes)

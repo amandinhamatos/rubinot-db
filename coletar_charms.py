@@ -109,6 +109,7 @@ for cat in ('Creatures', 'Monsters'):
     print(f'Categoria {cat}: {len(m)} páginas')
     if m: nomes = m; break
 cri = []
+samp = []
 for i in range(0, len(nomes), 40):
     j = api(action='query', prop='revisions', rvprop='content', rvslots='main', titles='|'.join(nomes[i:i+40]))
     for p in j.get('query', {}).get('pages', {}).values():
@@ -116,8 +117,14 @@ for i in range(0, len(nomes), 40):
         d = re.search(r'\|\s*bestiarylevel\s*=\s*([A-Za-z]+)', t, re.I)
         c = re.search(r'\|\s*bestiaryclass\s*=\s*([^\n|]+)', t, re.I)
         if d and d.group(1).capitalize() in DL:
-            cri.append({'n': p['title'], 'cl': c.group(1).strip() if c else '', 'd': d.group(1).capitalize(), 'o': (re.search(r'\|\s*occurrence\s*=\s*([^\n|]+)', t, re.I) or [0, ''])[1].strip().title(), 'f': ''})
+            mm = {k.lower(): int(v) for k, v in re.findall(r'\|\s*(physical|fire|energy|earth|ice|death|holy)DmgMod\s*=\s*(-?\d+)', t, re.I)}
+            dm = [mm.get(k) for k in ('physical', 'fire', 'energy', 'earth', 'ice', 'death', 'holy')]
+            dm = None if all(v is None for v in dm) else [100 if v is None else v for v in dm]
+            if len(samp) < 3: samp.append(p['title'] + '\n' + '\n'.join(l for l in t.splitlines() if 'mod' in l.lower() or 'resist' in l.lower())[:800])
+            cri.append({'n': p['title'], 'cl': c.group(1).strip() if c else '', 'd': d.group(1).capitalize(), 'o': (re.search(r'\|\s*occurrence\s*=\s*([^\n|]+)', t, re.I) or [0, ''])[1].strip().title(), 'f': '', 'dm': dm})
 cri.sort(key=lambda x: x['n'])
+print(f'Criaturas com dados de fraqueza elemental: {sum(1 for x in cri if x.get("dm"))} de {len(cri)}')
+open(os.path.join(AQUI, 'data', 'debug_creature.txt'), 'w', encoding='utf-8').write('\n\n'.join(samp))
 print(f'Criaturas no bestiário: {len(cri)}')
 # 4) Imagens (via curl, que já funcionou)
 def tipo(d):

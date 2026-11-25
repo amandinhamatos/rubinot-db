@@ -1,0 +1,36 @@
+Abyssal Calamary
+| physicalDmgMod = 105%
+| earthDmgMod    = 0%
+| fireDmgMod     = 0%
+| deathDmgMod    = 100%
+| energyDmgMod   = 105%
+| holyDmgMod     = 100%
+| iceDmgMod      = 100%
+| hpDrainDmgMod  = 100%?
+| drownDmgMod    = 0%
+| healMod        = 100%
+
+Acid Blob
+| physicalDmgMod = 100%
+| earthDmgMod    = 0%
+| fireDmgMod     = 110%
+| deathDmgMod    = 0%
+| energyDmgMod   = 110%
+| holyDmgMod     = 100%
+| iceDmgMod      = 80%
+| hpDrainDmgMod  = 100%
+| drownDmgMod    = 100%?
+| healMod        = 100%
+| notes          = <gallery captionalign="center" mode="nolines">
+
+Acolyte of Darkness
+| physicalDmgMod = 100%
+| earthDmgMod    = 0%
+| fireDmgMod     = 0%
+| deathDmgMod    = 0%
+| energyDmgMod   = 100%
+| holyDmgMod     = 125%
+| iceDmgMod      = 100%
+| hpDrainDmgMod  = 100%
+| drownDmgMod    = 100%
+| healMod        = 100%
