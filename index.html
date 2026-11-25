@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RubinOT · Meu Database</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Cinzel:wght@600;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b0b0d;--pn:#141418;--pn2:#1f1f26;--ln:#34343f;--tx:#e8e6df;--mu:#9aa0b2;--ac:#e0b64a;--ok:#6fcf97;--bad:#eb6b6b}
 *{box-sizing:border-box}
@@ -91,7 +91,7 @@ header{border-bottom:1px solid #4a3d1c;background:linear-gradient(#17130a,#0b0b0
 h2{border-bottom:2px solid #4a3d1c;padding-bottom:4px}
 button.b:hover{border-color:var(--ac);box-shadow:0 0 8px #e9b84b55}
 .trk{background:linear-gradient(180deg,#191a22,#111116);border-left:4px solid var(--ac)}
-.pit{position:relative;width:132px;transition:transform .12s}.pit:hover{transform:translateY(-2px)}
+.pit{position:relative;width:148px;transition:transform .12s}.pit:hover{transform:translateY(-2px)}
 .pit.own::after{content:'✓ TENHO';position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--ok);color:#06210f;font-size:9px;font-weight:bold;padding:0 6px;border-radius:6px}
 .pit.nx::after{content:'PRÓXIMO';position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--bad);color:#fff;font-size:9px;font-weight:bold;padding:0 6px;border-radius:6px}
 .pit.off::after{content:'PULADO';position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:#555;color:#ddd;font-size:9px;padding:0 6px;border-radius:6px}
@@ -99,8 +99,45 @@ button.b:hover{border-color:var(--ac);box-shadow:0 0 8px #e9b84b55}
 .elh{display:flex;align-items:center;gap:10px;margin:8px 0 0;padding-top:8px;border-top:1px dashed var(--ln)}
 .tg.tl.el{background:#8e6fd8;border-color:#8e6fd8;color:#fff;font-size:16px}
 details.cpx{margin:0 0 12px}details.cpx summary{cursor:pointer;color:var(--ac);font-weight:bold}
+h1,h2{font-family:'Cinzel','Bebas Neue',serif;font-weight:800;letter-spacing:1.2px}h2{font-size:27px}header h1{font-size:24px}
+.lg{display:flex;align-items:center;cursor:pointer;border:1px dashed var(--ln);border-radius:8px;padding:4px 10px;color:var(--mu);font-size:12px}.lg img{height:46px;display:block}.lg:has(img:not([hidden])){border:none;padding:0}
+.pit.el{width:148px}.pit>*{position:relative;z-index:1}.pit>.fx{position:absolute;inset:0;z-index:0;border-radius:8px;overflow:hidden;pointer-events:none}
+.fx::before,.fx::after{content:'';position:absolute;inset:0}
+.pit.hasfx .inm{text-shadow:0 1px 3px #000,0 0 6px #000}.pit.hasfx .bn,.pit.hasfx .nm{color:#dfe3ee;text-shadow:0 1px 2px #000}
+.ebs{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin:3px 0}
+.eb{width:100%;aspect-ratio:1;padding:0;border-radius:50%;border:1px solid #666;background:#0009;color:#fff;font-size:10px;line-height:1;cursor:pointer;opacity:.5}
+.eb:hover{opacity:.9}.eb.on{opacity:1;border-color:var(--ec);background:var(--ec);box-shadow:0 0 8px var(--ec)}
+.fx.e-fire{background:linear-gradient(0deg,#d62d00,#ff7a00aa 42%,#2a0a05);animation:fl 1.4s ease-in-out infinite alternate}
+.fx.e-fire::before{background:radial-gradient(circle at 22% 105%,#ffe27a 0 9%,#0000 10%),radial-gradient(circle at 55% 110%,#ffb347 0 11%,#0000 12%),radial-gradient(circle at 82% 105%,#ffe27a 0 8%,#0000 9%);animation:rise 1.6s linear infinite}
+.fx.e-fire::after{background:radial-gradient(ellipse at 50% 100%,#ffd54a99,#0000 65%);animation:fl .7s ease-in-out infinite alternate}
+.fx.e-ice{background:linear-gradient(160deg,#071d3a,#145a96 55%,#8fd8ff)}
+.fx.e-ice::before{background:conic-gradient(from 150deg at 50% 0,#e8faff 0 60deg,#0000 0) 0 0/18px 100% repeat-x,conic-gradient(from 160deg at 50% 0,#bfeaff 0 40deg,#0000 0) 8px 0/12px 100% repeat-x,conic-gradient(from 330deg at 50% 100%,#e8faff 0 60deg,#0000 0) 4px 0/22px 100% repeat-x;animation:tw 2.4s ease-in-out infinite alternate}
+.fx.e-ice::after{background:linear-gradient(115deg,#0000 40%,#ffffffaa 50%,#0000 60%) 0 0/250% 100%;animation:sh 3s linear infinite}
+.fx.e-earth{background:linear-gradient(180deg,#2e5a1c,#5a4224 55%,#2b1f10)}
+.fx.e-earth::before{background:repeating-linear-gradient(100deg,#0000 0 9px,#3f8f2a99 9px 11px,#0000 11px 20px),repeating-linear-gradient(80deg,#0000 0 14px,#7bd05a66 14px 15px,#0000 15px 26px);animation:sway 4s ease-in-out infinite alternate}
+.fx.e-earth::after{background:radial-gradient(circle at 10% 20%,#58b83a 0 7%,#0000 8%),radial-gradient(circle at 92% 35%,#58b83a 0 6%,#0000 7%),radial-gradient(circle at 15% 80%,#7bd05a 0 6%,#0000 7%),radial-gradient(circle at 90% 85%,#58b83a 0 7%,#0000 8%);animation:sway 3s ease-in-out infinite alternate-reverse}
+.fx.e-energy{background:linear-gradient(135deg,#1d0a3a,#6a22c9 55%,#2a0d55);animation:fl 1.1s ease-in-out infinite alternate}
+.fx.e-energy::before{background:repeating-linear-gradient(115deg,#0000 0 16px,#f0d4ff 16px 17px,#0000 17px 34px);animation:zap 1.3s steps(2,end) infinite}
+.fx.e-energy::after{background:radial-gradient(circle,#d9a6ff88,#0000 65%);animation:fl .5s ease-in-out infinite alternate}
+.fx.e-holy{background:radial-gradient(circle at 50% 40%,#fff6b8,#e0a800 70%,#7a5a00)}
+.fx.e-holy::before{inset:-50%;background:repeating-conic-gradient(#fff7c499 0 10deg,#0000 10deg 30deg);animation:spin 14s linear infinite}
+.pit.p-holy .inm{color:#3a2a00;text-shadow:none}.pit.p-holy .bn,.pit.p-holy .nm{color:#4a3a10;text-shadow:none}
+.fx.e-death{background:linear-gradient(180deg,#0b0b0d,#2c2c34)}
+.fx.e-death::before{background:radial-gradient(ellipse at 30% 60%,#6f7f6f66,#0000 55%),radial-gradient(ellipse at 70% 40%,#8a7fa066,#0000 55%);animation:drift 5s ease-in-out infinite alternate}
+.fx.e-death::after{background:radial-gradient(circle at 50% 120%,#7bdc7a44,#0000 60%);animation:fl 2s ease-in-out infinite alternate}
+@keyframes fl{from{filter:brightness(.8)}to{filter:brightness(1.25)}}
+@keyframes rise{from{transform:translateY(10%);opacity:1}to{transform:translateY(-90%);opacity:0}}
+@keyframes tw{from{opacity:.5}to{opacity:1}}@keyframes sh{from{background-position:150% 0}to{background-position:-50% 0}}
+@keyframes sway{from{transform:translateX(-4px) skewX(-2deg)}to{transform:translateX(4px) skewX(2deg)}}
+@keyframes zap{0%,60%{opacity:0}61%,64%{opacity:.9}65%,80%{opacity:.1}81%,84%{opacity:.8}100%{opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes drift{from{transform:translate(-8%,2%) scale(1.1)}to{transform:translate(8%,-2%) scale(1.2)}}
+@media(prefers-reduced-motion:reduce){.fx,.fx::before,.fx::after{animation:none!important}}
+.fx.f2{clip-path:polygon(100% 0,100% 100%,0 100%)}
+.fx.e-physical{background:linear-gradient(135deg,#2b2f38,#6b7587 45%,#aab3c2 55%,#3a3f4a)}
+.fx.e-physical::before{background:radial-gradient(circle at 8px 8px,#e6ebf3 0 2px,#0000 3px),radial-gradient(circle at calc(100% - 8px) 8px,#e6ebf3 0 2px,#0000 3px),radial-gradient(circle at 8px calc(100% - 8px),#e6ebf3 0 2px,#0000 3px),radial-gradient(circle at calc(100% - 8px) calc(100% - 8px),#e6ebf3 0 2px,#0000 3px),repeating-linear-gradient(90deg,#ffffff12 0 2px,#0000 2px 5px)}
+.fx.e-physical::after{background:linear-gradient(110deg,#0000 42%,#ffffffbb 50%,#0000 58%) 0 0/250% 100%;animation:sh 3.2s linear infinite}
 </style></head><body>
-<header><h1>RubinOT · Meu Database</h1>
+<header><div style="display:flex;align-items:center;gap:14px"><label id="lg" class="lg" title="Clique para enviar o logo do RubinOT"><img id="lgi" alt="RubinOT" hidden><span id="lgp">🖼 logo</span><input type="file" id="lgf" accept="image/*" hidden></label><h1>RubinOT · Meu Database</h1></div>
 <div class="bar" style="margin:0">
 <span id="bk" class="nm"></span><button class="b" id="ex">Exportar backup</button>
 <button class="b" id="im">Importar backup</button>
@@ -200,31 +237,35 @@ const TABS=[['chars','Personagens'],['arsenal','Arsenal'],['prog','Progressão']
 function conv(){const v=+document.getElementById('cr')?.value||0;const a=document.getElementById('o1');if(a){a.value=fmt(v*S.rc.Lunarian);document.getElementById('o2').value=fmt(v*S.rc.Elysian)}}
 function render(){document.getElementById('nav').innerHTML=TABS.map(([k,t])=>`<button class="${S.tab===k?'on':''}" data-tab="${k}">${t}</button>`).join('');
 document.getElementById('dc').innerHTML=(window.BEST?BEST.creatures:[]).map(b=>`<option value="${esc(b.n)}">`).join('');document.getElementById('dl').innerHTML=S.items.map(t=>`<option value="${esc(t.n)}">`).join('');
+{const i=document.getElementById('lgi'),p=document.getElementById('lgp'),u=S.logo||'img/logo.png';i.onload=()=>{i.hidden=false;p.hidden=true};i.onerror=()=>{i.hidden=true;p.hidden=false};if(i.getAttribute('src')!==u)i.src=u}
 {const d=S.lb?Math.floor((Date.now()-S.lb)/864e5):null;document.getElementById('bk').innerHTML=d===null?'<span style="color:var(--bad)">⚠ nenhum backup feito</span>':d>=7?`<span style="color:var(--bad)">⚠ último backup há ${d} dias</span>`:`<span style="color:var(--ok)">✅ backup há ${d} dia(s)</span>`}
 const T=S.tab;document.getElementById('m').innerHTML=T==='chars'?charsView():T==='coins'?coinsView():T==='itens'?itemsView():T==='arsenal'?arsenalView():T==='prog'?progView():T==='hunts'?huntsView():T==='servidor'?svView():T==='charms'?charmsView():T==='best'?bestView():listView(T);conv();save()}
 let P={};
+const ELM={Physical:['🛡️','physical','#c2c9d6'],Fire:['🔥','fire','#ff5a36'],Energy:['⚡','energy','#b565f5'],Earth:['🌿','earth','#7a9a3c'],Ice:['❄️','ice','#6fd3ff'],Death:['💀','death','#8a8a8a'],Holy:['✨','holy','#ffd84d']};
+function elOf(it){if(Array.isArray(it.el))return it.el;const t=S.items.find(x=>x.n.toLowerCase()===String(it.n).toLowerCase()),r=t&&t.rs?String(t.rs).toLowerCase():'';return Object.keys(ELM).filter(k=>new RegExp(ELM[k][1]+'\\s*\\+\\s*\\d').test(r))}
 const curChar=()=>S.chars.find(c=>c.n===S.ac)||{prog:[]};
 const PLS={Helmet:'Helmet',Armor:'Armor',Legs:'Legs',Boots:'Boots',Amulet:'Amulet',Ring:'Ring','Shield/Livro':'Shield/Livro',Backpack:'Backpack',Sword:'Weapon',Axe:'Weapon',Club:'Weapon',Distance:'Weapon',Wand:'Weapon',Rod:'Weapon',Fist:'Weapon',Trinket:'Trinket',Utility:'Utility'};
 const SEEDP=v=>{const b=['Helmet','Armor','Legs','Boots','Amulet','Ring'],e=['Shield/Livro','Backpack'];return[...b,.../Knight/i.test(v)?['Sword','Axe','Club']:/Paladin/i.test(v)?['Distance']:/Monk/i.test(v)?['Fist']:/Druid/i.test(v)?['Rod']:['Wand'],...e]};
 const HV=['Todas','Knight','Paladin','Sorcerer','Druid','Monk'],EL=[['Fogo','🔥'],['Gelo','❄️'],['Terra','🌍'],['Morte','💀'],['Energia','⚡'],['Sagrado','✨']];
 function pprice(x,c){if(x.p!==''&&x.p!=null)return+x.p||0;const t=S.items.find(i=>i.n.toLowerCase()===String(x.n).toLowerCase());if(!t)return 0;const p=+t.p||0;return t.m==='RC'?p*(+S.rc[c.w]||0):p}
 function selWC(){S.aw=S.aw||'Lunarian';const cs=S.chars.filter(c=>c.w===S.aw);if(!cs.some(c=>c.n===S.ac))S.ac=(cs[0]||{}).n||'';return`<div class="chips">${['Lunarian','Elysian'].map(w=>`<button class="b ${w===S.aw?'on':''}" data-aw="${w}">${w}</button>`).join('')}</div><div class="chips">${cs.map(c=>`<button class="b ${c.n===S.ac?'on':''}" data-ac="${esc(c.n)}">${esc(c.n)} <small>${esc(c.v)} · ${c.l}</small></button>`).join('')}</div>`}
-function pit(it,ti,gi,ai,c,nx){const p=pprice(it,c),a=`${ti}|${gi}|${ai}`,[inf,tip]=ainfo(it.n);
-return`<div class="pit ${it.own?'own':''} ${it.off?'off':''} ${nx&&!it.off&&!it.own?'nx':''}" title="${esc(tip)}"><div data-pg="pick|${a}" style="cursor:pointer" title="Trocar item">${img(it.n)}<div class="inm">${esc(it.n)}</div></div><div class="bn">${esc(inf)}</div><input data-pp="${a}" value="${it.p!==''&&it.p!=null?fmt(+it.p):''}" placeholder="${p?fmt(p):'preço'}"><div class="nm">${p?kk(p):'&nbsp;'}</div><div class="pb"><button class="b" data-pg="own|${a}" title="Tenho (✓)">✓</button><button class="b" data-pg="off|${a}" title="Pular este item (apagar)">⦸</button><button class="b x" data-pg="del|${a}" title="Remover">✕</button></div></div>`}
+function pit(it,ti,gi,ai,c,nx){const p=pprice(it,c),a=`${ti}|${gi}|${ai}`,[inf,tip]=ainfo(it.n),els=elOf(it),e0=els[0];
+return`<div class="pit ${it.own?'own':''} ${it.off?'off':''} ${nx&&!it.off&&!it.own?'nx':''} ${e0?'hasfx':''} ${els.length===1&&e0==='Holy'?'p-holy':''}" title="${esc(tip)}">${els.slice(0,2).map((k,i)=>`<div class="fx e-${ELM[k][1]} ${i?'f2':''}"></div>`).join('')}<div data-pg="pick|${a}" style="cursor:pointer" title="Trocar item">${img(it.n)}<div class="inm">${esc(it.n)}</div></div><div class="bn">${esc(inf)}</div><div class="ebs">${Object.keys(ELM).map(k=>`<button class="eb ${els.includes(k)?'on':''}" style="--ec:${ELM[k][2]}" data-pg="el|${a}|${k}" title="${k}">${ELM[k][0]}</button>`).join('')}</div><input data-pp="${a}" value="${it.p!==''&&it.p!=null?fmt(+it.p):''}" placeholder="${p?fmt(p):'preço'}"><div class="nm">${p?kk(p):'&nbsp;'}</div><div class="pb"><button class="b" data-pg="own|${a}" title="Tenho (✓)">✓</button><button class="b" data-pg="off|${a}" title="Pular este item (apagar)">⦸</button><button class="b x" data-pg="del|${a}" title="Remover">✕</button></div></div>`}
 function flowHtml(list,key,c,n){return`<div class="flow">${list.map((st,gi)=>`${gi?'<span class="ar">➜</span>':''}<div class="stg ${st.some(x=>x.own)?'dn':''}"><div class="alts">${st.map((it,ai)=>`${ai?'<span class="sl">/</span>':''}${pit(it,key,gi,ai,c,gi===n)}`).join('')}</div><div class="smv"><button class="b" data-pg="mv|${key}|${gi}|-1" title="Mover para trás">◀</button><button class="b" data-pg="alt|${key}|${gi}" title="Adicionar alternativa do mesmo nível">+ /</button><button class="b" data-pg="mv|${key}|${gi}|1" title="Mover para frente">▶</button></div></div>`).join('')}<button class="b" data-pg="add|${key}" style="align-self:center">+ etapa</button></div>`}
-function trkHtml(tr,ti,c,n){tr.el=tr.el||[];return`<div class="trk" data-k="ptrack" data-i="${ti}"><div class="bar" style="margin:0 0 6px"><span class="h" draggable="true" title="Arrastar trilha">⠿</span><span class="tg tl">${IC[PLS[tr.l]]||''} ${esc(tr.l)}</span><button class="b x" data-pg="trk-|${ti}" aria-label="Remover trilha">✕</button></div>${flowHtml(tr.st,ti,c,n)}<div class="elh"><span class="tg tl el">🔥 ELEMENTAIS</span><span class="nm">opções situacionais: não entram no custo nem na ordem de compra</span></div>${flowHtml(tr.el,ti+'e',c,-1)}</div>`}
+function trkHtml(tr,ti,c,n){tr.el=tr.el||[];return`<div class="trk" data-k="ptrack" data-i="${ti}"><div class="bar" style="margin:0 0 6px"><span class="h" draggable="true" title="Arrastar trilha">⠿</span><span class="tg tl">${IC[PLS[tr.l]]||''} ${esc(tr.l)}</span><button class="b x" data-pg="trk-|${ti}" aria-label="Remover trilha">✕</button></div>${flowHtml(tr.st,ti,c,n)}<div class="elh"><span class="tg tl el">🔥 ELEMENTAIS</span><span class="nm">situacionais: não entram no custo nem na ordem de compra</span></div>${flowHtml(tr.el,ti+'e',c,-1)}</div>`}
 function progView(){const bar=selWC(),c=curChar();if(!c.n)return`<h2>Progressão de equipamentos</h2>${bar}<p class="hint">Sem personagens neste servidor.</p>`;
 let rest=0,dn=0,tot=0;c.prog.forEach(tr=>tr.st.forEach(st=>{tot++;if(st.some(x=>x.own))dn++;else if(!st.every(x=>x.off))rest+=Math.min(...st.filter(x=>!x.off).map(x=>pprice(x,c)))}));
 const nx=tr=>tr.st.findIndex(st=>!st.some(x=>x.own)&&!st.every(x=>x.off));
-return`<h2>Progressão de equipamentos</h2><p class="hint">Cada linha é uma trilha de um slot, da primeira à última opção. <b>✓</b> marca o que você tem (verde), <b>⦸</b> pula um item (apagado, não conta no custo) e o contorno vermelho é a próxima etapa a comprar. Itens do mesmo nível ficam separados por <b>/</b> (use “+ /”). Clique no nome do item para trocá-lo. O preço é editável (em branco usa o da aba Itens).</p>${bar}
+return`<h2>Progressão de equipamentos</h2><p class="hint">Cada linha é uma trilha de um slot, da primeira à última opção. <b>✓</b> marca o que você tem (verde), <b>⦸</b> pula um item (apagado, não conta no custo) e o contorno vermelho é a próxima etapa a comprar. Itens do mesmo nível ficam separados por <b>/</b> (use “+ /”). Os <b>símbolos de proteção</b> (🛡️ físico, fogo, energia, terra, gelo, morte, sagrado) já vêm marcados pelo que a wiki lista e dá para ajustar com um clique: o card ganha um fundo animado, e com dois tipos ele fica dividido na diagonal. Clique no nome do item para trocá-lo. O preço é editável (em branco usa o da aba Itens).</p>${bar}
 <div class="bar"><span class="sum">Etapas concluídas: <b>${dn}/${tot}</b></span><span class="sum" style="border-left-color:var(--bad)">Falta (opção mais barata de cada etapa): <b>${kk(rest)}</b> gold</span><button class="b" data-pg="send">📥 Enviar próximas compras ao Arsenal</button>${c.prog.length?'':'<button class="b" data-pg="seed">✨ Criar trilhas padrão</button>'}</div>
 <details class="cpx"><summary>Copiar trilhas entre personagens</summary><div class="bar" style="margin-top:8px"><select id="cp" style="max-width:260px">${S.chars.filter(x=>x!==c).map(x=>`<option value="${esc(x.n)}">${esc(x.n)} · ${esc(x.v)} (${x.prog.length} trilhas)</option>`).join('')}</select><button class="b" data-pg="cpfrom">⬇ Copiar as trilhas dele para ${esc(c.n)}</button><button class="b" data-pg="cpall">⇉ Copiar as de ${esc(c.n)} para todos os ${esc(c.v.replace(/^(Elite|Royal|Master|Elder)\s+/,''))}</button></div><p class="nm">A cópia leva etapas, alternativas, elementais e preços, mas deixa tudo sem ✓ e sem ⦸ para você marcar de novo.</p></details>
 ${c.prog.map((tr,ti)=>trkHtml(tr,ti,c,nx(tr))).join('')}
 <div class="bar"><select id="nt" style="max-width:180px">${Object.keys(PLS).map(x=>`<option>${x}</option>`).join('')}</select><button class="b" data-pg="trk+">+ Adicionar trilha</button></div>`}
 function cloneProg(src){return JSON.parse(JSON.stringify(src.prog||[])).map(tr=>{tr.el=tr.el||[];[tr.st,tr.el].forEach(L=>L.forEach(st=>st.forEach(x=>{x.own=false;x.off=false})));return tr})}
-function progAct(s){const[a,t,g,x]=s.split('|'),c=curChar();if(!c.n)return;const tr=c.prog[parseInt(t)],ls=tr?(/e$/.test(t)?(tr.el=tr.el||[]):tr.st):null;
+function progAct(s){const[a,t,g,x,y]=s.split('|'),c=curChar();if(!c.n)return;const tr=c.prog[parseInt(t)],ls=tr?(/e$/.test(t)?(tr.el=tr.el||[]):tr.st):null;
 if(a==='own'){const i=ls[+g][+x];i.own=!i.own;if(i.own)i.off=false}
 else if(a==='off'){const i=ls[+g][+x];i.off=!i.off;if(i.off)i.own=false}
+else if(a==='el'){const i=ls[+g][+x],cur=elOf(i).slice(),k=cur.indexOf(y);if(k<0)cur.push(y);else cur.splice(k,1);i.el=cur}
 else if(a==='del'){ls[+g].splice(+x,1);if(!ls[+g].length)ls.splice(+g,1)}
 else if(a==='mv'){const j=+g+ +x;if(j>=0&&j<ls.length)[ls[+g],ls[j]]=[ls[j],ls[+g]]}
 else if(a==='trk-'){if(!confirm('Remover esta trilha?'))return;c.prog.splice(parseInt(t),1)}
@@ -357,6 +398,7 @@ document.addEventListener('change',e=>{const t=e.target,d=t.dataset;
 if(t.id==='is'){S.is=t.value;render();return}
 if(t.id==='bd'){S.bd=t.value;render();return}
 if(t.id==='hv'){S.hv=t.value;render();return}
+if(t.id==='lgf'){const f=t.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const h=96,w=Math.round(im.width*h/im.height),c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);S.logo=c.toDataURL('image/png');render()};im.src=r.result};r.readAsDataURL(f);return}
 if((d.hf&&String(d.hf).endsWith('|v'))||d.hc){render();return}
 if(d.pp){const[ti,gi,ai]=d.pp.split('|'),tr=curChar().prog[parseInt(ti)],ls=/e$/.test(ti)?(tr.el=tr.el||[]):tr.st;ls[gi][ai].p=pnum(t.value);render();return}
 if(d.as!==undefined){S.as=t.value;render();return}
