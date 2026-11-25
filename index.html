@@ -86,6 +86,19 @@ tr.maj td:first-child{box-shadow:inset 4px 0 0 #d9534f}tr.min td:first-child{box
 .smv{display:flex;gap:4px;justify-content:center}.smv .b{padding:0 6px;font-size:11px}
 .tg.tl{font-family:'Bebas Neue','Impact',sans-serif;font-size:19px;letter-spacing:1px;background:var(--ac);color:#1a1405;border-color:var(--ac);padding:0 12px}
 .card h3.chh input{flex:1;min-width:0;font-size:20px;font-weight:bold}
+body{background:radial-gradient(1100px 520px at 50% -180px,#2b2210 0%,var(--bg) 62%) fixed}
+header{border-bottom:1px solid #4a3d1c;background:linear-gradient(#17130a,#0b0b0d)}
+h2{border-bottom:2px solid #4a3d1c;padding-bottom:4px}
+button.b:hover{border-color:var(--ac);box-shadow:0 0 8px #e9b84b55}
+.trk{background:linear-gradient(180deg,#191a22,#111116);border-left:4px solid var(--ac)}
+.pit{position:relative;width:132px;transition:transform .12s}.pit:hover{transform:translateY(-2px)}
+.pit.own::after{content:'✓ TENHO';position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--ok);color:#06210f;font-size:9px;font-weight:bold;padding:0 6px;border-radius:6px}
+.pit.nx::after{content:'PRÓXIMO';position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--bad);color:#fff;font-size:9px;font-weight:bold;padding:0 6px;border-radius:6px}
+.pit.off::after{content:'PULADO';position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:#555;color:#ddd;font-size:9px;padding:0 6px;border-radius:6px}
+.bn{font-size:10px;color:var(--mu);line-height:1.25;margin:2px 0 4px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.elh{display:flex;align-items:center;gap:10px;margin:8px 0 0;padding-top:8px;border-top:1px dashed var(--ln)}
+.tg.tl.el{background:#8e6fd8;border-color:#8e6fd8;color:#fff;font-size:16px}
+details.cpx{margin:0 0 12px}details.cpx summary{cursor:pointer;color:var(--ac);font-weight:bold}
 </style></head><body>
 <header><h1>RubinOT · Meu Database</h1>
 <div class="bar" style="margin:0">
@@ -196,29 +209,34 @@ const SEEDP=v=>{const b=['Helmet','Armor','Legs','Boots','Amulet','Ring'],e=['Sh
 const HV=['Todas','Knight','Paladin','Sorcerer','Druid','Monk'],EL=[['Fogo','🔥'],['Gelo','❄️'],['Terra','🌍'],['Morte','💀'],['Energia','⚡'],['Sagrado','✨']];
 function pprice(x,c){if(x.p!==''&&x.p!=null)return+x.p||0;const t=S.items.find(i=>i.n.toLowerCase()===String(x.n).toLowerCase());if(!t)return 0;const p=+t.p||0;return t.m==='RC'?p*(+S.rc[c.w]||0):p}
 function selWC(){S.aw=S.aw||'Lunarian';const cs=S.chars.filter(c=>c.w===S.aw);if(!cs.some(c=>c.n===S.ac))S.ac=(cs[0]||{}).n||'';return`<div class="chips">${['Lunarian','Elysian'].map(w=>`<button class="b ${w===S.aw?'on':''}" data-aw="${w}">${w}</button>`).join('')}</div><div class="chips">${cs.map(c=>`<button class="b ${c.n===S.ac?'on':''}" data-ac="${esc(c.n)}">${esc(c.n)} <small>${esc(c.v)} · ${c.l}</small></button>`).join('')}</div>`}
-function pit(it,ti,gi,ai,c,nx){const p=pprice(it,c),a=`${ti}|${gi}|${ai}`;
-return`<div class="pit ${it.own?'own':''} ${it.off?'off':''} ${nx&&!it.off&&!it.own?'nx':''}"><div data-pg="pick|${a}" style="cursor:pointer" title="Trocar item">${img(it.n)}<div class="inm">${esc(it.n)}</div></div><input data-pp="${a}" value="${it.p!==''&&it.p!=null?fmt(+it.p):''}" placeholder="${p?fmt(p):'preço'}"><div class="nm">${p?kk(p):'&nbsp;'}</div><div class="pb"><button class="b" data-pg="own|${a}" title="Tenho (✓)">✓</button><button class="b" data-pg="off|${a}" title="Pular este item (apagar)">⦸</button><button class="b x" data-pg="del|${a}" title="Remover">✕</button></div></div>`}
-function trkHtml(tr,ti,c,n){return`<div class="trk" data-k="ptrack" data-i="${ti}"><div class="bar" style="margin:0 0 6px"><span class="h" draggable="true" title="Arrastar trilha">⠿</span><span class="tg tl">${IC[PLS[tr.l]]||''} ${esc(tr.l)}</span><button class="b x" data-pg="trk-|${ti}" aria-label="Remover trilha">✕</button></div><div class="flow">${tr.st.map((st,gi)=>`${gi?'<span class="ar">➜</span>':''}<div class="stg ${st.some(x=>x.own)?'dn':''}"><div class="alts">${st.map((it,ai)=>`${ai?'<span class="sl">/</span>':''}${pit(it,ti,gi,ai,c,gi===n)}`).join('')}</div><div class="smv"><button class="b" data-pg="mv|${ti}|${gi}|-1" title="Mover para trás">◀</button><button class="b" data-pg="alt|${ti}|${gi}" title="Adicionar alternativa do mesmo nível">+ /</button><button class="b" data-pg="mv|${ti}|${gi}|1" title="Mover para frente">▶</button></div></div>`).join('')}<button class="b" data-pg="add|${ti}" style="align-self:center">+ etapa</button></div></div>`}
+function pit(it,ti,gi,ai,c,nx){const p=pprice(it,c),a=`${ti}|${gi}|${ai}`,[inf,tip]=ainfo(it.n);
+return`<div class="pit ${it.own?'own':''} ${it.off?'off':''} ${nx&&!it.off&&!it.own?'nx':''}" title="${esc(tip)}"><div data-pg="pick|${a}" style="cursor:pointer" title="Trocar item">${img(it.n)}<div class="inm">${esc(it.n)}</div></div><div class="bn">${esc(inf)}</div><input data-pp="${a}" value="${it.p!==''&&it.p!=null?fmt(+it.p):''}" placeholder="${p?fmt(p):'preço'}"><div class="nm">${p?kk(p):'&nbsp;'}</div><div class="pb"><button class="b" data-pg="own|${a}" title="Tenho (✓)">✓</button><button class="b" data-pg="off|${a}" title="Pular este item (apagar)">⦸</button><button class="b x" data-pg="del|${a}" title="Remover">✕</button></div></div>`}
+function flowHtml(list,key,c,n){return`<div class="flow">${list.map((st,gi)=>`${gi?'<span class="ar">➜</span>':''}<div class="stg ${st.some(x=>x.own)?'dn':''}"><div class="alts">${st.map((it,ai)=>`${ai?'<span class="sl">/</span>':''}${pit(it,key,gi,ai,c,gi===n)}`).join('')}</div><div class="smv"><button class="b" data-pg="mv|${key}|${gi}|-1" title="Mover para trás">◀</button><button class="b" data-pg="alt|${key}|${gi}" title="Adicionar alternativa do mesmo nível">+ /</button><button class="b" data-pg="mv|${key}|${gi}|1" title="Mover para frente">▶</button></div></div>`).join('')}<button class="b" data-pg="add|${key}" style="align-self:center">+ etapa</button></div>`}
+function trkHtml(tr,ti,c,n){tr.el=tr.el||[];return`<div class="trk" data-k="ptrack" data-i="${ti}"><div class="bar" style="margin:0 0 6px"><span class="h" draggable="true" title="Arrastar trilha">⠿</span><span class="tg tl">${IC[PLS[tr.l]]||''} ${esc(tr.l)}</span><button class="b x" data-pg="trk-|${ti}" aria-label="Remover trilha">✕</button></div>${flowHtml(tr.st,ti,c,n)}<div class="elh"><span class="tg tl el">🔥 ELEMENTAIS</span><span class="nm">opções situacionais: não entram no custo nem na ordem de compra</span></div>${flowHtml(tr.el,ti+'e',c,-1)}</div>`}
 function progView(){const bar=selWC(),c=curChar();if(!c.n)return`<h2>Progressão de equipamentos</h2>${bar}<p class="hint">Sem personagens neste servidor.</p>`;
 let rest=0,dn=0,tot=0;c.prog.forEach(tr=>tr.st.forEach(st=>{tot++;if(st.some(x=>x.own))dn++;else if(!st.every(x=>x.off))rest+=Math.min(...st.filter(x=>!x.off).map(x=>pprice(x,c)))}));
 const nx=tr=>tr.st.findIndex(st=>!st.some(x=>x.own)&&!st.every(x=>x.off));
 return`<h2>Progressão de equipamentos</h2><p class="hint">Cada linha é uma trilha de um slot, da primeira à última opção. <b>✓</b> marca o que você tem (verde), <b>⦸</b> pula um item (apagado, não conta no custo) e o contorno vermelho é a próxima etapa a comprar. Itens do mesmo nível ficam separados por <b>/</b> (use “+ /”). Clique no nome do item para trocá-lo. O preço é editável (em branco usa o da aba Itens).</p>${bar}
 <div class="bar"><span class="sum">Etapas concluídas: <b>${dn}/${tot}</b></span><span class="sum" style="border-left-color:var(--bad)">Falta (opção mais barata de cada etapa): <b>${kk(rest)}</b> gold</span><button class="b" data-pg="send">📥 Enviar próximas compras ao Arsenal</button>${c.prog.length?'':'<button class="b" data-pg="seed">✨ Criar trilhas padrão</button>'}</div>
+<details class="cpx"><summary>Copiar trilhas entre personagens</summary><div class="bar" style="margin-top:8px"><select id="cp" style="max-width:260px">${S.chars.filter(x=>x!==c).map(x=>`<option value="${esc(x.n)}">${esc(x.n)} · ${esc(x.v)} (${x.prog.length} trilhas)</option>`).join('')}</select><button class="b" data-pg="cpfrom">⬇ Copiar as trilhas dele para ${esc(c.n)}</button><button class="b" data-pg="cpall">⇉ Copiar as de ${esc(c.n)} para todos os ${esc(c.v.replace(/^(Elite|Royal|Master|Elder)\s+/,''))}</button></div><p class="nm">A cópia leva etapas, alternativas, elementais e preços, mas deixa tudo sem ✓ e sem ⦸ para você marcar de novo.</p></details>
 ${c.prog.map((tr,ti)=>trkHtml(tr,ti,c,nx(tr))).join('')}
 <div class="bar"><select id="nt" style="max-width:180px">${Object.keys(PLS).map(x=>`<option>${x}</option>`).join('')}</select><button class="b" data-pg="trk+">+ Adicionar trilha</button></div>`}
-function progAct(s){const[a,t,g,x]=s.split('|'),c=curChar();if(!c.n)return;const tr=c.prog[+t];
-if(a==='own'){const i=tr.st[+g][+x];i.own=!i.own;if(i.own)i.off=false}
-else if(a==='off'){const i=tr.st[+g][+x];i.off=!i.off;if(i.off)i.own=false}
-else if(a==='del'){tr.st[+g].splice(+x,1);if(!tr.st[+g].length)tr.st.splice(+g,1)}
-else if(a==='mv'){const j=+g+ +x;if(j>=0&&j<tr.st.length)[tr.st[+g],tr.st[j]]=[tr.st[j],tr.st[+g]]}
-else if(a==='trk-'){if(!confirm('Remover esta trilha?'))return;c.prog.splice(+t,1)}
-else if(a==='trk+')c.prog.push({l:document.getElementById('nt').value,st:[]});
-else if(a==='seed')SEEDP(c.v).forEach(l=>c.prog.push({l,st:[]}));
+function cloneProg(src){return JSON.parse(JSON.stringify(src.prog||[])).map(tr=>{tr.el=tr.el||[];[tr.st,tr.el].forEach(L=>L.forEach(st=>st.forEach(x=>{x.own=false;x.off=false})));return tr})}
+function progAct(s){const[a,t,g,x]=s.split('|'),c=curChar();if(!c.n)return;const tr=c.prog[parseInt(t)],ls=tr?(/e$/.test(t)?(tr.el=tr.el||[]):tr.st):null;
+if(a==='own'){const i=ls[+g][+x];i.own=!i.own;if(i.own)i.off=false}
+else if(a==='off'){const i=ls[+g][+x];i.off=!i.off;if(i.off)i.own=false}
+else if(a==='del'){ls[+g].splice(+x,1);if(!ls[+g].length)ls.splice(+g,1)}
+else if(a==='mv'){const j=+g+ +x;if(j>=0&&j<ls.length)[ls[+g],ls[j]]=[ls[j],ls[+g]]}
+else if(a==='trk-'){if(!confirm('Remover esta trilha?'))return;c.prog.splice(parseInt(t),1)}
+else if(a==='trk+')c.prog.push({l:document.getElementById('nt').value,st:[],el:[]});
+else if(a==='seed')SEEDP(c.v).forEach(l=>c.prog.push({l,st:[],el:[]}));
+else if(a==='cpfrom'){const src=S.chars.find(y=>y.n===(document.getElementById('cp')||{}).value);if(!src||!src.prog.length){alert('Esse personagem ainda não tem trilhas.');return}if(c.prog.length&&!confirm(`Substituir as ${c.prog.length} trilhas de ${c.n}?`))return;c.prog=cloneProg(src)}
+else if(a==='cpall'){const al=S.chars.filter(y=>y!==c&&vk(y.v)===vk(c.v));if(!al.length||!c.prog.length){alert(!c.prog.length?'Este personagem ainda não tem trilhas.':'Não há outros personagens dessa vocação.');return}if(!confirm(`Substituir as trilhas de: ${al.map(y=>y.n).join(', ')}?`))return;al.forEach(y=>{y.prog=cloneProg(c)})}
 else if(a==='send'){let k=0;c.prog.forEach(r=>{const i=r.st.findIndex(st=>!st.some(y=>y.own)&&!st.every(y=>y.off));if(i<0)return;r.st[i].filter(y=>!y.off).forEach(y=>{if(S.lists.arsenal.some(q=>q.c===c.n&&q.st==='Comprar'&&String(q.n).toLowerCase()===y.n.toLowerCase()))return;const d=S.items.find(q=>q.n.toLowerCase()===y.n.toLowerCase());S.lists.arsenal.unshift({n:y.n,s:d?d.s:'',c:c.n,st:'Comprar',m:'Gold',p:pprice(y,c)||'',sell:'',buy:'',o:'Progressão'});k++})});alert(k?`${k} itens enviados ao Arsenal como “Comprar”.`:'Nada novo para enviar.')}
-else{P={prog:1,i:S.chars.indexOf(c),t:+t,g:a==='add'?-1:+g,a:a==='alt'?-1:(a==='pick'?+x:0),s:PLS[tr.l]||'',all:false};drawPick('');return}
+else{P={prog:1,i:S.chars.indexOf(c),t:parseInt(t),e:/e$/.test(t),g:a==='add'?-1:+g,a:a==='alt'?-1:(a==='pick'?+x:0),s:PLS[tr.l]||'',all:false};drawPick('');return}
 render()}
-function progSet(n){const tr=S.chars[P.i].prog[P.t],it={n,own:false,off:false,p:''};if(P.g===-1)tr.st.push([it]);else if(P.a===-1)tr.st[P.g].push(it);else tr.st[P.g][P.a].n=n}
-function progDel(){const tr=S.chars[P.i].prog[P.t];if(P.g>=0&&P.a>=0){const st=tr.st[P.g];st.splice(P.a,1);if(!st.length)tr.st.splice(P.g,1)}}
+function progSet(n){const tr=S.chars[P.i].prog[P.t],ls=P.e?(tr.el=tr.el||[]):tr.st,it={n,own:false,off:false,p:''};if(P.g===-1)ls.push([it]);else if(P.a===-1)ls[P.g].push(it);else ls[P.g][P.a].n=n}
+function progDel(){const tr=S.chars[P.i].prog[P.t],ls=P.e?(tr.el=tr.el||[]):tr.st;if(P.g>=0&&P.a>=0){const st=ls[P.g];st.splice(P.a,1);if(!st.length)ls.splice(P.g,1)}}
 function cimg(n){const b=window.BEST&&BEST.creatures.find(x=>x.n.toLowerCase()===String(n||'').toLowerCase());return b&&b.f?`<img class="th" src="img/creatures/${esc(b.f)}" alt="">`:''}
 function hslot(i,h,s){const g=h.gear[s]||[];return`<div class="slot"><label>${s}</label><div data-hpick="${i}|${s}|0" style="cursor:pointer;min-height:50px">${g[0]?img(g[0])+`<div class="inm">${esc(g[0])}</div>`:'<div class="nm">+ escolher</div>'}</div><div class="ex">${g.slice(1).map((x,j)=>`<span data-hpick="${i}|${s}|${j+1}" style="cursor:pointer">${img(x)}</span>`).join('')}<button class="b" style="padding:0 6px" data-hpick="${i}|${s}|${Math.max(g.length,1)}">+</button></div></div>`}
 function htray(i,h,s){const g=h.gear[s]||[];return`<div class="tray"><label>${s}s</label><div class="strip">${g.map((n,j)=>n?`<span class="tchip" data-hpick="${i}|${s}|${j}">${img(n)}<b>${esc(n)}</b></span>`:'').join('')}<button class="b" data-hpick="${i}|${s}|${g.length}">+ ${s}</button></div></div>`}
@@ -340,7 +358,7 @@ if(t.id==='is'){S.is=t.value;render();return}
 if(t.id==='bd'){S.bd=t.value;render();return}
 if(t.id==='hv'){S.hv=t.value;render();return}
 if((d.hf&&String(d.hf).endsWith('|v'))||d.hc){render();return}
-if(d.pp){const[ti,gi,ai]=d.pp.split('|');curChar().prog[ti].st[gi][ai].p=pnum(t.value);render();return}
+if(d.pp){const[ti,gi,ai]=d.pp.split('|'),tr=curChar().prog[parseInt(ti)],ls=/e$/.test(ti)?(tr.el=tr.el||[]):tr.st;ls[gi][ai].p=pnum(t.value);render();return}
 if(d.as!==undefined){S.as=t.value;render();return}
 if(d.pf){const[i,f]=d.pf.split('|');S.lists.arsenal[i][f]=pnum(t.value);render();return}
 if(t.id==='bo'){S.bo=t.checked;render();return}
