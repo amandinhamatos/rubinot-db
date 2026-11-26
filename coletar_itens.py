@@ -112,7 +112,8 @@ for slot, nomes in CATS:
     if not achou:
         print(f'{nomes[0]}: VAZIA (tentei {", ".join(nomes)})')
 for n in ['Sun Catcher', 'Lit Torch', 'Starlight Vial', 'Moon Mirror', 'Black Jade Cobra']: itens[n] = 'Trinket'
-for n in ['Squeezing Gear of Girlpower', 'Blessed Wooden Stake', 'Obsidian Knife']: itens[n] = 'Utility'
+for n in ['Squeezing Gear of Girlpower', 'Blessed Wooden Stake', 'Obsidian Knife', 'Whacking Driller of Fate']: itens[n] = 'Utility'
+for n in ['Werewolf Amulet', 'Enchanted Werewolf Amulet']: itens[n] = 'Amulet'
 itens['Bounty Talisman'] = 'Utility'
 for n in ['Arrow','Poison Arrow','Burst Arrow','Flaming Arrow','Shiver Arrow','Earth Arrow','Onyx Arrow','Diamond Arrow','Crystalline Arrow','Tarsal Arrow','Bolt','Power Bolt','Infernal Bolt','Prismatic Bolt','Drill Bolt','Piercing Bolt','Spectral Bolt','Vortex Bolt']: itens[n] = 'Ammo'
 for n in ['Great Fireball Rune','Avalanche Rune','Stone Shower Rune','Thunderstorm Rune','Sudden Death Rune','Energy Wall Rune','Fire Wall Rune','Energy Bomb Rune','Fire Bomb Rune','Poison Wall Rune','Poison Bomb Rune']: itens[n] = 'Rune'

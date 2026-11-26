@@ -92,9 +92,9 @@ h2{border-bottom:2px solid #4a3d1c;padding-bottom:4px}
 button.b:hover{border-color:var(--ac);box-shadow:0 0 8px #e9b84b55}
 .trk{background:linear-gradient(180deg,#191a22,#111116);border-left:4px solid var(--ac)}
 .pit{position:relative;width:148px;transition:transform .12s}.pit:hover{transform:translateY(-2px)}
-.pit.own::after{content:'✓ TENHO';position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--ok);color:#06210f;font-size:9px;font-weight:bold;padding:0 6px;border-radius:6px}
-.pit.nx::after{content:'PRÓXIMO';position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--bad);color:#fff;font-size:9px;font-weight:bold;padding:0 6px;border-radius:6px}
-.pit.off::after{content:'PULADO';position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:#555;color:#ddd;font-size:9px;padding:0 6px;border-radius:6px}
+
+
+
 .bn{font-size:10px;color:var(--mu);line-height:1.25;margin:2px 0 4px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
 .elh{display:flex;align-items:center;gap:10px;margin:8px 0 0;padding-top:8px;border-top:1px dashed var(--ln)}
 .tg.tl.el{background:#8e6fd8;border-color:#8e6fd8;color:#fff;font-size:16px}
@@ -106,8 +106,8 @@ h1,h2{font-family:'Cinzel','Bebas Neue',serif;font-weight:800;letter-spacing:1.2
 .pit{box-shadow:0 6px 14px #0007,inset 0 1px 0 #ffffff14}.pit:hover{transform:perspective(520px) rotateX(5deg) translateY(-3px)}
 .pit.hasfx{border-color:var(--c2);box-shadow:0 0 12px color-mix(in srgb,var(--c2) 55%,transparent),0 6px 14px #0007,inset 0 0 10px color-mix(in srgb,var(--c2) 22%,transparent)}
 .pit.hasfx .inm{text-shadow:0 1px 3px #000,0 0 6px #000}.pit.hasfx .bn,.pit.hasfx .nm{color:#dfe3ee;text-shadow:0 1px 2px #000}
-.ebs{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin:3px 0}
-.eb{width:100%;aspect-ratio:1;padding:0;border-radius:50%;border:1px solid #666;background:#0009;color:#fff;font-size:10px;line-height:1;cursor:pointer;opacity:.5}
+.ebs{display:grid;grid-template-columns:repeat(9,1fr);gap:2px;margin:3px 0}
+.eb{width:100%;aspect-ratio:1;padding:0;border-radius:50%;border:1px solid #666;background:#0009;color:#fff;font-size:9px;line-height:1;cursor:pointer;opacity:.5}
 .eb:hover{opacity:.9}.eb.on{opacity:1;border-color:var(--ec);background:var(--ec);box-shadow:0 0 8px var(--ec)}
 .hrt{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;align-self:stretch;gap:6px}
 .hlv{font-family:'Bebas Neue','Impact',sans-serif;font-size:32px;font-weight:700;letter-spacing:1px;color:#ffa42e;text-shadow:0 0 12px #ff7a0066;white-space:nowrap;line-height:1}
@@ -120,6 +120,12 @@ h1,h2{font-family:'Cinzel','Bebas Neue',serif;font-weight:800;letter-spacing:1.2
 .hpv{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}.hed{margin-top:10px;border-top:1px dashed var(--ln);padding-top:8px}
 .lg img[hidden]{display:none}
 .cards{align-items:start}.smv{position:relative;z-index:2}.hnm{font-size:24px}
+.stb{margin:-6px -6px 6px;padding:3px 0;border-radius:7px 7px 0 0;font-size:11px;font-weight:800;letter-spacing:.9px;position:relative;z-index:2}
+.sb-own{background:#1f9d55;color:#fff;box-shadow:0 2px 10px #1f9d5588}.sb-nx{background:#d63c3c;color:#fff;animation:nxp 1.6s ease-in-out infinite alternate}
+.sb-no{background:#23262f;color:#8a90a2}.sb-off{background:#4a4a4a;color:#ccc}
+@keyframes nxp{from{box-shadow:0 0 4px #d63c3c}to{box-shadow:0 0 14px #ff5a5a}}
+.pit.own .inm{color:#8dffb4}.stg.dn{border-style:solid;background:#1f9d5512}
+.pb .b.bown{background:#1f9d55;color:#fff;border-color:#35d27a}.pb .b.boff{background:#555;color:#ddd}
 </style></head><body>
 <header><div style="display:flex;align-items:center;gap:14px"><label id="lg" class="lg" title="Clique para enviar o logo do RubinOT"><img id="lgi" alt="RubinOT" hidden><span id="lgp">🖼 logo</span><input type="file" id="lgf" accept="image/*" hidden></label><h1>RubinOT · Meu Database</h1></div>
 <div class="bar" style="margin:0">
@@ -155,15 +161,16 @@ const SEEDCH=['Wound','Enflame','Poison','Freeze','Zap','Curse','Cripple','Parry
 const JUNK=/Products by|Weapons$|^(Armors|Boots|Helmets|Legs|Rings|Shields|Backpacks|Wands|Rods|Quivers|Spellbooks|Amulets and Necklaces)$/;
 const SEED=[['Crown Helmet','Helmet'],['Falcon Circlet','Helmet'],['Gnome Helmet','Helmet'],['Dragon Scale Mail','Armor'],['Falcon Plate','Armor'],['Gnome Armor','Armor'],['Magic Plate Armor','Armor'],['Crown Legs','Legs'],['Falcon Greaves','Legs'],['Gnome Legs','Legs'],['Boots of Haste','Boots'],['Pair of Soft Boots','Boots'],['Prismatic Boots','Boots'],['Prismatic Necklace','Amulet'],['Amulet of Loss','Amulet'],['Stone Skin Amulet','Amulet'],['Prismatic Ring','Ring'],['Ring of Healing','Ring'],['Might Ring','Ring'],['Sword Ring','Ring'],['Falcon Longsword','Weapon'],['Falcon Battleaxe','Weapon'],['Falcon Bow','Weapon'],['Falcon Mace','Weapon'],['Mastermind Shield','Shield/Livro'],['Falcon Shield','Shield/Livro'],['Backpack of Holding','Backpack']].map(a=>({n:a[0],s:a[1],p:'',m:'Gold',img:''}));
 function fresh(){return{tab:'chars',chars:BASE.map((b,i)=>({n:b[0],v:b[1],l:b[2],w:b[3],a:ACC[i],meta:'',hunt:'',gear:{},wheel:'',prof:'',charms:'',notes:''})),lists:JSON.parse(JSON.stringify(EMPTY)),rc:{Lunarian:0,Elysian:0},hist:[]}}
-function mig(x){x.items=x.items||JSON.parse(JSON.stringify(SEED));x.items=x.items.filter(t=>t.f||t.img||t.p||!JUNK.test(t.n));[['Sun Catcher','Trinket'],['Lit Torch','Trinket'],['Starlight Vial','Trinket'],['Moon Mirror','Trinket'],['Black Jade Cobra','Trinket'],['Squeezing Gear of Girlpower','Utility'],['Blessed Wooden Stake','Utility'],['Obsidian Knife','Utility'],['Bounty Talisman','Utility'],['Arrow','Ammo'],['Poison Arrow','Ammo'],['Burst Arrow','Ammo'],['Flaming Arrow','Ammo'],['Shiver Arrow','Ammo'],['Earth Arrow','Ammo'],['Onyx Arrow','Ammo'],['Diamond Arrow','Ammo'],['Crystalline Arrow','Ammo'],['Tarsal Arrow','Ammo'],['Bolt','Ammo'],['Power Bolt','Ammo'],['Infernal Bolt','Ammo'],['Prismatic Bolt','Ammo'],['Drill Bolt','Ammo'],['Piercing Bolt','Ammo'],['Spectral Bolt','Ammo'],['Vortex Bolt','Ammo'],['Great Fireball Rune','Rune'],['Avalanche Rune','Rune'],['Stone Shower Rune','Rune'],['Thunderstorm Rune','Rune'],['Sudden Death Rune','Rune'],['Energy Wall Rune','Rune'],['Fire Wall Rune','Rune'],['Energy Bomb Rune','Rune'],['Fire Bomb Rune','Rune'],['Poison Wall Rune','Rune'],['Poison Bomb Rune','Rune']].forEach(([n,sl])=>{const t=x.items.find(t=>t.n.toLowerCase()===n.toLowerCase());if(t){if(!t.f)t.s=sl}else x.items.push({n,s:sl,p:'',m:'Gold',img:''})});if(window.CATALOG){const m=new Map(x.items.map(t=>[t.n.toLowerCase(),t]));CATALOG.forEach(c=>{if(JUNK.test(c.n)&&!c.f)return;const t=m.get(c.n.toLowerCase());if(t){if(c.s==='Trinket'||c.s==='Utility')t.s=c.s;t.f=t.f||c.f;t.lvl=c.l;t.arm=c.a;t.ak=c.ak;t.df=c.df;t.im=c.im;t.at=c.at;t.rs=c.rs;t.vo=c.vo}else x.items.push({n:c.n,s:c.s,p:'',m:'Gold',img:'',f:c.f,lvl:c.l,arm:c.a,ak:c.ak,df:c.df,im:c.im,at:c.at,rs:c.rs,vo:c.vo})})}x.sv=x.sv||{items:[{id:'lp',n:'Loot Pouch',rc:390}],own:{}};x.f=x.f||{w:'',c:''};
+function mig(x){x.items=x.items||JSON.parse(JSON.stringify(SEED));x.items=x.items.filter(t=>t.f||t.img||t.p||!JUNK.test(t.n));[['Sun Catcher','Trinket'],['Lit Torch','Trinket'],['Starlight Vial','Trinket'],['Moon Mirror','Trinket'],['Black Jade Cobra','Trinket'],['Squeezing Gear of Girlpower','Utility'],['Blessed Wooden Stake','Utility'],['Obsidian Knife','Utility'],['Whacking Driller of Fate','Utility'],['Werewolf Amulet','Amulet'],['Enchanted Werewolf Amulet','Amulet'],['Bounty Talisman','Utility'],['Arrow','Ammo'],['Poison Arrow','Ammo'],['Burst Arrow','Ammo'],['Flaming Arrow','Ammo'],['Shiver Arrow','Ammo'],['Earth Arrow','Ammo'],['Onyx Arrow','Ammo'],['Diamond Arrow','Ammo'],['Crystalline Arrow','Ammo'],['Tarsal Arrow','Ammo'],['Bolt','Ammo'],['Power Bolt','Ammo'],['Infernal Bolt','Ammo'],['Prismatic Bolt','Ammo'],['Drill Bolt','Ammo'],['Piercing Bolt','Ammo'],['Spectral Bolt','Ammo'],['Vortex Bolt','Ammo'],['Great Fireball Rune','Rune'],['Avalanche Rune','Rune'],['Stone Shower Rune','Rune'],['Thunderstorm Rune','Rune'],['Sudden Death Rune','Rune'],['Energy Wall Rune','Rune'],['Fire Wall Rune','Rune'],['Energy Bomb Rune','Rune'],['Fire Bomb Rune','Rune'],['Poison Wall Rune','Rune'],['Poison Bomb Rune','Rune']].forEach(([n,sl])=>{const t=x.items.find(t=>t.n.toLowerCase()===n.toLowerCase());if(t){if(!t.f)t.s=sl}else x.items.push({n,s:sl,p:'',m:'Gold',img:''})});if(window.CATALOG){const m=new Map(x.items.map(t=>[t.n.toLowerCase(),t]));CATALOG.forEach(c=>{if(JUNK.test(c.n)&&!c.f)return;const t=m.get(c.n.toLowerCase());if(t){if(c.s==='Trinket'||c.s==='Utility')t.s=c.s;t.f=t.f||c.f;t.lvl=c.l;t.arm=c.a;t.ak=c.ak;t.df=c.df;t.im=c.im;t.at=c.at;t.rs=c.rs;t.vo=c.vo}else x.items.push({n:c.n,s:c.s,p:'',m:'Gold',img:'',f:c.f,lvl:c.l,arm:c.a,ak:c.ak,df:c.df,im:c.im,at:c.at,rs:c.rs,vo:c.vo})})}x.sv=x.sv||{items:[{id:'lp',n:'Loot Pouch',rc:390}],own:{}};x.f=x.f||{w:'',c:''};
 x.cdef=x.cdef||SEEDCH.map(n=>({n,c:['','',''],t:''}));
 if(window.CHARMS)CHARMS.forEach(m=>{let h=x.cdef.find(q=>q.n.toLowerCase()===m.n.toLowerCase());if(!h){h={n:m.n,c:['','',''],t:''};x.cdef.push(h)}if(!h.t)h.t=m.t||'';h.f=m.f||h.f;m.c.forEach((v,i)=>{if(h.c[i]===''||h.c[i]==null)h.c[i]=v})});
 x.diff=x.diff||{};DL.forEach(d=>{x.diff[d]=x.diff[d]||{k:['','',''],p:''};const b=window.BEST&&BEST.diff&&BEST.diff[d];if(b){(b.k||[]).forEach((v,i)=>{if(x.diff[d].k[i]==='')x.diff[d].k[i]=v});if(x.diff[d].p==='')x.diff[d].p=b.p}});
 x.cc=x.cc||0;
 x.bases=x.bases||{};x.hunts=x.hunts||(x.lists.hunts||[]).map(r=>({n:r.n||'',v:'Todas',l1:r.l||'',l2:'',g:'Solo ou Grupo',f:'Ambos',el:[],ru:r.r||'',cr:[],gear:{},o:[r.e,r.ch,r.o].filter(Boolean).join(' · ')}));
-x.hunts.forEach(h=>{h.fo=h.fo||(h.f==='Loot'?['Loot']:h.f==='Experiência'?['XP']:['XP','Loot']);h.ra=h.ra||'';h.rs=h.rs||['',''];if(h.am==null)h.am=h.ru||'';h.wp=h.wp||''});
+x.hunts.forEach(h=>{h.fo=h.fo||(h.f==='Loot'?['Loot']:h.f==='Experiência'?['XP']:['XP','Loot']);h.ra=h.ra||'';h.rs=h.rs||['',''];if(h.am==null)h.am=h.ru||'';h.wp=h.wp||'';h.amu=h.amu||[];h.rng=h.rng||[]});
 x.diffv=x.diffv||{};DL.forEach(d=>{x.diffv[d]=x.diffv[d]||{k:['','',''],p:''};const b=window.BEST&&BEST.diffv&&BEST.diffv[d];if(b){(b.k||[]).forEach((v,i)=>{if(x.diffv[d].k[i]==='')x.diffv[d].k[i]=v});if(x.diffv[d].p==='')x.diffv[d].p=b.p}});
-(x.lists.arsenal||[]).forEach(r=>{r.st=r.st||'Tenho';r.m=r.m||'Gold';if(r.sell===undefined){const g=k=>{const m=String(r.o||'').match(new RegExp(k+' offer:\\s*([\\d.,]+\\s*(?:kk|k)?)','i'));return m?pnum(m[1]):''};r.buy=g('buy');r.sell=g('sell');r.p=r.p===''||r.p==null?'':pnum(r.p)}});x.chars.forEach(c=>{c.prog=c.prog||[];c.gear=c.gear||{};for(const s in c.eq||{})if(c.eq[s]&&!c.gear[s])c.gear[s]=[c.eq[s]]});return x}
+(x.lists.arsenal||[]).forEach(r=>{r.st=r.st||'Tenho';r.m=r.m||'Gold';if(r.sell===undefined){const g=k=>{const m=String(r.o||'').match(new RegExp(k+' offer:\\s*([\\d.,]+\\s*(?:kk|k)?)','i'));return m?pnum(m[1]):''};r.buy=g('buy');r.sell=g('sell');r.p=r.p===''||r.p==null?'':pnum(r.p)}});x.chars.forEach(c=>{c.prog=c.prog||[];c.gear=c.gear||{};for(const s in c.eq||{})if(c.eq[s]&&!c.gear[s])c.gear[s]=[c.eq[s]]});x.items.forEach(t=>{if(/^(Enchanted )?Werewolf Amulet$/i.test(t.n))t.s='Amulet'});
+return x}
 let S;try{S=JSON.parse(localStorage.getItem('rubin_db'))}catch(e){}
 S=mig(S&&S.chars?S:fresh());
 function save(){try{localStorage.setItem('rubin_db',JSON.stringify(S))}catch(e){}}
@@ -229,7 +236,7 @@ i.onerror=()=>{i.hidden=true;p.hidden=false};if(i.dataset.u!==u){i.dataset.u=u;i
 const T=S.tab,sc=[...document.querySelectorAll('.flow')].map(e=>e.scrollLeft);document.getElementById('m').innerHTML=T==='chars'?charsView():T==='coins'?coinsView():T==='itens'?itemsView():T==='arsenal'?arsenalView():T==='prog'?progView():T==='hunts'?huntsView():T==='servidor'?svView():T==='charms'?charmsView():T==='best'?bestView():listView(T);document.querySelectorAll('.flow').forEach((e,i)=>{e.scrollLeft=sc[i]||0});fxInit();conv();save()}
 let P={};
 const FXP=22,FXM={completo:{fps:30,max:12,q:5,dpr:1.5},leve:{fps:24,max:6,q:3,dpr:1},off:{fps:0,max:0}},FXE={list:[],raf:0,last:0,io:null,gl:undefined};
-const FXPAL={Fire:[0,[1,.95,.7],[1,.5,.05],[.8,.1,0]],Ice:[1,[1,1,1],[.45,.82,1],[.1,.4,.9]],Earth:[2,[.85,.95,.45],[.31,.68,.2],[.12,.35,.1]],Energy:[3,[1,1,1],[.77,.55,1],[.38,.12,.82]],Holy:[4,[1,.97,.8],[1,.82,.3],[.83,.54,0]],Death:[5,[.56,.69,.56],[.23,.28,.23],[.04,.05,.04]],Physical:[6,[1,1,1],[.8,.85,.93],[.4,.46,.56]]};
+const FXPAL={Fire:[0,[1,.5,.25],[1,.2,.02],[.6,.02,0]],Ice:[1,[1,1,1],[.45,.82,1],[.1,.4,.9]],Earth:[2,[.85,.95,.45],[.31,.68,.2],[.12,.35,.1]],Energy:[3,[1,1,1],[.77,.55,1],[.38,.12,.82]],Holy:[4,[1,.97,.8],[1,.82,.3],[.83,.54,0]],Death:[5,[.35,.95,.7],[.15,.45,.35],[.04,.09,.09]],Physical:[6,[1,1,1],[.8,.85,.93],[.4,.46,.56]],LifeDrain:[7,[1,.72,.78],[.9,.1,.3],[.4,0,.1]],ManaDrain:[8,[.82,.92,1],[.25,.45,1],[.08,.12,.6]]};
 const FXVS='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
 const FXFS=`precision highp float;
 uniform vec2 uRes,uCard;uniform float uT,uStyle,uMask,uQ,uDpr,uAmp;uniform vec3 cCore,cMid,cOut;
@@ -240,23 +247,27 @@ float sdb(vec2 p,vec2 b,float r){vec2 q=abs(p)-b+r;return length(max(q,0.))+min(
 void main(){
 vec2 res=uRes/uDpr,fc=gl_FragCoord.xy/uDpr,p=vec2(fc.x-res.x*.5,res.y*.5-fc.y),hb=uCard*.5;
 float d=sdb(p,hb,9.),a=atan(p.y,p.x),up=clamp(.5-.5*normalize(p+vec2(1e-3)).y,0.,1.);
-float sp=1.1,fs=.03,rp=4.2,oR=26.,iR=9.,gain=1.55,rimG=.5,ed=1.;
+float sp=.45,fs=.03,rp=4.2,oR=26.,iR=9.,gain=1.55,rimG=.5,ed=1.;
 if(uStyle>.5&&uStyle<1.5){sp=.35;fs=.05;rp=5.;oR=12.;iR=14.;gain=1.25;rimG=.75;ed=-1.;}
 else if(uStyle>1.5&&uStyle<2.5){sp=.25;fs=.04;rp=3.;oR=14.;iR=12.;gain=1.4;rimG=.5;}
-else if(uStyle>2.5&&uStyle<3.5){sp=2.2;fs=.055;rp=7.;oR=22.;iR=18.;gain=1.7;rimG=.9;}
+else if(uStyle>2.5&&uStyle<3.5){sp=.5;fs=.055;rp=7.;oR=22.;iR=18.;gain=1.5;rimG=.85;}
 else if(uStyle>3.5&&uStyle<4.5){sp=.5;fs=.025;rp=2.4;oR=20.;iR=14.;gain=1.0;rimG=.5;}
-else if(uStyle>4.5&&uStyle<5.5){sp=.3;fs=.02;rp=1.;oR=20.;iR=12.;gain=1.;rimG=.3;}
-else if(uStyle>5.5){sp=.2;fs=.05;rp=6.;oR=8.;iR=10.;gain=1.1;rimG=.9;}
+else if(uStyle>4.5&&uStyle<5.5){sp=.3;fs=.02;rp=1.;oR=30.;iR=12.;gain=1.;rimG=.5;}
+else if(uStyle>5.5&&uStyle<6.5){sp=.2;fs=.05;rp=6.;oR=8.;iR=10.;gain=1.1;rimG=.9;}
+else if(uStyle>6.5&&uStyle<7.5){sp=.4;fs=.035;rp=3.5;oR=18.;iR=14.;gain=1.3;rimG=.6;}
+else if(uStyle>7.5){sp=.4;fs=.03;rp=3.;oR=20.;iR=14.;gain=1.25;rimG=.7;}
 float t=uT*sp;
 vec2 w=vec2(fbm(p*.018+vec2(0.,t*.7)),fbm(p*.018+vec2(5.2-t*.3,1.3+t*.2)))-.5;
 vec2 qq=p+w*26.;
+if(uStyle>7.5){float an=uT*.25+length(p)*.025,c2=cos(an),s2=sin(an);qq=mat2(c2,-s2,s2,c2)*qq;}
 vec2 sc=vec2(fs);if(uStyle<.5||(uStyle>3.5&&uStyle<4.5))sc=vec2(fs*1.15,fs*.6);float n=fbm(qq*sc+vec2(0.,t)),ridge=pow(1.-abs(n*2.-1.),rp),ext=oR*(.55+.9*up);
 float fb=d>0.?exp(-d/ext):exp(d/iR)*.85;
 float I=fb*(ridge*1.7+n*.18)*gain*(.88+.12*sin(uT*3.));
-if(uStyle>2.5&&uStyle<3.5)I*=.7+.55*h1(vec2(floor(uT*16.),3.));
+if(uStyle>2.5&&uStyle<3.5)I*=.8+.4*h1(vec2(floor(uT*4.),3.));
+if(uStyle>6.5&&uStyle<7.5)I*=.75+.5*pow(.5+.5*sin(uT*2.4),3.);
 I+=exp(-d*d/1.4)*rimG;
 float emb=0.;
-for(int l=0;l<2;l++){float fl=float(l),cs=18.-7.*fl;vec2 g=(p+vec2(sin(uT+fl)*6.,ed*uT*(30.+18.*fl)*min(sp,1.)))/cs,id=floor(g),f=fract(g)-.5;float hh=h1(id+fl*17.);vec2 of=(vec2(h1(id+3.1),h1(id+9.7))-.5)*.5;emb+=smoothstep(.11,.0,length(f-of))*step(.72,hh)*(.55+.45*sin(uT*7.+hh*40.));}
+for(int l=0;l<2;l++){float fl=float(l),cs=18.-7.*fl;vec2 pe=uStyle>6.5?normalize(p+vec2(1e-3))*(length(p)+uT*(22.+12.*fl)):p+vec2(sin(uT+fl)*6.,ed*uT*(30.+18.*fl)*min(sp,1.));vec2 g=pe/cs,id=floor(g),f=fract(g)-.5;float hh=h1(id+fl*17.);vec2 of=(vec2(h1(id+3.1),h1(id+9.7))-.5)*.5;emb+=smoothstep(.11,.0,length(f-of))*step(.72,hh)*(.55+.45*sin(uT*7.+hh*40.));}
 emb*=exp(-abs(d-10.)/34.);
 vec3 col=mix(cOut,cMid,smoothstep(.1,.5,I));col=mix(col,cCore,smoothstep(.78,1.4,I));
 float al=clamp(I,0.,1.);vec3 rgb=col*al+cCore*emb*.9;float A=clamp(al+emb,0.,1.);
@@ -270,16 +281,17 @@ else if(uStyle>1.5&&uStyle<2.5){
  float lf=smoothstep(.6,.72,nz(vec2(a*22.,d*.25)+uT*.1))*exp(-abs(d-c)/7.);
  vec3 vc=mix(vec3(.12,.36,.1),vec3(.5,.85,.3),lf);rgb+=vc*(vine*.9+lf*.8);A=clamp(A+vine+lf*.8,0.,1.);}
 else if(uStyle>2.5&&uStyle<3.5){
- float bolt=pow(1.-abs(fbm(qq*.07+vec2(uT*5.,0.))*2.-1.),12.)*exp(-abs(d-6.)/22.)*step(.55,h1(vec2(floor(uT*12.),2.)));
+ float bolt=pow(1.-abs(fbm(qq*.07+vec2(uT*1.2,0.))*2.-1.),12.)*exp(-abs(d-6.)/22.)*step(.5,h1(vec2(floor(uT*3.),2.)));
  rgb+=cCore*bolt*1.2;A=clamp(A+bolt,0.,1.);}
 else if(uStyle>3.5&&uStyle<4.5){
  float rays=pow(.5+.5*sin(a*14.+uT*.5),6.)*exp(-max(d,0.)/38.)*step(0.,d)*.55;
  float st=step(.993,h1(floor(p/4.)))*(.5+.5*sin(uT*5.+h1(floor(p/4.)+5.)*30.))*exp(-abs(d-12.)/30.);
  rgb+=cMid*rays+cCore*st;A=clamp(A+rays+st,0.,1.);}
 else if(uStyle>4.5&&uStyle<5.5){
- float fl2=d>0.?exp(-d/10.):exp(d/14.);float sm=smoothstep(.3,.75,fbm(qq*.022+vec2(0.,t))*1.1+fl2*.6);float sa=clamp(sm*fl2*1.9,0.,.82);vec3 sc=mix(vec3(.08,.10,.08),vec3(.30,.38,.30),sm);rgb=sc*sa+cCore*emb*.5+cMid*exp(-d*d/2.)*.5;A=clamp(sa+emb*.5+exp(-d*d/2.)*.4,0.,1.);}
-else if(uStyle>5.5){
+ float fl2=d>0.?exp(-d/16.):exp(d/14.);float sm=smoothstep(.3,.75,fbm(qq*.022+vec2(0.,t))*1.1+fl2*.6);float sa=clamp(sm*fl2*2.,0.,.9);vec3 sc=mix(vec3(.04,.07,.08),vec3(.2,.38,.36),sm);rgb=sc*sa+cMid*sm*fl2*.3+cCore*emb*.6+cCore*exp(-d*d/1.8)*.6;A=clamp(sa+emb*.6+exp(-d*d/1.8)*.5,0.,1.);}
+else if(uStyle>5.5&&uStyle<6.5){
  float gl=pow(max(0.,sin((p.x*.9+p.y)*.05-uT*2.4)),60.),ins=step(d,0.);rgb+=vec3(.9,.95,1.)*gl*.14*ins;A=clamp(A+gl*.1*ins,0.,1.);}
+else if(uStyle>7.5){float rr=fract(uT*.22),rd=(1.-rr)*38.,rip=exp(-pow((d-rd)/2.2,2.))*rr*step(0.,d);rgb+=cMid*rip*.9;A=clamp(A+rip*.8,0.,1.);}
 if(uMask>.5){float s=p.x/hb.x+p.y/hb.y,m=uMask<1.5?smoothstep(.1,-.1,s):smoothstep(-.1,.1,s);rgb*=m;A*=m;}
 rgb*=uAmp;A*=uAmp;
 gl_FragColor=vec4(min(rgb,vec3(A)),A);}`;
@@ -308,7 +320,7 @@ function wcell(v,best){const c=v>=10?'#6fcf97':v<=-10?'#eb6b6b':'#9aa0b2';return
 function wtable(h){const w=hweak(h);if(!w)return'<p class="nm">Adicione criaturas (que tenham dados no bestiário) para ver a tabela de fraquezas.</p>';const mx=Math.max(...w.avg);return`<table style="min-width:0;font-size:12px"><thead><tr><th></th>${EK.map(k=>`<th style="text-align:center" title="${k}">${ELM[k][0]}</th>`).join('')}</tr></thead><tbody><tr><td><b>Média</b></td>${w.avg.map(v=>wcell(v,v===mx&&v>0)).join('')}</tr>${w.rows.map(r=>`<tr><td>${cimg(r.x.n)}</td>${r.b.dm.map(v=>wcell(v-100,false)).join('')}</tr>`).join('')}</tbody></table>`}
 function wbest(h){const w=hweak(h);if(!w)return'';return EK.map((k,i)=>[k,w.avg[i]]).filter(a=>a[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v])=>`<span class="tg" title="${k}" style="border-color:${ELM[k][2]};background:${ELM[k][2]}2e">${ELM[k][0]} +${Math.round(v)}%</span>`).join('')}
 function hbadges(h){return`<span class="tg vb">${VC[h.v]||''} ${esc(h.v)}</span><span class="tg" title="${esc(h.g)}">${h.g==='Solo'?'👤':h.g==='Grupo'?'👥':'👤👥'}</span>${(h.fo||[]).map(k=>`<span class="tg" title="${k}">${foIcon(k)}</span>`).join('')}`}
-const hrunes=h=>[h.wp,h.am,h.ra,...(h.rs||[])].filter(Boolean).map(n=>`<span class="tg rc" title="${esc(n)}">${img(n)}</span>`).join('');
+const hrunes=h=>[h.wp,h.am,h.ra,...(h.rs||[]),...(h.amu||[]),...(h.rng||[])].filter(Boolean).map(n=>`<span class="tg rc" title="${esc(n)}">${img(n)}</span>`).join('');
 function hcard(h,i){const eq=Object.values(h.gear||{}).map(a=>a&&a[0]).filter(Boolean).slice(0,10).map(n=>img(n)).join(''),lv=`LV. ${esc(h.l1)||'?'}${h.l2?'–'+esc(h.l2):'+'}`;
 return`<div class="card voc-${vk(h.v)}"><div class="hhd" data-hopen="${i}"><div class="hsp">${hsprites(h)}</div><div class="hti"><div class="hnm">${esc(h.n)||'Nova hunt'}</div></div><div class="hrt"><div class="hlv">${lv}</div><span class="b" style="pointer-events:none">${h.open?'▲ fechar':'✎ editar'}</span></div></div><div class="tags" style="margin:8px 0 0">${hbadges(h)}</div>${h.open?hcardOld(h,i).replace(/^<div class="card [^"]*">/,'<div class="hed">'):`<div class="hpv">${hrunes(h)}${wbest(h)}<span class="hq">${eq}</span></div>`}</div>`}
 function htable(L){return`<div class="wrap"><table style="min-width:900px"><thead><tr><th>Hunt</th><th>Vocação</th><th>Level</th><th>Modo</th><th>Foco</th><th>Runas</th><th>Melhores elementos</th><th></th></tr></thead><tbody>${L.map(([h,i])=>`<tr><td><div style="display:flex;gap:6px;align-items:center">${hsprites(h,3)}<b>${esc(h.n)||'—'}</b></div></td><td>${VC[h.v]||''} ${esc(h.v)}</td><td><b style="color:#ffa42e">${esc(h.l1)||'?'}${h.l2?'–'+esc(h.l2):'+'}</b></td><td>${esc(h.g)}</td><td>${(h.fo||[]).map(foIcon).join(' ')}</td><td>${hrunes(h)}</td><td>${wbest(h)}</td><td><button class="b" data-hgo="${i}">Abrir</button></td></tr>`).join('')||'<tr><td colspan="8" class="hint">Nenhuma hunt nesses filtros.</td></tr>'}</tbody></table></div>`}
@@ -319,7 +331,7 @@ return`<h2>Hunts</h2><p class="hint">Cada hunt é um card com os sprites das cri
 <div class="bar"><button class="b" data-hadd>+ Nova hunt</button><button class="b ${S.hvw!=='table'?'on':''}" data-hvw="cards">🃏 Cards</button><button class="b ${S.hvw==='table'?'on':''}" data-hvw="table">📋 Tabela</button></div>
 <div class="bar">${sel('hv',S.hv,[['','Todas as vocações'],...HV.slice(1).map(v=>[v,v])])}${sel('hl',S.hl||0,BANDS.map((b,k)=>[k,b[0]]))}${sel('hm',S.hm,[['','Solo ou grupo'],['Solo','Solo'],['Grupo','Grupo'],['Solo ou Grupo','Solo ou Grupo']])}${sel('hfo',S.hfo,[['','Qualquer foco'],['XP','XP'],['Loot','Loot'],['Bestiário','Bestiário'],['Bounty Task','Bounty Task']])}<input id="hq" placeholder="Buscar hunt ou criatura…" value="${esc(S.hq||'')}" style="max-width:220px"></div>
 ${S.hvw==='table'?htable(L):`<div class="cards">${L.map(([h,i])=>hcard(h,i)).join('')||'<p class="hint">Nenhuma hunt nesses filtros.</p>'}</div>`}`}
-const ELM={Physical:['🛡️','physical','#c2c9d6'],Fire:['🔥','fire','#ff5a36'],Energy:['⚡','energy','#b565f5'],Earth:['🌿','earth','#7a9a3c'],Ice:['❄️','ice','#6fd3ff'],Death:['💀','death','#8a8a8a'],Holy:['✨','holy','#ffd84d']};
+const ELM={Physical:['🛡️','physical','#c2c9d6'],Fire:['🔥','fire','#ff5a36'],Energy:['⚡','energy','#b565f5'],Earth:['🌿','earth','#7a9a3c'],Ice:['❄️','ice','#6fd3ff'],Death:['💀','death','#8a8a8a'],Holy:['✨','holy','#ffd84d'],LifeDrain:['🩸','life ?drain','#e0245e','Life Drain'],ManaDrain:['💧','mana ?drain','#3b6bff','Mana Drain']};
 function elOf(it){if(Array.isArray(it.el))return it.el;const t=S.items.find(x=>x.n.toLowerCase()===String(it.n).toLowerCase()),r=t&&t.rs?String(t.rs).toLowerCase():'';return Object.keys(ELM).filter(k=>new RegExp(ELM[k][1]+'\\s*\\+\\s*\\d').test(r))}
 const curChar=()=>S.chars.find(c=>c.n===S.ac)||{prog:[]};
 const PLS={Helmet:'Helmet',Armor:'Armor',Legs:'Legs',Boots:'Boots',Amulet:'Amulet',Ring:'Ring','Shield/Livro':'Shield/Livro',Backpack:'Backpack',Sword:'Weapon',Axe:'Weapon',Club:'Weapon',Distance:'Weapon',Wand:'Weapon',Rod:'Weapon',Fist:'Weapon',Trinket:'Trinket',Utility:'Utility'};
@@ -327,8 +339,8 @@ const SEEDP=v=>{const b=['Helmet','Armor','Legs','Boots','Amulet','Ring'],e=['Sh
 const HV=['Todas','Knight','Paladin','Sorcerer','Druid','Monk'],EL=[['Fogo','🔥'],['Gelo','❄️'],['Terra','🌍'],['Morte','💀'],['Energia','⚡'],['Sagrado','✨'],['Físico','🛡️']];
 function pprice(x,c){if(x.p!==''&&x.p!=null)return+x.p||0;const t=S.items.find(i=>i.n.toLowerCase()===String(x.n).toLowerCase());if(!t)return 0;const p=+t.p||0;return t.m==='RC'?p*(+S.rc[c.w]||0):p}
 function selWC(){S.aw=S.aw||'Lunarian';const cs=S.chars.filter(c=>c.w===S.aw);if(!cs.some(c=>c.n===S.ac))S.ac=(cs[0]||{}).n||'';return`<div class="chips">${['Lunarian','Elysian'].map(w=>`<button class="b ${w===S.aw?'on':''}" data-aw="${w}">${w}</button>`).join('')}</div><div class="chips">${cs.map(c=>`<button class="b ${c.n===S.ac?'on':''}" data-ac="${esc(c.n)}">${esc(c.n)} <small>${esc(c.v)} · ${c.l}</small></button>`).join('')}</div>`}
-function pit(it,ti,gi,ai,c,nx){const p=pprice(it,c),a=`${ti}|${gi}|${ai}`,[inf,tip]=ainfo(it.n),els=elOf(it),e0=els[0];
-return`<div class="pit ${it.own?'own':''} ${it.off?'off':''} ${nx&&!it.off&&!it.own?'nx':''} ${e0?'hasfx':''} ${els.length===1&&e0==='Holy'?'p-holy':''}" title="${esc(tip)}" style="--c2:${e0?ELM[e0][2]:'transparent'}">${els.length?`<canvas class="fxc" data-fx="${els.slice(0,2).join(',')}"></canvas>`:''}<div data-pg="pick|${a}" style="cursor:pointer" title="Trocar item">${img(it.n)}<div class="inm">${esc(it.n)}</div></div><div class="bn">${esc(inf)}</div><div class="ebs">${Object.keys(ELM).map(k=>`<button class="eb ${els.includes(k)?'on':''}" style="--ec:${ELM[k][2]}" data-pg="el|${a}|${k}" title="${k}">${ELM[k][0]}</button>`).join('')}</div><input data-pp="${a}" value="${it.p!==''&&it.p!=null?fmt(+it.p):''}" placeholder="${p?fmt(p):'preço'}"><div class="nm">${p?kk(p):'&nbsp;'}</div><div class="pb"><button class="b" data-pg="own|${a}" title="Tenho (✓)">✓</button><button class="b" data-pg="off|${a}" title="Pular este item (apagar)">⦸</button><button class="b x" data-pg="del|${a}" title="Remover">✕</button></div></div>`}
+function pit(it,ti,gi,ai,c,nx){const p=pprice(it,c),a=`${ti}|${gi}|${ai}`,[inf,tip]=ainfo(it.n),els=elOf(it),e0=els[0],stb=it.own?'<div class="stb sb-own">✓ TENHO</div>':it.off?'<div class="stb sb-off">PULADO</div>':nx?'<div class="stb sb-nx">▶ PRÓXIMO</div>':'<div class="stb sb-no">FALTA</div>';
+return`<div class="pit ${it.own?'own':''} ${it.off?'off':''} ${nx&&!it.off&&!it.own?'nx':''} ${e0?'hasfx':''} ${els.length===1&&e0==='Holy'?'p-holy':''}" title="${esc(tip)}" style="--c2:${e0?ELM[e0][2]:'transparent'}">${els.length?`<canvas class="fxc" data-fx="${els.slice(0,2).join(',')}"></canvas>`:''}${stb}<div data-pg="pick|${a}" style="cursor:pointer" title="Trocar item">${img(it.n)}<div class="inm">${esc(it.n)}</div></div><div class="bn">${esc(inf)}</div><div class="ebs">${Object.keys(ELM).map(k=>`<button class="eb ${els.includes(k)?'on':''}" style="--ec:${ELM[k][2]}" data-pg="el|${a}|${k}" title="${ELM[k][3]||k}">${ELM[k][0]}</button>`).join('')}</div><input data-pp="${a}" value="${it.p!==''&&it.p!=null?fmt(+it.p):''}" placeholder="${p?fmt(p):'preço'}"><div class="nm">${p?kk(p):'&nbsp;'}</div><div class="pb"><button class="b ${it.own?'bown':''}" data-pg="own|${a}" title="Tenho (✓)">✓</button><button class="b ${it.off?'boff':''}" data-pg="off|${a}" title="Pular este item (apagar)">⦸</button><button class="b x" data-pg="del|${a}" title="Remover">✕</button></div></div>`}
 function flowHtml(list,key,c,n){return`<div class="flow">${list.map((st,gi)=>`${gi?'<span class="ar">➜</span>':''}<div class="stg ${st.some(x=>x.own)?'dn':''}"><div class="alts">${st.map((it,ai)=>`${ai?'<span class="sl">/</span>':''}${pit(it,key,gi,ai,c,gi===n)}`).join('')}</div><div class="smv"><button class="b" data-pg="mv|${key}|${gi}|-1" title="Mover para trás">◀</button><button class="b" data-pg="alt|${key}|${gi}" title="Adicionar alternativa do mesmo nível">+ /</button><button class="b" data-pg="mv|${key}|${gi}|1" title="Mover para frente">▶</button></div></div>`).join('')}<button class="b" data-pg="add|${key}" style="align-self:center">+ etapa</button></div>`}
 function trkHtml(tr,ti,c,n){tr.el=tr.el||[];return`<div class="trk" data-k="ptrack" data-i="${ti}"><div class="bar" style="margin:0 0 6px"><span class="h" draggable="true" title="Arrastar trilha">⠿</span><span class="tg tl">${IC[PLS[tr.l]]||''} ${esc(tr.l)}</span><button class="b x" data-pg="trk-|${ti}" aria-label="Remover trilha">✕</button></div>${flowHtml(tr.st,ti,c,n)}<div class="elh"><span class="tg tl el">🔥 ELEMENTAIS</span><span class="nm">situacionais: não entram no custo nem na ordem de compra</span></div>${flowHtml(tr.el,ti+'e',c,-1)}</div>`}
 function progView(){const bar=selWC(),c=curChar();if(!c.n)return`<h2>Progressão de equipamentos</h2>${bar}<p class="hint">Sem personagens neste servidor.</p>`;
@@ -365,6 +377,7 @@ return`<div class="card voc-${vk(h.v)}"><h3 class="chh"><input data-hf="${i}|n" 
 <div class="g4"><div><label>Vocação</label>${sel('v',HV)}</div>${inp('l1','Level mín.','number')}${inp('l2','Level máx.','number')}<div><label>Modo</label>${sel('g',['Solo','Grupo','Solo ou Grupo'])}</div></div>
 <div style="margin-top:8px"><label>Foco (marque quantos quiser)</label><div class="strip">${FOS.map(k=>`<button class="b ${(h.fo||[]).includes(k)?'on':''}" data-hfoc="${i}|${k}" title="${k}">${foIcon(k)} ${k}</button>`).join('')}</div></div>
 <div class="g2" style="margin-top:6px"><div class="rbox"><label>Runas</label><select data-hr="${i}|ra"><option value="">Ataque…</option>${RA.map(r=>`<option ${r===h.ra?'selected':''}>${r}</option>`).join('')}</select><div class="g2" style="margin-top:4px">${[0,1].map(j=>`<select data-hr="${i}|rs|${j}"><option value="">Suporte…</option>${RS.map(r=>`<option ${r===(h.rs||[])[j]?'selected':''}>${r}</option>`).join('')}</select>`).join('')}</div></div><div class="rbox"><label>Arma${/Knight|Sorcerer|Druid|Monk/i.test(h.v)?'':' e munição'}</label><div style="display:flex;gap:8px"><div class="slot" data-hfield="${i}|wp|Weapon" style="cursor:pointer;width:76px;padding:4px" title="Escolher arma">${h.wp?img(h.wp)+`<div class="inm">${esc(h.wp)}</div>`:'<div class="nm">+ arma</div>'}</div>${/Knight|Sorcerer|Druid|Monk/i.test(h.v)?'':`<div class="slot" data-hfield="${i}|am|Ammo" style="cursor:pointer;width:76px;padding:4px" title="Escolher flecha ou bolt">${h.am?img(h.am)+`<div class="inm">${esc(h.am)}</div>`:'<div class="nm">+ flecha/bolt</div>'}</div>`}</div></div></div>
+<div class="g2" style="margin-top:6px">${[['amu','📿 Amuletos','Amulet'],['rng','💍 Anéis','Ring']].map(([f,l,sl])=>`<div class="rbox"><label>${l} (escolha vários)</label><div class="strip">${(h[f]||[]).map(n=>`<span class="tchip" data-hrm="${i}|${f}|${esc(n)}" title="Remover">${img(n)}<b>${esc(n)}</b> ✕</span>`).join('')}<button class="b" data-hmulti="${i}|${f}|${sl}">+ ${sl==='Amulet'?'Amuleto':'Anel'}</button></div></div>`).join('')}</div>
 <label style="margin-top:8px">Fraquezas dos monstros desta hunt (dano recebido em relação ao normal)</label><div class="wrap">${wtable(h)}</div>
 <label>Criaturas da hunt e charm recomendado</label>${h.cr.map((x,j)=>`<div style="display:grid;grid-template-columns:2fr 1.4fr auto;gap:6px;margin:3px 0;align-items:center"><div style="display:flex;gap:6px;align-items:center">${cimg(x.n)}<input list="dc" data-hc="${i}|${j}|n" value="${esc(x.n)}" placeholder="Criatura"></div><select data-hc="${i}|${j}|ch"><option value="">— charm —</option>${S.cdef.map(c=>`<option ${c.n===x.ch?'selected':''}>${esc(c.n)}</option>`).join('')}</select><button class="b x" data-hcdel="${i}|${j}">✕</button></div>`).join('')}<button class="b" data-hcadd="${i}">+ Criatura</button>
 <h4 style="margin:12px 0 2px">Equipamento da hunt</h4><div class="doll">${DOLL.map(s=>s?hslot(i,h,s):'<div></div>').join('')}</div>${htray(i,h,'Trinket')}${htray(i,h,'Utility')}
@@ -454,7 +467,7 @@ return`<h4 style="margin:12px 0 6px">Sets de equipamento</h4>
 const closeP=()=>{document.getElementById('md').style.display='none'};
 function drawPick(q){const L=S.items.filter(t=>(P.all||t.s===P.s)&&t.n.toLowerCase().includes(q.toLowerCase())).slice(0,80);
 document.getElementById('md').style.display='flex';
-document.getElementById('mb').innerHTML=`<div class="bar"><input id="pq" placeholder="Buscar item em ${P.all?'todos os slots':P.s}…" value="${esc(q)}" style="max-width:260px"><label><input type="checkbox" id="pa" ${P.all?'checked':''}> todos os slots</label><button class="b" data-pc>Fechar</button><button class="b x" data-pr>Remover do slot</button></div>`+(L.map(t=>`<div class="it" data-pi="${esc(t.n)}">${img(t.n)}<span>${esc(t.n)} <small style="color:var(--mu)">${t.s}${t.lvl?` · Lv ${t.lvl}`:''}${t.p?` · ${fmt(t.p)} ${t.m}`:''}</small></span></div>`).join('')||'<p class="hint">Nenhum item. Cadastre na aba Itens.</p>');
+document.getElementById('mb').innerHTML=`<div class="bar"><input id="pq" placeholder="Buscar item em ${P.all?'todos os slots':P.s}…" value="${esc(q)}" style="max-width:260px"><label><input type="checkbox" id="pa" ${P.all?'checked':''}> todos os slots</label><button class="b" data-pc>Fechar</button><button class="b x" data-pr>Remover do slot</button></div>`+(L.map(t=>`<div class="it" data-pi="${esc(t.n)}">${img(t.n)}<span>${P.multi&&((S.hunts[P.hunt]||{})[P.multi]||[]).includes(t.n)?'✅ ':''}${esc(t.n)} <small style="color:var(--mu)">${t.s}${t.lvl?` · Lv ${t.lvl}`:''}${t.p?` · ${fmt(t.p)} ${t.m}`:''}</small></span></div>`).join('')||'<p class="hint">Nenhum item. Cadastre na aba Itens.</p>');
 const e=document.getElementById('pq');e.focus();e.setSelectionRange(q.length,q.length)}
 function up(i,f){if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=64;c.getContext('2d').drawImage(im,0,0,64,64);S.items[i].img=c.toDataURL('image/png');render()};im.src=r.result};r.readAsDataURL(f)}
 document.addEventListener('input',e=>{const t=e.target,d=t.dataset;
@@ -497,19 +510,22 @@ if(d.ch!==undefined&&(['w','n','l','meta'].includes(d.f)||String(d.f).startsWith
 document.addEventListener('click',e=>{const t=e.target,d=t.dataset,p=t.closest('[data-pick]'),pi=t.closest('[data-pi]');
 if(p){const[i,s,x]=p.dataset.pick.split('|');P={i:+i,s,x:+x,all:false};drawPick('');return}
 if(pi&&P.prog){progSet(pi.dataset.pi);closeP();render();return}
+if(pi&&P.multi){const a=S.hunts[P.hunt][P.multi],n=pi.dataset.pi,k=a.indexOf(n);if(k<0)a.push(n);else a.splice(k,1);render();drawPick((document.getElementById('pq')||{}).value||'');return}
 if(pi&&P.field){S.hunts[P.hunt][P.field]=pi.dataset.pi;closeP();render();return}
 if(pi&&P.hunt!==undefined){const g=S.hunts[P.hunt].gear;g[P.s]=g[P.s]||[];while(g[P.s].length<P.x)g[P.s].push('');g[P.s][P.x]=pi.dataset.pi;closeP();render();return}
 if(pi){const g=G(S.chars[P.i]);g[P.s]=g[P.s]||[];while(g[P.s].length<P.x)g[P.s].push('');g[P.s][P.x]=pi.dataset.pi;closeP();render();return}
 if(d.pc!==undefined||t.id==='md'){closeP();return}
-if(d.pr!==undefined){if(P.prog)progDel();else if(P.field)S.hunts[P.hunt][P.field]='';else if(P.hunt!==undefined)(S.hunts[P.hunt].gear[P.s]||[]).splice(P.x,1);else(G(S.chars[P.i])[P.s]||[]).splice(P.x,1);closeP();render();return}
+if(d.pr!==undefined){if(P.prog)progDel();else if(P.multi){}else if(P.field)S.hunts[P.hunt][P.field]='';else if(P.hunt!==undefined)(S.hunts[P.hunt].gear[P.s]||[]).splice(P.x,1);else(G(S.chars[P.i])[P.s]||[]).splice(P.x,1);closeP();render();return}
 const pg=t.closest('[data-pg]');if(pg){progAct(pg.dataset.pg);return}
+const hm=t.closest('[data-hmulti]');if(hm){const[i,f,sl]=hm.dataset.hmulti.split('|');P={hunt:+i,multi:f,s:sl,x:0,all:false};drawPick('');return}
+const hrm=t.closest('[data-hrm]');if(hrm){const[i,f,n]=hrm.dataset.hrm.split('|'),a=S.hunts[i][f],k=a.indexOf(n);if(k>=0)a.splice(k,1);render();return}
 const hf=t.closest('[data-hfield]');if(hf){const[i,f,sl]=hf.dataset.hfield.split('|');P={hunt:+i,field:f,s:sl,x:0,all:false};drawPick('');return}
 const hp=t.closest('[data-hpick]');if(hp){const[i,sl,x]=hp.dataset.hpick.split('|');P={hunt:+i,s:sl,x:+x,all:false};drawPick('');return}
 const ho=t.closest('[data-hopen]');if(ho){const h=S.hunts[ho.dataset.hopen];h.open=!h.open;render();return}
 const hg=t.closest('[data-hgo]');if(hg){S.hunts[hg.dataset.hgo].open=true;S.hvw='cards';render();return}
 const hw=t.closest('[data-hvw]');if(hw){S.hvw=hw.dataset.hvw;render();return}
 const hb=t.closest('[data-hadd],[data-hdel],[data-hel],[data-hcadd],[data-hcdel],[data-hfoc]');
-if(hb){const x=hb.dataset;if(x.hadd!==undefined)S.hunts.unshift({open:true,n:'',v:'Todas',l1:'',l2:'',g:'Solo ou Grupo',f:'Ambos',fo:['XP','Loot'],ra:'',rs:['',''],am:'',wp:'',el:[],ru:'',cr:[],gear:{},o:''});else if(x.hdel!==undefined){if(!confirm('Remover esta hunt?'))return;S.hunts.splice(+x.hdel,1)}else if(x.hfoc){const[i,k]=x.hfoc.split('|'),a=S.hunts[i].fo,j=a.indexOf(k);if(j<0)a.push(k);else a.splice(j,1)}else if(x.hel){const[i,e]=x.hel.split('|'),a=S.hunts[i].el,k=a.indexOf(e);if(k<0)a.push(e);else a.splice(k,1)}else if(x.hcadd!==undefined)S.hunts[x.hcadd].cr.push({n:'',ch:''});else if(x.hcdel){const[i,j]=x.hcdel.split('|');S.hunts[i].cr.splice(+j,1)}render();return}
+if(hb){const x=hb.dataset;if(x.hadd!==undefined)S.hunts.unshift({open:true,n:'',v:'Todas',l1:'',l2:'',g:'Solo ou Grupo',f:'Ambos',fo:['XP','Loot'],ra:'',rs:['',''],am:'',wp:'',amu:[],rng:[],el:[],ru:'',cr:[],gear:{},o:''});else if(x.hdel!==undefined){if(!confirm('Remover esta hunt?'))return;S.hunts.splice(+x.hdel,1)}else if(x.hfoc){const[i,k]=x.hfoc.split('|'),a=S.hunts[i].fo,j=a.indexOf(k);if(j<0)a.push(k);else a.splice(j,1)}else if(x.hel){const[i,e]=x.hel.split('|'),a=S.hunts[i].el,k=a.indexOf(e);if(k<0)a.push(e);else a.splice(k,1)}else if(x.hcadd!==undefined)S.hunts[x.hcadd].cr.push({n:'',ch:''});else if(x.hcdel){const[i,j]=x.hcdel.split('|');S.hunts[i].cr.splice(+j,1)}render();return}
 const bb=t.closest('[data-aw],[data-ac],[data-ak],[data-addar],[data-delar]');
 if(bb){const x=bb.dataset;if(x.aw){S.aw=x.aw;S.ac=''}else if(x.ac!==undefined)S.ac=x.ac;else if(x.ak!==undefined)S.ak=x.ak;else if(x.addar!==undefined)S.lists.arsenal.unshift({n:'',s:S.ak||'',c:S.ac==='__none'?'':S.ac,st:'Comprar',m:'Gold',p:'',sell:'',buy:'',o:''});else if(x.delar!==undefined)S.lists.arsenal.splice(+x.delar,1);render();return}
 const cfl=t.closest('[data-cfl]');
