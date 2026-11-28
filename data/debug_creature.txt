@@ -1,4 +1,6 @@
 Abyssal Calamary
+ABILITIES: {{Ability List|}}
+AT: None
 | physicalDmgMod = 105%
 | earthDmgMod    = 0%
 | fireDmgMod     = 0%
@@ -11,6 +13,8 @@ Abyssal Calamary
 | healMod        = 100%
 
 Acid Blob
+ABILITIES: {{Ability List|{{Melee|0-80}}|{{Ability|Poison Beam|40-60|earth}}|{{Ability|Poison Ball on self|10-20|earth}}|{{Ability|Poison Shot|0|earth}}|{{Summon|Acid Blob|3}}}}
+AT: [50, 0, 0, 50, 0, 0, 0]
 | physicalDmgMod = 100%
 | earthDmgMod    = 0%
 | fireDmgMod     = 110%
@@ -21,9 +25,17 @@ Acid Blob
 | hpDrainDmgMod  = 100%
 | drownDmgMod    = 100%?
 | healMod        = 100%
-| notes          = <gallery captionalign="center" mode="nolines">
+| notes          = <gallery captionalign="center" mode="nolines"
 
 Acolyte of Darkness
+ABILITIES: {{Ability List
+ |{{Melee|0-120}}
+ |{{Ability|Death Hit|25-30+|element=death
+  |scene={{Scene|spell=3sqmstrike|caster=Acolyte of Darkness|effect=Cloud Effect|missile=Death Missile|missile_direction=south-east|missile_distance=3/3}}}}
+ |{{Ability|Death Berserk|5-15|element=death
+  |scene={{Scene|spell=3x3spell|effect=Death Effect|caster=Acolyte of Darkness|effect_on_caster=yes}}}}
+ |{{Healing}}
+AT: [73, 0, 0, 0, 0, 27, 0]
 | physicalDmgMod = 100%
 | earthDmgMod    = 0%
 | fireDmgMod     = 0%
@@ -34,3 +46,59 @@ Acolyte of Darkness
 | hpDrainDmgMod  = 100%
 | drownDmgMod    = 100%
 | healMod        = 100%
+
+Acolyte of the Cult
+ABILITIES: {{Ability List
+ |{{Melee|0-100|poison=2}}
+ |{{Ability|Distance Life Drain|60-120|element=life drain
+  |scene={{Scene|spell=4sqmstrike|caster=Acolyte of the Cult|effect=Poison Effect 3|missile=Poison Missile|missile_direction=south-east|missile_distance=4/4|damage_effect=Red Sparkles Effect}}}}
+ |{{Summon|Skeleton}}
+ |{{Ability|Weak Drunkenness|3 seconds|element=|condition=drunk|scene={{Scene|spell=4sqmstrike|caster=Acolyte of the Cult|effect=Holy Effect|missile=Holy Missile (Small)|missile_direc
+AT: [0, 0, 0, 45, 0, 55, 0]
+| physicalDmgMod = 110%
+| earthDmgMod    = 80%
+| fireDmgMod     = 100%
+| deathDmgMod    = 105%
+| energyDmgMod   = 110%
+| holyDmgMod     = 80%
+| iceDmgMod      = 80%
+| hpDrainDmgMod  = 100%?
+| drownDmgMod    = 100%?
+| healMod        = 100%
+
+Stonerefiner
+ABILITIES: {{Ability List| {{Melee|0-115}}|{{Ability|[[Stone Shower]]|100-180|element=Physical}}|{{Ability|[[Berserk]]|50-70|earth}} }}
+AT: [81, 0, 0, 19, 0, 0, 0]
+| physicalDmgMod = 120%
+| iceDmgMod      = 120%
+| fireDmgMod     = 110%
+| deathDmgMod    = 100%
+| energyDmgMod   = 100%
+| holyDmgMod     = 100%
+| hpDrainDmgMod  = 100%
+| drownDmgMod    = 100%
+| healMod        = 100%
+| earthDmgMod    = 80%
+Invisibility or a stealth ring is your friend here, to evade 
+
+Werelion
+ABILITIES: {{Ability List
+ |{{Melee|0-325}}
+ |{{Ability|Fire Ball|0-350|element=fire
+  |scene={{Scene|spell=3sqmball2self|effect=Fire Effect|look_direction=east}}}}
+ |{{Ability|Holy Strike|0-425|element=holy
+  |scene={{Scene|spell=1sqmstrike|effect=Holy Cross Effect|damage_effect=Holy Effect|missile=Holy Missile (Small)|missile_direction=south-east|missile_distance=1/1}}}}
+ |{{Ability|Holy Wave|0-250|element=holy}}
+ |{{Haste}}
+AT: [24, 26, 0, 0, 0, 0, 50]
+| physicalDmgMod = 100%
+| earthDmgMod    = 50%
+| fireDmgMod     = 75%
+| deathDmgMod    = 55%
+| energyDmgMod   = 100%
+| holyDmgMod     = 100%
+| iceDmgMod      = 125%
+| hpDrainDmgMod  = 100%?
+| drownDmgMod    = 100%?
+| healMod        = 100%
+| notes          = <gallery captionalign="center" mode="nolin

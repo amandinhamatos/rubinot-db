@@ -108,6 +108,18 @@ for cat in ('Creatures', 'Monsters'):
         if not cont: break
     print(f'Categoria {cat}: {len(m)} páginas')
     if m: nomes = m; break
+def atk_comp(txt):
+    # estima a composição do dano que a criatura causa, pelo texto de habilidades (aproximado)
+    KW = [('Fire', r'fire|flame|burn|inferno|hellfire'), ('Earth', r'earth|poison|acid|thorn|swamp'), ('Energy', r'energy|electri|lightning|shock|storm'), ('Ice', r'\bice\b|frost|freez|cold|blizzard|avalanche'), ('Holy', r'holy|smite|divine'), ('Death', r'death|life ?drain|curse|wither|soul|shadow|necro')]
+    w = {k: 0 for k in ('Physical', 'Fire', 'Energy', 'Earth', 'Ice', 'Death', 'Holy')}
+    txt = re.sub(r'\[\[(?:[^\]|]*\|)?([^\]]*)\]\]', r'\1', txt)
+    for it in re.split(r'\}\}|\{\{|,|\n|\*|<br ?/?>', txt):
+        nums = [int(b) for a, b in re.findall(r'(\d+)\s*-\s*(\d+)', it)] + [int(x) for x in re.findall(r'up to\s*(\d+)', it, re.I)]
+        if not nums: continue
+        tipo_ = next((k for k, rx in KW if re.search(rx, it, re.I)), 'Physical')
+        w[tipo_] += max(nums)
+    tot = sum(w.values())
+    return [round(100 * w[k] / tot) for k in ('Physical', 'Fire', 'Energy', 'Earth', 'Ice', 'Death', 'Holy')] if tot else None
 cri = []
 samp = []
 for i in range(0, len(nomes), 40):
@@ -120,10 +132,13 @@ for i in range(0, len(nomes), 40):
             mm = {k.lower(): int(v) for k, v in re.findall(r'\|\s*(physical|fire|energy|earth|ice|death|holy)DmgMod\s*=\s*(-?\d+)', t, re.I)}
             dm = [mm.get(k) for k in ('physical', 'fire', 'energy', 'earth', 'ice', 'death', 'holy')]
             dm = None if all(v is None for v in dm) else [100 if v is None else v for v in dm]
-            if len(samp) < 3: samp.append(p['title'] + '\n' + '\n'.join(l for l in t.splitlines() if 'mod' in l.lower() or 'resist' in l.lower())[:800])
-            cri.append({'n': p['title'], 'cl': c.group(1).strip() if c else '', 'd': d.group(1).capitalize(), 'o': (re.search(r'\|\s*occurrence\s*=\s*([^\n|]+)', t, re.I) or [0, ''])[1].strip().title(), 'f': '', 'dm': dm})
+            ab = re.search(r'\|\s*abilities\s*=\s*(.*?)(?=\n\|\s*[A-Za-z_]+\s*=|\n\}\})', t, re.I | re.S)
+            at = atk_comp(ab.group(1)) if ab else None
+            if len(samp) < 4 or p['title'] in ('Stonerefiner', 'Werelion'): samp.append(p['title'] + '\nABILITIES: ' + (ab.group(1)[:500] if ab else 'nao encontrado') + '\nAT: ' + str(at) + '\n' + '\n'.join(l for l in t.splitlines() if 'mod' in l.lower())[:300])
+            if False: samp.append(p['title'] + '\n' + '\n'.join(l for l in t.splitlines() if 'mod' in l.lower() or 'resist' in l.lower())[:800])
+            cri.append({'n': p['title'], 'cl': c.group(1).strip() if c else '', 'd': d.group(1).capitalize(), 'o': (re.search(r'\|\s*occurrence\s*=\s*([^\n|]+)', t, re.I) or [0, ''])[1].strip().title(), 'f': '', 'dm': dm, 'at': at})
 cri.sort(key=lambda x: x['n'])
-print(f'Criaturas com dados de fraqueza elemental: {sum(1 for x in cri if x.get("dm"))} de {len(cri)}')
+print(f'Criaturas com dados de fraqueza elemental: {sum(1 for x in cri if x.get("dm"))} de {len(cri)} | com estimativa de ataque: {sum(1 for x in cri if x.get("at"))}')
 open(os.path.join(AQUI, 'data', 'debug_creature.txt'), 'w', encoding='utf-8').write('\n\n'.join(samp))
 print(f'Criaturas no bestiário: {len(cri)}')
 # 4) Imagens (via curl, que já funcionou)
